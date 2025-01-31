@@ -1,0 +1,162 @@
+.embeded {
+  font-size: 1em;
+  line-height: 1.5em;
+  color: var(--cm);
+
+  & > * {
+    margin-top: 0.75em;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+      border-bottom: none !important;
+    }
+  }
+
+  a {
+    text-decoration: underline !important;
+    text-underline-position: under;
+    text-decoration-thickness: 1px !important;
+  }
+
+  b {
+    display: block;
+    font-size: 1.125em;
+    font-weight: 500;
+    line-height: 1.556em;
+    margin-top: 1em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+
+  h2,
+  h3 {
+    font-size: 1.25em;
+    line-height: 1.7em;
+    margin-top: 1em;
+    margin-bottom: 0.75em;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1em;
+    line-height: 1.6em;
+    margin-top: 1em;
+    margin-bottom: 0.75em;
+  }
+
+  ul {
+    margin-left: 1em;
+
+    li {
+      margin-bottom: 1em;
+      margin-left: 0.5em;
+      list-style: disc;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  ol {
+    padding-left: 1em;
+    margin-left: 0;
+
+    li {
+      margin-bottom: 0.5em;
+      list-style: decimal;
+      margin-left: 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .wp-block-image,
+  .wp-block-video,
+  .wp-block-embed {
+    margin: 2.5em 0;
+    width: 100%;
+
+    &.is-resized {
+      img,
+      video,
+      iframe {
+        width: 100% !important;
+      }
+    }
+
+    &.aligncenter {
+      img,
+      video,
+      iframe {
+        margin: 0 auto;
+      }
+    }
+
+    &.alignright {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    img,
+    video,
+    iframe {
+      max-width: 100% !important;
+      display: block;
+      height: auto !important;
+    }
+
+    .wp-block-embed__wrapper {
+      padding-top: calc(100% / 16 * 9);
+      position: relative;
+    }
+
+    iframe {
+      width: 100% !important;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      height: 100% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .embeded {
+    font-size: 0.875em;
+    line-height: 1.4em;
+
+    b {
+      font-size: 1em;
+      line-height: 1.45em;
+    }
+
+    h2,
+    h3 {
+      font-size: 1em;
+    }
+
+    h4,
+    h5,
+    h6 {
+      font-size: 0.875em;
+    }
+  }
+}

@@ -1,0 +1,80 @@
+.banner {
+  padding: 4rem 0;
+
+  &__carousell {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    &:hover {
+      .banner__list {
+        animation-play-state: paused !important;
+        -webkit-animation-play-state: paused !important;
+      }
+    }
+  }
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 2rem;
+    min-width: 100%;
+    will-change: transform;
+
+    &.carsePartF {
+      animation: animateF 30s -30s linear infinite;
+      -webkit-animation: animateF 30s -30s linear infinite;
+    }
+    &.carsePartS {
+      animation: animateS 30s -15s linear infinite;
+      -webkit-animation: animateS 30s -15s linear infinite;
+    }
+  }
+  &__item {
+    flex-shrink: 0;
+  }
+}
+
+@keyframes animateF {
+  0% {
+    transform: translateX(calc(100% + var(--moveP)));
+    -webkit-transform: translateX(calc(100% + var(--moveP)));
+    -ms-transform: translateX(calc(100% + var(--moveP)));
+  }
+  100% {
+    transform: translateX(calc(-100% + var(--moveM) - var(--gap)));
+    -webkit-transform: translateX(calc(-100% + var(--moveM) - var(--gap)));
+    -ms-transform: translateX(calc(-100% + var(--moveM) - var(--gap)));
+  }
+}
+
+@keyframes animateS {
+  0% {
+    transform: translateX(var(--moveP));
+    -webkit-transform: translateX(var(--moveP));
+    -ms-transform: translateX(var(--moveP));
+  }
+  100% {
+    transform: translateX(calc(-200% + var(--moveM) - var(--gap)));
+    -webkit-transform: translateX(calc(-200% + var(--moveM) - var(--gap)));
+    -ms-transform: translateX(calc(-200% + var(--moveM) - var(--gap)));
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .banner {
+    &__carousell {
+      &:hover {
+        .banner__list {
+          animation-play-state: running !important;
+          -webkit-animation-play-state: running !important;
+        }
+      }
+    }
+    &__list {
+      gap: 1rem;
+    }
+  }
+}

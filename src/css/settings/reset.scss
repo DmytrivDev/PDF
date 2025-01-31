@@ -1,0 +1,178 @@
+.wrapper {
+  // ============== Accordion ==============
+  .ac {
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    transition: all 0.15s ease-in;
+
+    .ac-trigger {
+      cursor: default;
+      padding: 0;
+      font: inherit;
+      color: var(--cm);
+      font-size: inherit;
+      line-height: inherit;
+      &::after {
+        display: none;
+      }
+    }
+    [class*="__head"] {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      &::after {
+        content: "";
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+        background-size: 1rem 1rem;
+        background-position: center center;
+        background-repeat: no-repeat;
+        // background-image: var();
+        transition: all 0.15s ease-in;
+      }
+    }
+    &.is-active {
+      .ac-panel {
+        opacity: 1;
+      }
+    }
+    .ac-panel {
+      opacity: 0;
+      transition-property: height, visibility, opacity !important;
+    }
+  }
+
+  // ============== Tom select ==============
+  .ts-wrapper {
+    min-height: auto;
+  }
+  .ts-dropdown,
+  .ts-control,
+  .ts-control input {
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+  .ts-wrapper.single {
+    .ts-control {
+      --ts-pr-caret: 1.5rem;
+      padding: 0.3125rem 0.5rem;
+      box-shadow: none;
+      border-radius: 0;
+      box-shadow: none;
+      background-color: var(--cw);
+      border: 0.0625rem solid var(--cb);
+      background-image: none;
+      &:focus-visible {
+        outline: none;
+      }
+      &::after {
+        margin: 0;
+        border: none;
+        right: 0.5rem !important;
+        transform: rotateX(0) translateY(-50%);
+        width: 0.5rem;
+        height: 0.5rem;
+        background-size: 0.5rem 0.5rem;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: var(--selectVec);
+      }
+      .item {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    &.dropdown-active {
+      .ts-control {
+        &::after {
+          margin: 0;
+          border: none;
+          transform: rotateX(180deg) translateY(50%);
+        }
+      }
+    }
+    &.input-active {
+      .ts-control {
+        cursor: pointer;
+        background-color: var(--cw);
+      }
+    }
+  }
+  .ts-dropdown.single {
+    border: 0.0625rem solid var(--cb);
+    background-color: var(--cw);
+    box-shadow: none;
+    border-radius: 0;
+    margin-top: 0.1875rem;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    &.isOpen {
+      animation-name: dropdownOpen;
+    }
+
+    .ts-dropdown-content {
+      max-height: 8.75rem;
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        display: none;
+      }
+    }
+
+    .active {
+      background-color: cadetblue;
+      color: inherit;
+    }
+    .option {
+      padding: 0.3125rem 0.5rem;
+      transition: all 0.1s ease;
+    }
+  }
+
+  @keyframes dropdownOpen {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // ============== Splide ==============
+  .splide__list {
+    display: flex;
+  }
+  .splide__pagination {
+    position: static;
+    padding: 0;
+    bottom: 0;
+    gap: 0 0.5rem;
+    li {
+      display: flex;
+    }
+  }
+  .splide__pagination__page {
+    border-radius: 50%;
+    width: 0.625rem;
+    height: 0.625rem;
+    margin: 0;
+    background-color: var(--cw);
+    &.is-active {
+      transform: none;
+      opacity: 0.3;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .wrapper {
+  }
+}

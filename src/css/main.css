@@ -1,0 +1,26 @@
+/* Settings */
+@import url('./settings/fonts.scss');
+@import url('./index/variables.scss');
+@import url('./index/icons.scss');
+@import url('./settings/default.scss');
+
+@import url('./settings/general.scss');
+@import url('./settings/reset.scss');
+@import url('./index/embeded.scss');
+@import url('./index/elements.scss');
+@import url('./index/cluster.scss');
+
+/* General */
+@import url('./sections/general/modal.scss');
+@import url('./sections/general/banner.scss');
+
+/* Header */
+@import url('./sections/header/header.scss');
+@import url('./sections/header/parts/navmenu.scss');
+@import url('./sections/header/parts/mobmenu.scss');
+
+/* Home */
+@import url('./sections/home/hero.scss');
+
+/* Footer */
+@import url('./sections/footer/footer.scss');

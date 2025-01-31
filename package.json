@@ -1,0 +1,29 @@
+{
+  "name": "start-vite-js",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --base=./",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "glob": "^11.0.0",
+    "sass": "^1.83.4",
+    "vite": "^6.0.5"
+  },
+  "author": "Vladyslav Halchenko",
+  "license": "ISC",
+  "dependencies": {
+    "@fluejs/noscroll": "^1.0.0",
+    "@splidejs/splide": "^4.1.4",
+    "accordion-js": "^3.3.4",
+    "axios": "^1.7.7",
+    "imask": "^7.6.1",
+    "tom-select": "^2.4.2",
+    "validator": "^13.12.0",
+    "vite-plugin-full-reload": "^1.2.0",
+    "vite-plugin-html-inject": "^1.1.2"
+  }
+}
