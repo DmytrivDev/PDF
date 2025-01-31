@@ -1,9 +1,17 @@
 body {
   /* Colors */
-  --cm: #100405;
+  --cm: #1c1c1c;
   --cb: #000;
   --cw: #fff;
+  --cd: #ddd;
+  --ce: #ededed;
+  --cg: #606060;
+
+  --lf: linear-gradient(134deg, #be00fe 0%, #5200ff 100%), #be00fe;
+  --lb: linear-gradient(134deg, #be00fe 0%, #5200ff 100%), #5200ff;
+
+  --rg: rgba(28, 28, 28, 0.5);
 
   /* Fonts */
-  --ff: Arial, Helvetica, sans-serif;
+  --ff: "MazzardH", sans-serif;
 }

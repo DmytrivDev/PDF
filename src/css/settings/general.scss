@@ -5,7 +5,18 @@ body {
   background-color: var(--cw);
   color: var(--cm);
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.3;
+}
+
+body {
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0.25rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: linear-gradient(226deg, #be00fe 0%, #5200ff 100%), #4e1e9d;
+  }
 }
 
 .overhide {
@@ -22,21 +33,23 @@ body {
 
 .main {
   flex: 1 1 auto;
-  padding-bottom: 4rem;
 }
 
 [class*="__container"] {
-  max-width: 85rem;
-  padding: 0 2.5em;
+  max-width: 100rem;
+  padding: 0 1.875em;
   margin: 0 auto;
+  &.wide {
+    max-width: 116.25rem;
+  }
 }
 
-/* --------- Adaptive desktop (1440px) --------- */
+/* --------- Adaptive desktop (1860px) --------- */
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1860px) {
   html,
   body {
-    font-size: 1.16vw;
+    font-size: 0.8602vw;
   }
 }
 
@@ -49,27 +62,22 @@ body {
   }
 
   [class*="__container"] {
-    padding: 0 1.25em;
-  }
-
-  .main {
-    padding-bottom: 5rem;
+    padding: 0 0.9375em;
   }
 }
 
 /* --------- Adaptive mobile (375px) --------- */
 
-// @media screen and (max-width: 375px) {
-//   html,
-//   body {
-//     font-size: 4.27vw;
-//   }
-// }
+@media screen and (max-width: 375px) {
+  [class*="__container"] {
+    padding: 0 0.625em;
+  }
+}
 
 /* --------- Adaptive mobile (320px) --------- */
 @media screen and (max-width: 320px) {
   html,
   body {
-    font-size: 4.96vw;
+    font-size: 5vw;
   }
 }

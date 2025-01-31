@@ -1,10 +1,21 @@
-// @font-face {
-//   font-family: "family";
-//   src:
-//     url("../../fonts/family/family.eot") format("eot"),
-//     url("../../fonts/family/family.woff2") format("woff2"),
-//     url("../../fonts/family/family.ttf") format("truetype");
-//   font-display: swap;
-//   font-style: normal;
-//   font-weight: 400;
-// }
+@font-face {
+  font-family: "MazzardH";
+  src:
+    url("../../fonts/Regular/MazzardH-Regular.eot") format("eot"),
+    url("../../fonts/Regular/MazzardH-Regular.woff2") format("woff2"),
+    url("../../fonts/Regular/MazzardH-Regular.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "MazzardH";
+  src:
+    url("../../fonts/SemiBold/MazzardH-SemiBold.eot") format("eot"),
+    url("../../fonts/SemiBold/MazzardH-SemiBold.woff2") format("woff2"),
+    url("../../fonts/SemiBold/MazzardH-SemiBold.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}

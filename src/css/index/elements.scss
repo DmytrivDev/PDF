@@ -1,5 +1,23 @@
+.btn-def {
+  flex-shrink: 0;
+  display: block;
+  text-align: center;
+  padding: 1.0625rem 2.875rem 0.875rem 2.875rem;
+  color: var(--cw);
+  background: var(--lf);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  letter-spacing: -0.047em;
+  width: fit-content;
+  text-transform: uppercase;
+  transition: all 0.15s ease-in;
+}
+
 @media screen and (max-width: 960px) {
-  .class {
+  .btn-def {
+    font-size: 0.8125rem;
+    padding-top: 1.125rem;
   }
 }
 

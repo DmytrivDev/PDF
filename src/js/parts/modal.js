@@ -1,6 +1,8 @@
 import { lockScroll, unlockScroll } from './lockscroll.js';
 
-const activeModals = new Set();
+import { closeMenu } from './mobmenu.js';
+
+export const activeModals = new Set();
 const initializedModals = new WeakSet();
 
 function showModal(modal) {
@@ -50,6 +52,7 @@ export function openModal(modalId) {
     }
 
     if (!modal.classList.contains('isOpened')) {
+      closeMenu();
       showModal(modal);
     }
   }
