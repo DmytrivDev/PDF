@@ -90,12 +90,12 @@
       &__list {
         & > li,
         .menu-item {
-          position: relative;
           &.menu-item-has-children {
             &.isOpened {
               & > a {
                 &::after {
                   transform: rotate(-180deg);
+                  background-image: var(--vectorHv);
                 }
               }
             }
@@ -111,7 +111,7 @@
                 background-size: 5px 6px;
                 background-position: center center;
                 background-repeat: no-repeat;
-                background-image: var(--vector);
+                background-image: var(--vectorDf);
                 transition: all 0.15s ease-in;
               }
             }

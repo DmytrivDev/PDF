@@ -12,12 +12,29 @@
   width: fit-content;
   text-transform: uppercase;
   transition: all 0.15s ease-in;
+
+  &.alt {
+    width: 100%;
+    max-width: 23.75rem;
+    padding: 1.25rem 2.5rem 1.0625rem 2.5rem;
+    border: 0.0625rem solid var(--cd);
+    background: var(--ln);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 @media screen and (max-width: 960px) {
   .btn-def {
     font-size: 0.8125rem;
     padding-top: 1.125rem;
+
+    &.alt {
+      max-width: 18.75rem;
+      flex-shrink: 1;
+      padding: 1.0625rem 0.625rem 0.8125rem 0.625rem;
+    }
   }
 }
 
