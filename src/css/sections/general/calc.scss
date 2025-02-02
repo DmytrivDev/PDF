@@ -1,0 +1,16 @@
+.calc {
+  align-self: start;
+  width: 27.5rem;
+  min-height: 30.375rem;
+  background-color: var(--cw);
+}
+
+@media screen and (max-width: 960px) {
+  .calc {
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .calc {
+  }
+}

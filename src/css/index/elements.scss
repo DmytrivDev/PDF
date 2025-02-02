@@ -35,6 +35,13 @@
 }
 
 @media screen and (max-width: 960px) {
+  .tl1 {
+    br {
+      display: none;
+    }
+    font-size: 2rem;
+  }
+
   .btn-def {
     font-size: 0.8125rem;
     padding-top: 1.125rem;
