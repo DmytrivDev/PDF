@@ -8,6 +8,7 @@
     background-color: var(--cw);
     border-bottom: 0.0625rem solid var(--ce);
     padding: 0.5rem 0;
+    min-height: 3.25rem;
   }
   &__body {
     position: relative;
@@ -28,6 +29,72 @@
       z-index: 2;
     }
   }
+  &__lang {
+    position: relative;
+    z-index: 2;
+    margin-right: 2.5rem;
+    a {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    & > li {
+      position: relative;
+      &:hover {
+        & > a {
+          &::after {
+            transform: rotate(-180deg);
+            background-image: var(--vectorHv);
+          }
+        }
+        & > .sub-menu {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      & > a {
+        display: flex;
+        align-items: center;
+        gap: 0 0.5rem;
+        background: var(--lo);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        &::after {
+          content: "";
+          flex-shrink: 0;
+          width: 0.3125rem;
+          height: 0.375rem;
+          background-size: 0.3125rem 0.375rem;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-image: var(--vectorDf);
+          transition: all 0.15s ease-in;
+        }
+      }
+      & > .sub-menu {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        top: 100%;
+        left: -0.25rem;
+        background-color: var(--cw);
+        padding: 0.25rem;
+        transition: all 0.15s ease-in;
+        a {
+          &:hover {
+            background: var(--lo);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+      }
+    }
+  }
 }
 
 .burger {
@@ -38,14 +105,33 @@
   .header {
     &__main {
       padding: 0.3125rem 0;
+      min-height: 2.4375rem;
     }
     &__body {
       .custom-logo-link {
         width: 3.3204rem;
+        margin-right: 0.9375rem;
       }
       .btn-def {
         padding: 0.5rem 0.9375rem 0.375rem 0.9375rem;
         font-size: 0.625rem;
+        margin-left: auto;
+      }
+    }
+    &__lang {
+      margin-right: 0;
+      a {
+        font-size: 0.625rem;
+      }
+      & > li {
+        & > a {
+          gap: 0 0.25rem;
+          &::after {
+            width: 0.1875rem;
+            height: 0.25rem;
+            background-size: 0.1875rem 0.25rem;
+          }
+        }
       }
     }
   }
@@ -86,16 +172,14 @@
 
     &.isOpened {
       span {
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%) rotate(45deg);
-        opacity: 0;
         &:first-child {
-          transform: translateX(-50%) translateY(-50%) rotate(45deg);
-          opacity: 1;
+          width: 1.25rem;
+        }
+        &:nth-child(2) {
+          width: 100%;
         }
         &:last-child {
-          transform: translateX(-50%) translateY(-50%) rotate(-45deg);
-          opacity: 1;
+          width: 1.25rem;
         }
       }
     }

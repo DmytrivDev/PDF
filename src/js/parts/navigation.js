@@ -1,72 +1,77 @@
 import { toggle, up } from 'slide-element';
 
 function handleMenuItemChildren() {
-  const mobMenu = document.querySelector('.mobmenu');
-  const footerList = document.querySelector('.footer__list');
   const isMobile = () => window.innerWidth < 960;
 
-  function activateMenu(menuElement, handler) {
-    if (!menuElement.dataset.hasEventListener) {
-      menuElement.addEventListener('click', handler);
-      menuElement.dataset.hasEventListener = 'true';
+  function handleMenu(menuElement) {
+    const links = menuElement.querySelectorAll('.menu-item-has-children > a');
+    links.forEach(link => {
+      if (link.getAttribute('href') === '#') {
+        link.addEventListener('click', event => event.preventDefault());
+      }
+    });
+
+    function toggleMenu(event) {
+      const target = event.target;
+      const menuItem = target.closest('.menu-item-has-children');
+      const menuLink = target.closest('.menu-item-has-children > a');
+
+      if (menuItem && menuLink === target) {
+        event.preventDefault();
+        const subMenu = menuItem.querySelector('.sub-menu');
+        toggle(subMenu, { display: 'flex' });
+        menuItem.classList.toggle('isOpened');
+
+        const allOpenedItems = menuItem.parentElement.querySelectorAll(
+          '.menu-item-has-children.isOpened'
+        );
+        allOpenedItems.forEach(item => {
+          if (item !== menuItem) {
+            up(item.querySelector('.sub-menu'));
+            item.classList.remove('isOpened');
+          }
+        });
+      }
     }
+
+    function activateMenu() {
+      if (menuElement.dataset.hasEventListener !== 'true') {
+        menuElement.addEventListener('click', toggleMenu);
+        menuElement.dataset.hasEventListener = 'true';
+      }
+    }
+
+    function deactivateMenu() {
+      if (menuElement.dataset.hasEventListener === 'true') {
+        menuElement.removeEventListener('click', toggleMenu);
+        menuElement.dataset.hasEventListener = 'false';
+
+        menuElement
+          .querySelectorAll('.menu-item-has-children')
+          .forEach(item => item.classList.remove('isOpened'));
+        menuElement.querySelectorAll('.sub-menu').forEach(subMenu => {
+          subMenu.style.display = '';
+        });
+      }
+    }
+
+    function applyMenuLogic() {
+      if (isMobile()) {
+        activateMenu();
+      } else {
+        deactivateMenu();
+      }
+    }
+
+    applyMenuLogic();
+    window.addEventListener('resize', applyMenuLogic);
   }
 
-  function deactivateMenu(menuElement, handler) {
-    if (menuElement.dataset.hasEventListener) {
-      menuElement.removeEventListener('click', handler);
-      menuElement.dataset.hasEventListener = 'false';
-    }
-  }
+  const mobMenu = document.querySelector('.mobmenu');
+  const footerList = document.querySelector('.footer__list');
 
-  function toggleMenu(event, menuSelector, linkSelector) {
-    const target = event.target;
-    const menuItem = target.closest(menuSelector);
-    const menuLink = target.closest(`${menuSelector} > ${linkSelector}`);
-
-    if (menuItem && menuLink === target) {
-      event.preventDefault();
-
-      const subMenu = menuItem.querySelector('.sub-menu');
-      toggle(subMenu, { display: 'flex' });
-      menuItem.classList.toggle('isOpened');
-
-      const allOpenedItems = menuItem.parentElement.querySelectorAll(
-        `${menuSelector}.isOpened`
-      );
-      allOpenedItems.forEach(item => {
-        if (item !== menuItem) {
-          up(item.querySelector('.sub-menu'));
-          item.classList.remove('isOpened');
-        }
-      });
-    }
-  }
-
-  function applyMenuLogic() {
-    if (isMobile()) {
-      if (mobMenu)
-        activateMenu(mobMenu, event =>
-          toggleMenu(event, '.menu-item-has-children', 'a')
-        );
-      if (footerList)
-        activateMenu(footerList, event =>
-          toggleMenu(event, '.menu-item-has-children', 'p')
-        );
-    } else {
-      if (mobMenu)
-        deactivateMenu(mobMenu, event =>
-          toggleMenu(event, '.menu-item-has-children', 'a')
-        );
-      if (footerList)
-        deactivateMenu(footerList, event =>
-          toggleMenu(event, '.menu-item-has-children', 'p')
-        );
-    }
-  }
-
-  applyMenuLogic();
-  window.addEventListener('resize', applyMenuLogic);
+  if (mobMenu) handleMenu(mobMenu);
+  if (footerList) handleMenu(footerList);
 }
 
 document.addEventListener('DOMContentLoaded', handleMenuItemChildren);

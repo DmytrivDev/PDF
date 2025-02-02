@@ -33,6 +33,7 @@ body {
 
 .main {
   flex: 1 1 auto;
+  padding-bottom: 7.5rem;
 }
 
 [class*="__container"] {
@@ -59,6 +60,10 @@ body {
   html,
   body {
     font-size: 16px;
+  }
+
+  .main {
+    padding-bottom: 3.125rem;
   }
 
   [class*="__container"] {
