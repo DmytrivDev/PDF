@@ -42,10 +42,41 @@
 
 @media screen and (max-width: 960px) {
   .firstsec {
+    br {
+      display: none;
+    }
+
+    min-height: 26.25rem;
+    &.halvsec {
+      min-height: 26.25rem;
+    }
+
+    &__body {
+      padding: 2.5rem 0;
+      gap: 0 3.125rem;
+    }
+    &__content {
+      gap: 3.75rem 0;
+    }
+    &__header {
+      max-width: 29.375rem;
+    }
+    &__desc {
+      font-size: 0.9375rem;
+    }
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 680px) {
   .firstsec {
+    margin-bottom: 10.3125rem;
+    min-height: 37.5rem;
+    &.halvsec {
+      min-height: 37.5rem;
+    }
+
+    &__body {
+      padding: 2.5rem 0 19.375rem 0;
+    }
   }
 }
