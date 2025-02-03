@@ -23,6 +23,7 @@
 
 /* Home */
 @import url('./sections/home/hero.scss');
+@import url('./sections/home/receive.scss');
 
 /* Services */
 /* @import url('./sections/services/services.scss'); */

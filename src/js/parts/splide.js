@@ -24,7 +24,7 @@ const initLocSliders = () => {
       pagination: false,
       arrows: false,
       cover: true,
-      focus: 'center',
+      // focus: 'center',
     });
   }
 

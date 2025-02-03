@@ -1,3 +1,7 @@
+.pd1 {
+  padding-top: 7.5rem;
+}
+
 .tl1 {
   color: var(--cw);
   font-size: 4.6875rem;
@@ -5,6 +9,25 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   text-transform: uppercase;
+}
+.tl2 {
+  font-size: 2.625rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.tl3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.txt-def {
+  color: var(--cg);
+  letter-spacing: -0.03em;
 }
 
 .btn-def {
@@ -35,8 +58,22 @@
 }
 
 @media screen and (max-width: 960px) {
+  .pd1 {
+    padding-top: 3.125rem;
+  }
+
   .tl1 {
     font-size: 2rem;
+  }
+  .tl2 {
+    font-size: 1.5rem;
+  }
+  .tl3 {
+    font-size: 1rem;
+  }
+
+  .txt-def {
+    font-size: 0.875rem;
   }
 
   .btn-def {
