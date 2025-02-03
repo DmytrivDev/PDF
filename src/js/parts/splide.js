@@ -1,15 +1,39 @@
 import { initSlider } from './splidecust';
 
-// const elemSplide = document.querySelector('.elem');
-// if (elemSplide) {
-//   initSlider(elemSplide, {
-//     perPage: 2,
-//     breakpoints: {
-//       960: {},
-//       500: {},
-//     },
-//   });
-// }
+let locSliderMainInstance;
+let locSliderThumbInstance;
+
+const locSliderMain = document.querySelector('.location__slider .slider__main');
+const locSliderThumb = document.querySelector(
+  '.location__slider .slider__thumb'
+);
+
+const initLocSliders = () => {
+  if (locSliderMain && !locSliderMainInstance) {
+    locSliderMainInstance = initSlider(locSliderMain, {
+      type: 'fade',
+      pagination: false,
+      arrows: false,
+      cover: true,
+    });
+  }
+
+  if (locSliderThumb && !locSliderThumbInstance) {
+    locSliderThumbInstance = initSlider(locSliderThumb, {
+      isNavigation: true,
+      pagination: false,
+      arrows: false,
+      cover: true,
+      focus: 'center',
+    });
+  }
+
+  if (locSliderMainInstance && locSliderThumbInstance) {
+    locSliderMainInstance.sync(locSliderThumbInstance);
+  }
+};
+
+initLocSliders();
 
 // const elemSplides = document.querySelectorAll('.elem');
 // elemSplides?.forEach(container => {

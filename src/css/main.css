@@ -13,6 +13,7 @@
 /* General */
 @import url('./sections/general/firstsec.scss');
 @import url('./sections/general/calc.scss');
+@import url('./sections/general/location.scss');
 @import url('./sections/general/modal.scss');
 
 /* Header */

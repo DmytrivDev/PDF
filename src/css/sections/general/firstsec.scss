@@ -49,6 +49,9 @@
     min-height: 26.25rem;
     &.halvsec {
       min-height: 26.25rem;
+      .firstsec__body {
+        padding: 4.1875rem 0 2.5rem 0;
+      }
     }
 
     &__body {
@@ -73,6 +76,9 @@
     min-height: 37.5rem;
     &.halvsec {
       min-height: 37.5rem;
+      .firstsec__body {
+        padding: 4.1875rem 0 19.375rem 0;
+      }
     }
 
     &__body {
