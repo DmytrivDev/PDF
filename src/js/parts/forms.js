@@ -80,9 +80,19 @@ function submitForm(e) {
 function checkFields(field, type, val) {
   let errors = false;
 
+  const errorMessageElement = field.closest('label').querySelector('.required');
+  errorMessageElement.textContent = '';
+
   if (type === 'text') {
+    const nameRegex = /^[а-яА-ЯёЁіІїЇєЄґҐ'’ -]+$/u;
     if (isEmpty(val)) {
       field.closest('label').classList.add('isRequire');
+      errorMessageElement.textContent = 'Поле не може бути порожнім';
+      errors = true;
+    } else if (!nameRegex.test(val)) {
+      field.closest('label').classList.add('isRequire');
+      errorMessageElement.textContent =
+        'Ім’я повинно містити лише кириличні символи';
       errors = true;
     }
   }
@@ -95,8 +105,13 @@ function checkFields(field, type, val) {
   }
 
   if (type === 'tel') {
-    if (isEmpty(val) || !isMaskFilledTel(field)) {
+    if (isEmpty(val)) {
       field.closest('label').classList.add('isRequire');
+      errorMessageElement.textContent = 'Поле не може бути порожнім';
+      errors = true;
+    } else if (!isMaskFilledTel(field)) {
+      field.closest('label').classList.add('isRequire');
+      errorMessageElement.textContent = 'Невірний формат номера';
       errors = true;
     }
   }
@@ -121,13 +136,16 @@ function checkFields(field, type, val) {
 function removeErrors(field) {
   if (field) {
     const label = field.closest('label');
+    const errorMessageElement = label?.querySelector('.required');
     if (label && label.classList.contains('isRequire')) {
       label.classList.remove('isRequire');
+      if (errorMessageElement) errorMessageElement.textContent = '';
     }
   } else {
     document
       .querySelectorAll('.isRequire')
       .forEach(el => el.classList.remove('isRequire'));
+    document.querySelectorAll('.required').forEach(el => (el.textContent = ''));
   }
 }
 

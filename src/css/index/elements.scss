@@ -24,6 +24,12 @@
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
+.tl2,
+.tl3 {
+  &.cw {
+    color: var(--cw);
+  }
+}
 
 .txt-def {
   color: var(--cg);
@@ -45,7 +51,7 @@
   text-transform: uppercase;
   transition: all 0.15s ease-in;
 
-  &.alt {
+  &.btn-trns {
     width: 100%;
     max-width: 23.75rem;
     padding: 1.25rem 2.5rem 1.0625rem 2.5rem;
@@ -54,6 +60,16 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  &.btn-cw {
+    background: var(--cw);
+    span {
+      display: block;
+      background: var(--ln);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }
 
@@ -80,7 +96,7 @@
     font-size: 0.8125rem;
     padding-top: 1.125rem;
 
-    &.alt {
+    &.btn-trns {
       max-width: 18.75rem;
       flex-shrink: 1;
       padding: 1.0625rem 0.625rem 0.8125rem 0.625rem;
