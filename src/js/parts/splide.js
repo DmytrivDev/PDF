@@ -12,8 +12,7 @@ const initLocSliders = () => {
   if (locSliderMain && !locSliderMainInstance) {
     locSliderMainInstance = initSlider(locSliderMain, {
       type: 'fade',
-      pagination: false,
-      arrows: false,
+      updateOnMove: false,
       cover: true,
     });
   }
@@ -21,8 +20,6 @@ const initLocSliders = () => {
   if (locSliderThumb && !locSliderThumbInstance) {
     locSliderThumbInstance = initSlider(locSliderThumb, {
       isNavigation: true,
-      pagination: false,
-      arrows: false,
       cover: true,
       // focus: 'center',
     });
@@ -34,6 +31,43 @@ const initLocSliders = () => {
 };
 
 initLocSliders();
+
+let stepsSliderInstance;
+const steps = document.querySelector('.steps');
+
+const initStepsSlider = () => {
+  if (steps && !stepsSliderInstance) {
+    stepsSliderInstance = initSlider(steps, {
+      type: 'slide',
+      gap: '0.5rem',
+      pagination: true,
+      perPage: 2,
+      perMove: 1,
+      breakpoints: {
+        630: {
+          perPage: 1,
+        },
+      },
+    });
+  }
+};
+
+const destroySliders = () => {
+  if (stepsSliderInstance) {
+    stepsSliderInstance.destroy();
+    stepsSliderInstance = null;
+  }
+};
+
+const checkViewport = () => {
+  initStepsSlider();
+  if (window.innerWidth > 960) {
+    destroySliders();
+  }
+};
+
+window.addEventListener('resize', checkViewport);
+document.addEventListener('DOMContentLoaded', checkViewport);
 
 // const elemSplides = document.querySelectorAll('.elem');
 // elemSplides?.forEach(container => {
@@ -60,20 +94,3 @@ initLocSliders();
 //     });
 //   }
 // };
-
-// const destroySliders = () => {
-//   if (elemSliderInstance) {
-//     elemSliderInstance.destroy();
-//     elemSliderInstance = null;
-//   }
-// };
-
-// const checkViewport = () => {
-//   initOurproductSlider();
-//   if (window.innerWidth > 960) {
-//     destroySliders();
-//   }
-// };
-
-// window.addEventListener('resize', checkViewport);
-// document.addEventListener('DOMContentLoaded', checkViewport);

@@ -13,6 +13,8 @@
 /* General */
 @import url('./sections/general/firstsec.scss');
 @import url('./sections/general/calc.scss');
+@import url('./sections/general/cards.scss');
+@import url('./sections/general/steps.scss');
 @import url('./sections/general/fqa.scss');
 @import url('./sections/general/location.scss');
 @import url('./sections/general/modal.scss');

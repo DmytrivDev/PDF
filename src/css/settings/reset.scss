@@ -175,23 +175,27 @@
     display: flex;
   }
   .splide__pagination {
+    margin-top: 1rem;
     position: static;
     padding: 0;
     bottom: 0;
-    gap: 0 0.5rem;
+    gap: 0 0.1875rem;
     li {
       display: flex;
     }
   }
   .splide__pagination__page {
     border-radius: 50%;
-    width: 0.625rem;
-    height: 0.625rem;
+    width: 0.4375rem;
+    height: 0.4375rem;
     margin: 0;
-    background-color: var(--cw);
+    background-color: transparent;
+    border: 0.0625rem solid rgba(28, 28, 28, 0.17);
     &.is-active {
       transform: none;
-      opacity: 0.3;
+      background-color: var(--lo);
+      background: var(--lo);
+      border: 0.0625rem solid var(--lo);
     }
   }
 }

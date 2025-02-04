@@ -7,7 +7,7 @@ export const initSlider = (container, options = {}) => {
 
   const splide = new Splide(sliderElement, {
     speed: 1000,
-    arrows: true,
+    arrows: false,
     pagination: false,
     updateOnMove: true,
     ...options,
