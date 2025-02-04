@@ -1,29 +1,53 @@
 import Accordion from 'accordion-js';
 import 'accordion-js/dist/accordion.min.css';
 
-// const accord = document.querySelectorAll('.accord');
+const accord = document.querySelectorAll('.accord');
 
-// accord?.forEach(list => {
-//   new Accordion(list, {
-//     duration: 400,
-//     showMultiple: false,
-//   });
+let globalIndex = 1;
 
-//   const panels = list.querySelectorAll('.ac-panel');
-//   panels.forEach(panel => {
-//     panel.addEventListener('click', event => {
-//       event.stopPropagation();
-//     });
-//   });
-// });
+accord?.forEach((list, index) => {
+  new Accordion(list, {
+    duration: 400,
+    showMultiple: true,
+  });
 
-// <ul class="accord">
-//   <li class="ac">
-//     <div class="ac-trigger">
-//       <div class="__header"></div>
-//       <div class="ac-panel">
-//         <div class="__content"></div>
-//       </div>
-//     </div>
-//   </li>
-// </ul>
+  const items = list.querySelectorAll('.ac');
+
+  items.forEach(item => {
+    const header = item.querySelector('.fqa__header');
+    if (header) {
+      const numberSpan = document.createElement('span');
+      numberSpan.textContent = `${globalIndex}. `;
+      header.prepend(numberSpan);
+      globalIndex += 1;
+    }
+  });
+
+  const secFaq = list.closest('.fqa');
+  const btnMore = secFaq?.querySelector('.btn-def');
+
+  if (index === 1) {
+    btnMore?.addEventListener('click', () => {
+      btnMore.style.display = 'none';
+      list.classList.add('isOpened');
+      scrollToList();
+      setTimeout(() => {
+        list.classList.add('isAnim');
+      }, 100);
+    });
+
+    function scrollToList() {
+      window.scrollTo({
+        top: list.offsetTop - 300,
+        behavior: 'smooth',
+      });
+    }
+  }
+
+  const panels = list.querySelectorAll('.ac-panel');
+  panels.forEach(panel => {
+    panel.addEventListener('click', event => {
+      event.stopPropagation();
+    });
+  });
+});
