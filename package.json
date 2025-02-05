@@ -21,6 +21,7 @@
     "accordion-js": "^3.3.4",
     "axios": "^1.7.7",
     "slide-element": "^2.3.1",
+    "scroll-to-element": "^2.0.3",
     "imask": "^7.6.1",
     "tom-select": "^2.4.2",
     "validator": "^13.12.0",

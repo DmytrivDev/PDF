@@ -352,6 +352,10 @@
         &.menu-item-has-children {
           &.isOpened {
             & > a {
+              background: var(--lb);
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
               &::after {
                 transform: rotate(-180deg);
                 background-image: var(--vectorHv);

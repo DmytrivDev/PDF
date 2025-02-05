@@ -18,6 +18,13 @@
   text-transform: uppercase;
 }
 .tl3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.tl4 {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.25;
@@ -25,7 +32,8 @@
   text-transform: uppercase;
 }
 .tl2,
-.tl3 {
+.tl3,
+.tl4 {
   &.cw {
     color: var(--cw);
   }
@@ -72,6 +80,21 @@
     }
   }
 }
+.btn-more {
+  text-align: center;
+  display: block;
+  width: fit-content;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  transition: all 0.15s ease-in;
+  background: var(--lo);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 @media screen and (max-width: 960px) {
   .pd1 {
@@ -85,6 +108,10 @@
     font-size: 1.5rem;
   }
   .tl3 {
+    font-size: 1.0625rem;
+    line-height: 1.25;
+  }
+  .tl4 {
     font-size: 1rem;
   }
 
@@ -101,6 +128,13 @@
       flex-shrink: 1;
       padding: 1.0625rem 0.625rem 0.8125rem 0.625rem;
     }
+  }
+  .btn-more {
+    font-size: 0.8125rem;
+    padding: 1.0625rem 0.625rem 0.8125rem 0.625rem;
+    border: 0.0625rem solid var(--cd);
+    width: 100%;
+    max-width: 18.75rem;
   }
 }
 
