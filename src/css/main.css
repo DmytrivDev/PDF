@@ -41,7 +41,7 @@
 /* @import url('./sections/exchange/exchange.scss'); */
 
 /* Blog */
-/* @import url('./sections/blog/blog.scss'); */
+@import url('./sections/blog/blog.scss');
 
 /* Article */
 /* @import url('./sections/article/article.scss'); */

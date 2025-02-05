@@ -109,6 +109,82 @@
   }
 }
 
+.pagination {
+  margin-top: 3.75rem;
+  display: flex;
+  justify-content: center;
+  .facetwp-pager {
+    display: flex;
+    gap: 0 0.625rem;
+    .facetwp-page {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.15;
+      width: 3.375rem;
+      height: 3.375rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0.0625rem solid var(--cd);
+      overflow: hidden;
+      transition: all 0.15s ease-in;
+      &:hover {
+        color: var(--cw);
+        border: 0.0625rem solid transparent;
+        &::after {
+          opacity: 1;
+        }
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--lo);
+        opacity: 0;
+        transition: all 0.15s ease-in;
+      }
+      &.next,
+      &.prev {
+        &:hover {
+          &::before {
+            background-image: var(--arrowLeftHv);
+          }
+        }
+        &::before {
+          content: "";
+          flex-shrink: 0;
+          width: 0.375rem;
+          height: 0.5rem;
+          background-size: 0.375rem 0.5rem;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-image: var(--arrowLeftDef);
+          transition: all 0.15s ease-in;
+        }
+      }
+      &.active {
+        color: var(--cw);
+        border: 0.0625rem solid transparent;
+        &::after {
+          opacity: 1;
+        }
+      }
+      &.next {
+        &::before {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 960px) {
   .breadcrumbs {
     top: 1.25rem;
@@ -158,9 +234,16 @@
       max-width: 18.75rem;
     }
   }
-}
 
-@media screen and (max-width: 500px) {
-  .class {
+  .pagination {
+    margin-top: 1.875rem;
+    .facetwp-pager {
+      gap: 0 0.4375rem;
+      .facetwp-page {
+        font-size: 0.875rem;
+        width: 2.75rem;
+        height: 2.75rem;
+      }
+    }
   }
 }

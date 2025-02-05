@@ -53,6 +53,11 @@
       position: relative;
       z-index: 5;
     }
+    &:hover {
+      .tl3 {
+        text-decoration: underline;
+      }
+    }
     &:nth-child(odd) {
       &:hover {
         &::after {
@@ -132,6 +137,11 @@
       padding: 1.5rem 1rem;
       &::after {
         display: none;
+      }
+      &:hover {
+        .tl3 {
+          text-decoration: none;
+        }
       }
       &:nth-child(6) {
         .offer__img {

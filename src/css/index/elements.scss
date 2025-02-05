@@ -10,7 +10,6 @@
 }
 
 .tl1 {
-  color: var(--cw);
   font-size: 4.6875rem;
   line-height: 1.05;
   font-weight: 600;
@@ -38,6 +37,7 @@
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
+.tl1,
 .tl2,
 .tl3,
 .tl4 {
@@ -49,6 +49,9 @@
 .txt-def {
   color: var(--cg);
   letter-spacing: -0.03em;
+  &.cc {
+    color: var(--cc);
+  }
 }
 
 .btn-def {
@@ -148,10 +151,5 @@
     border: 0.0625rem solid var(--cd);
     width: 100%;
     max-width: 18.75rem;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .class {
   }
 }
