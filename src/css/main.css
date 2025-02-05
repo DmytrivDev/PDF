@@ -14,6 +14,7 @@
 @import url('./sections/general/firstsec.scss');
 @import url('./sections/general/calc.scss');
 @import url('./sections/general/cards.scss');
+@import url('./sections/general/offer.scss');
 @import url('./sections/general/receive.scss');
 @import url('./sections/general/reviews.scss');
 @import url('./sections/general/steps.scss');
