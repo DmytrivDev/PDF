@@ -53,9 +53,7 @@ function applyStylesParallax(section, visibilityPercentage) {
     setItemTop(5, 1);
     setItemTop(7, 1);
   } else {
-    setItemTop(1, 0.6);
-    setItemTop(2, 1.9);
-    setItemTop(3, 2.37);
+    setItemTop(1, 1);
   }
 }
 

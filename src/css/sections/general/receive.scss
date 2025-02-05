@@ -1,3 +1,12 @@
+.exchange-receive {
+  .receive__cards {
+    .card-def {
+      min-height: 23.75rem;
+      max-width: calc((100% - 2 * 1.5rem) / 3);
+    }
+  }
+}
+
 .receive {
   &__cards {
     display: flex;
@@ -13,6 +22,18 @@
 }
 
 @media screen and (max-width: 960px) {
+  .exchange-receive {
+    .receive__cards {
+      .card-def {
+        br {
+          display: none;
+        }
+        min-height: auto;
+        max-width: 100%;
+      }
+    }
+  }
+
   .receive {
     &__cards {
       align-items: stretch;

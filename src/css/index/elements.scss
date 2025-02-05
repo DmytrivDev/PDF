@@ -1,6 +1,13 @@
 .pd1 {
   padding-top: 7.5rem;
 }
+.pdbr {
+  padding-top: 7.5rem;
+  &__wrapp {
+    border-top: 0.0625rem solid var(--cd);
+    padding-top: 7.5rem;
+  }
+}
 
 .tl1 {
   color: var(--cw);
@@ -99,6 +106,12 @@
 @media screen and (max-width: 960px) {
   .pd1 {
     padding-top: 3.125rem;
+  }
+  .pdbr {
+    padding-top: 3.125rem;
+    &__wrapp {
+      padding-top: 3.125rem;
+    }
   }
 
   .tl1 {

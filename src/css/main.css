@@ -14,6 +14,8 @@
 @import url('./sections/general/firstsec.scss');
 @import url('./sections/general/calc.scss');
 @import url('./sections/general/cards.scss');
+@import url('./sections/general/receive.scss');
+@import url('./sections/general/reviews.scss');
 @import url('./sections/general/steps.scss');
 @import url('./sections/general/fqa.scss');
 @import url('./sections/general/location.scss');
@@ -26,7 +28,6 @@
 
 /* Home */
 @import url('./sections/home/hero.scss');
-@import url('./sections/home/receive.scss');
 @import url('./sections/home/advant.scss');
 
 /* Services */
