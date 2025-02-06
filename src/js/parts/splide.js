@@ -2,12 +2,10 @@ import { initSlider } from './splidecust';
 
 let locSliderMainInstance;
 let locSliderThumbInstance;
-
 const locSliderMain = document.querySelector('.location__slider .slider__main');
 const locSliderThumb = document.querySelector(
   '.location__slider .slider__thumb'
 );
-
 const initLocSliders = () => {
   if (locSliderMain && !locSliderMainInstance) {
     locSliderMainInstance = initSlider(locSliderMain, {
@@ -29,12 +27,10 @@ const initLocSliders = () => {
     locSliderMainInstance.sync(locSliderThumbInstance);
   }
 };
-
 initLocSliders();
 
 let stepsSliderInstance;
 const steps = document.querySelector('.steps');
-
 const initStepsSlider = () => {
   if (steps && !stepsSliderInstance) {
     stepsSliderInstance = initSlider(steps, {
@@ -52,17 +48,41 @@ const initStepsSlider = () => {
   }
 };
 
-const destroySliders = () => {
+let assortSliderInstance;
+const assort = document.querySelector('.assort');
+const initAssortSlider = () => {
+  if (assort && !assortSliderInstance) {
+    assortSliderInstance = initSlider(assort, {
+      type: 'slide',
+      gap: '1.5rem',
+      perPage: 4,
+      perMove: 1,
+      pagination: true,
+    });
+  }
+};
+
+const destroySlidersDesc = () => {
   if (stepsSliderInstance) {
     stepsSliderInstance.destroy();
     stepsSliderInstance = null;
   }
 };
+const destroySlidersMob = () => {
+  if (assortSliderInstance) {
+    assortSliderInstance.destroy();
+    assortSliderInstance = null;
+  }
+};
 
 const checkViewport = () => {
   initStepsSlider();
+  initAssortSlider();
   if (window.innerWidth > 960) {
-    destroySliders();
+    destroySlidersDesc();
+  }
+  if (window.innerWidth < 960) {
+    destroySlidersMob();
   }
 };
 

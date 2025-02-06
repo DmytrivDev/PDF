@@ -30,6 +30,7 @@
 
 /* Home */
 @import url('./sections/home/hero.scss');
+@import url('./sections/home/assort.scss');
 @import url('./sections/home/advant.scss');
 
 /* Services */

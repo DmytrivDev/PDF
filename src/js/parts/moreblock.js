@@ -14,7 +14,9 @@ function addMoreBlocks(container) {
 }
 
 const advant = document.querySelector('.advant');
+const assort = document.querySelector('.assort');
 const swap = document.querySelector('.swap');
 
 addMoreBlocks(advant);
+addMoreBlocks(assort);
 addMoreBlocks(swap);
