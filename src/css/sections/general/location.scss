@@ -89,9 +89,6 @@
 
 @media screen and (max-width: 960px) {
   .location {
-    &__container {
-      padding: 0 0.9375em;
-    }
     &__map {
       padding-top: 100%;
     }
@@ -114,14 +111,6 @@
   .location {
     &__body {
       grid-template-columns: 1fr;
-    }
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .location {
-    &__container {
-      padding: 0 0.625em;
     }
   }
 }

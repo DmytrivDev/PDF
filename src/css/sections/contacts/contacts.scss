@@ -1,0 +1,133 @@
+.contactsPage {
+  .main {
+    padding-bottom: 0;
+  }
+
+  .location {
+    padding-top: 5rem;
+  }
+}
+
+.contacts {
+  &__body {
+    position: relative;
+  }
+  &__header {
+    margin-bottom: 3.75rem;
+  }
+
+  &__content {
+    border-top: 0.0625rem solid var(--cd);
+    padding-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .footer__soc {
+      margin-top: 1.875rem;
+    }
+  }
+  &__desc {
+    font-size: 1.125rem;
+    letter-spacing: -0.06em;
+  }
+  &__address {
+    & > * {
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+  &__box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 1rem;
+    margin-top: 1.875rem;
+    padding-bottom: 1.875rem;
+    border-bottom: 0.0625rem solid var(--cd);
+
+    p {
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      span {
+        color: var(--cg);
+      }
+    }
+    a {
+      flex-shrink: 0;
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      background: var(--lo);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .contactsPage {
+    .location {
+      padding-top: 3.125rem;
+    }
+  }
+
+  .contacts {
+    &__header {
+      br {
+        display: none;
+      }
+      margin-bottom: 1.5rem;
+    }
+
+    &__content {
+      padding-top: 1rem;
+      grid-template-columns: 1fr;
+
+      .footer__soc {
+        margin-top: 1rem;
+      }
+    }
+    &__desc {
+      br {
+        display: none;
+      }
+      font-size: 0.9375rem;
+    }
+    &__address {
+      & > * {
+        &:first-child {
+          margin-top: 1rem;
+        }
+      }
+    }
+    &__box {
+      margin-top: 1rem;
+      padding-bottom: 1rem;
+
+      p {
+        line-height: 1.3;
+        font-size: 0.875rem;
+      }
+      a {
+        width: fit-content;
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .contacts {
+    &__box {
+      align-items: stretch;
+      justify-content: stretch;
+      flex-direction: column;
+      gap: 0.5rem 0;
+    }
+  }
+}

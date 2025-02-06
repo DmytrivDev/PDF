@@ -1,6 +1,5 @@
 .blog {
   &__body {
-    padding-top: 7.5rem;
     position: relative;
   }
   &__header {
@@ -147,9 +146,6 @@
 
 @media screen and (max-width: 960px) {
   .blog {
-    &__body {
-      padding-top: 4.375rem;
-    }
     &__header {
       margin-bottom: 1.875rem;
     }

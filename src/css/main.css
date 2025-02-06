@@ -47,7 +47,7 @@
 /* @import url('./sections/article/article.scss'); */
 
 /* Contacts */
-/* @import url('./sections/contacts/contacts.scss'); */
+@import url('./sections/contacts/contacts.scss');
 
 /* Policy */
 /* @import url('./sections/policy/policy.scss'); */

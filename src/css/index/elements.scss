@@ -1,6 +1,8 @@
-.pd1 {
+.pd1,
+.pd2 {
   padding-top: 7.5rem;
 }
+
 .pdbr {
   padding-top: 7.5rem;
   &__wrapp {
@@ -110,6 +112,10 @@
   .pd1 {
     padding-top: 3.125rem;
   }
+  .pd2 {
+    padding-top: 4.375rem;
+  }
+
   .pdbr {
     padding-top: 3.125rem;
     &__wrapp {
