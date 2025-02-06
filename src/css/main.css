@@ -29,18 +29,8 @@
 @import url('./sections/header/parts/mobmenu.scss');
 
 /* Home */
-@import url('./sections/home/hero.scss');
 @import url('./sections/home/assort.scss');
 @import url('./sections/home/advant.scss');
-
-/* Services */
-/* @import url('./sections/services/services.scss'); */
-
-/* Currency */
-/* @import url('./sections/currency/currency.scss'); */
-
-/* Exchange */
-/* @import url('./sections/exchange/exchange.scss'); */
 
 /* Blog */
 @import url('./sections/blog/blog.scss');
