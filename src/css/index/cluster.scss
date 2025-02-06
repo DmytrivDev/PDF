@@ -82,6 +82,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: end;
+    gap: 0 1.5rem;
     margin-bottom: 2rem;
     .tl2 {
       padding-right: 3.125rem;
@@ -199,6 +200,7 @@
 
   .heading {
     &__sec {
+      gap: 0;
       br {
         display: none;
       }

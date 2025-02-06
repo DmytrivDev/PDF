@@ -172,6 +172,7 @@
 
     &.isOpened {
       span {
+        background-color: var(--cd);
         &:first-child {
           width: 1.25rem;
         }
