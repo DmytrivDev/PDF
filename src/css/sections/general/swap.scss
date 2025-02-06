@@ -1,0 +1,230 @@
+.swap {
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  &__row {
+    & > div {
+      &:last-child {
+        margin-bottom: 0;
+        border-bottom: 0.0625rem solid var(--cd);
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__info {
+    display: grid;
+    grid-template-columns: 18.75rem 9.375rem 11.25rem 1fr;
+    border-bottom: 0.0625rem solid var(--cd);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    p {
+      color: var(--cg);
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+  }
+  &__currency {
+    position: relative;
+    display: grid;
+    grid-template-columns: 18.75rem 9.375rem 11.25rem 1fr;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: calc(100% - 18.75rem);
+      height: 0.0625rem;
+      background-color: var(--cd);
+    }
+    .valuta {
+      display: flex;
+      align-items: start;
+      gap: 0 0.5rem;
+      & > span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        height: 1.375rem;
+        border: 0.0625rem solid var(--cd);
+        img {
+          width: calc(100% - 0.375rem);
+          height: calc(100% - 0.375rem);
+        }
+      }
+      p {
+        font-size: 1.125rem;
+        line-height: 1.4;
+        letter-spacing: -0.03em;
+        span {
+          color: var(--cg);
+          font-size: 0.8125rem;
+        }
+      }
+    }
+    .rate {
+      position: relative;
+      &:nth-child(2) {
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          right: 1.25rem;
+          transform: translateY(-50%);
+          width: 3.75rem;
+          height: 0.0625rem;
+          background-color: var(--cd);
+        }
+      }
+      p {
+        font-size: 1.25rem;
+        line-height: 1.4;
+        letter-spacing: -0.003em;
+      }
+    }
+    .tobook {
+      text-align: right;
+      button {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        background: var(--lo);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  }
+
+  .btn-def {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .swap {
+    &__body {
+      grid-template-columns: 1fr;
+      gap: 1rem 0;
+
+      &.isAnim {
+        .swap__row {
+          &:not(:first-child) {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+      &.isOpened {
+        .swap__row {
+          &:not(:first-child) {
+            display: block;
+          }
+        }
+      }
+
+      .swap__row {
+        &:not(:first-child) {
+          .swap__info {
+            display: none;
+          }
+        }
+      }
+    }
+    &__row {
+      &:not(:first-child) {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.15s ease-in;
+      }
+      & > div {
+        &:last-child {
+          border-bottom: none;
+          &::after {
+            display: block;
+          }
+        }
+      }
+    }
+
+    &__info {
+      grid-template-columns: 44% 20% 20% 16%;
+      padding-bottom: 0.75rem;
+      p {
+        font-size: 0.75rem;
+      }
+    }
+    &__currency {
+      grid-template-columns: 44% 20% 20% 16%;
+      margin-bottom: 1rem;
+      &::after {
+        width: 100%;
+      }
+      .valuta {
+        & > span {
+          width: 1.625rem;
+          height: 1.125rem;
+        }
+        p {
+          font-size: 0.875rem;
+          span {
+            font-size: 0.75rem;
+          }
+        }
+      }
+      .rate {
+        &:nth-child(2) {
+          &::after {
+            right: 1rem;
+            width: calc(100% - 4.375rem);
+          }
+        }
+        p {
+          font-size: 1rem;
+        }
+      }
+      .tobook {
+        button {
+          font-size: 0.8125rem;
+        }
+      }
+    }
+
+    .btn-def {
+      display: block;
+      margin: 0 auto;
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .swap {
+    &__info {
+      grid-template-columns: 50% 32% 18%;
+    }
+    &__currency {
+      grid-template-columns: 50% 32% 18%;
+      &::after {
+        width: 50%;
+      }
+      .tobook {
+        margin-top: 0.5rem;
+        text-align: left;
+        grid-area: 2 / 2 / 3 / 4;
+      }
+    }
+  }
+}

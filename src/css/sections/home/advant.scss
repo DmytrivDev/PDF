@@ -1,5 +1,5 @@
 .advant {
-  &__content {
+  &__body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     border-top: 0.0625rem solid var(--cd);
@@ -73,7 +73,7 @@
 
 @media screen and (max-width: 960px) {
   .advant {
-    &__content {
+    &__body {
       grid-template-columns: auto;
       padding-top: 1rem;
       &.isAnim {

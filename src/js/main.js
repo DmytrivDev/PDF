@@ -8,5 +8,5 @@ import './parts/accordion.js';
 import './parts/modal.js';
 import './parts/forms.js';
 import './parts/parallax.js';
-import './parts/descript.js';
+import './parts/moreblock.js';
 import './parts/scroll.js';
