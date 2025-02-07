@@ -36,13 +36,13 @@
 @import url('./sections/blog/blog.scss');
 
 /* Article */
-/* @import url('./sections/article/article.scss'); */
+@import url('./sections/article/article.scss');
 
 /* Contacts */
 @import url('./sections/contacts/contacts.scss');
 
 /* Policy */
-/* @import url('./sections/policy/policy.scss'); */
+@import url('./sections/policy/policy.scss');
 
 /* Error */
 @import url('./sections/error/error.scss');

@@ -1,3 +1,9 @@
+.body-contain {
+  max-width: 60rem;
+  padding: 0 1.875rem;
+  margin: 0 auto;
+}
+
 .pd1,
 .pd2 {
   padding-top: 7.5rem;
@@ -109,6 +115,12 @@
 }
 
 @media screen and (max-width: 960px) {
+  .body-contain {
+    max-width: 100%;
+    padding: 0;
+    margin: auto;
+  }
+
   .pd1 {
     padding-top: 3.125rem;
   }

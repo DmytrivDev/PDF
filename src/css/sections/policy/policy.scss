@@ -1,0 +1,30 @@
+.policy {
+  &__wrapp {
+    position: relative;
+  }
+  &__header {
+    margin-bottom: 3.75rem;
+    h1 {
+      font-size: 4.6875rem;
+      line-height: 1.05;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .policy {
+    &__header {
+      br {
+        display: none;
+      }
+
+      margin-bottom: 1.5rem;
+      h1 {
+        font-size: 1.875rem;
+      }
+    }
+  }
+}
