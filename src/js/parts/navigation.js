@@ -18,7 +18,7 @@ function handleMenuItemChildren() {
 
       if (menuItem && menuLink === target) {
         event.preventDefault();
-        const subMenu = menuItem.querySelector('.sub-menu');
+        const subMenu = menuItem.querySelector('& > .sub-menu');
         toggle(subMenu, { display: 'flex' });
         menuItem.classList.toggle('isOpened');
 
@@ -47,9 +47,9 @@ function handleMenuItemChildren() {
         menuElement.dataset.hasEventListener = 'false';
 
         menuElement
-          .querySelectorAll('.menu-item-has-children')
+          .querySelectorAll('& > .menu-item-has-children')
           .forEach(item => item.classList.remove('isOpened'));
-        menuElement.querySelectorAll('.sub-menu').forEach(subMenu => {
+        menuElement.querySelectorAll('& > .sub-menu').forEach(subMenu => {
           subMenu.style.display = '';
         });
       }

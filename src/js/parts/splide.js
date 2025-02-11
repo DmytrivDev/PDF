@@ -9,9 +9,12 @@ const locSliderThumb = document.querySelector(
 const initLocSliders = () => {
   if (locSliderMain && !locSliderMainInstance) {
     locSliderMainInstance = initSlider(locSliderMain, {
-      type: 'fade',
+      type: 'loop',
       updateOnMove: false,
       cover: true,
+      autoplay: true,
+      interval: 2000,
+      loop: true,
     });
   }
 
@@ -19,7 +22,6 @@ const initLocSliders = () => {
     locSliderThumbInstance = initSlider(locSliderThumb, {
       isNavigation: true,
       cover: true,
-      // focus: 'center',
     });
   }
 
