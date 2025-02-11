@@ -21,6 +21,7 @@
 @import url('./sections/general/steps.scss');
 @import url('./sections/general/fqa.scss');
 @import url('./sections/general/location.scss');
+@import url('./sections/general/advant.scss');
 @import url('./sections/general/modal.scss');
 
 /* Header */
@@ -30,7 +31,6 @@
 
 /* Home */
 @import url('./sections/home/assort.scss');
-@import url('./sections/home/advant.scss');
 
 /* Blog */
 @import url('./sections/blog/blog.scss');

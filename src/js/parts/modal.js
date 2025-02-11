@@ -6,13 +6,13 @@ export const activeModals = new Set();
 const initializedModals = new WeakSet();
 
 function showModal(modal) {
-  modal.classList.add('isOpened', 'isAnimation');
+  modal.classList.add('isOpened');
   lockScroll(modal);
   activeModals.add(modal);
 }
 
 export function closeModal(modal) {
-  modal.classList.remove('isOpened', 'isAnimation');
+  modal.classList.remove('isOpened');
   activeModals.delete(modal);
   unlockScroll();
 }
