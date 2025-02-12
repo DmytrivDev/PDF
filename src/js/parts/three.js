@@ -6,22 +6,19 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 const scene = new THREE.Scene();
 
 // 2️⃣ Камера
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.set(0, 0, 7);
+const camera = new THREE.PerspectiveCamera(75, 1900 / 900, 0.1, 1000);
+camera.position.set(0, 0, 6);
 // camera.position.set(5, 1, 5);
 
 // 3️⃣ Рендерер
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.querySelector('.three-graph').appendChild(renderer.domElement);
+renderer.setSize(1900, 900);
+
+const threeGraph = document.querySelector('.three-graph');
+if (threeGraph) threeGraph.appendChild(renderer.domElement);
 
 // 4️⃣ Свет
-const light = new THREE.DirectionalLight(0xffffff, 1);
+const light = new THREE.DirectionalLight(0xffffff, 2);
 light.position.set(2, 2, 2);
 scene.add(light);
 
@@ -29,7 +26,8 @@ scene.add(light);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-controls.enableZoom = false; // ❗ ОТКЛЮЧАЕМ УВЕЛИЧЕНИЕ
+controls.enableRotate = false;
+controls.enableZoom = false;
 
 // 6️⃣ Загрузка GLB-модели
 const loader = new GLTFLoader();
@@ -41,7 +39,7 @@ loader.load(
     model = gltf.scene;
 
     // ⬆️ Фиксируем размер (не даем его менять)
-    const fixedScale = 30;
+    const fixedScale = 25;
     model.scale.set(fixedScale, fixedScale, fixedScale);
 
     // ✅ Ставим модель ровно
@@ -49,7 +47,7 @@ loader.load(
     //   THREE.MathUtils.degToRad(15),
     //   THREE.MathUtils.degToRad(-40),
     //   THREE.MathUtils.degToRad(12)
-    // ); // Убираем лишние повороты
+    // );
     model.rotation.set(0, 0, 0);
     model.position.set(0, 0, 0); // Центрируем
 
@@ -57,10 +55,11 @@ loader.load(
     model.traverse(child => {
       if (child.isMesh) {
         child.material = new THREE.MeshStandardMaterial({
-          color: 0xbe00fe,
-          // opacity: 0.8, // Полупрозрачность
+          color: 0x5200ff,
+          transparent: true,
+          opacity: 0.5, // Полупрозрачность
           metalness: 0.1, // Блеск
-          roughness: 1, // Гладкость
+          roughness: 0.8, // Гладкость
         });
       }
     });
@@ -80,7 +79,7 @@ window.addEventListener('mousemove', event => {
   const x = (event.clientX / window.innerWidth) * 2 - 1;
   const y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-  const rotationLimit = Math.PI * 0.1;
+  const rotationLimit = Math.PI * 0.03;
   model.rotation.y = THREE.MathUtils.clamp(
     x * rotationLimit,
     -rotationLimit,
@@ -102,8 +101,8 @@ function animate() {
 animate();
 
 // 9️⃣ Адаптивный рендер при изменении окна
-window.addEventListener('resize', () => {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-});
+// window.addEventListener('resize', () => {
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+// });

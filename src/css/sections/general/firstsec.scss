@@ -40,6 +40,10 @@
     line-height: 1.4;
     letter-spacing: -0.03em;
   }
+
+  &__logo {
+    display: none;
+  }
 }
 
 .three-graph {
@@ -53,7 +57,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    width: 118.75rem !important;
+    height: 56.25rem !important;
+    transform: translateX(-50%) translateY(-46%);
   }
 }
 
@@ -84,6 +90,24 @@
     &__desc {
       font-size: 0.9375rem;
     }
+
+    &__logo {
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 40%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 100%;
+      max-width: 25rem;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .three-graph {
+    display: none;
   }
 }
 
@@ -100,6 +124,12 @@
 
     &__body {
       padding: 2.5rem 0 19.375rem 0;
+    }
+
+    &__logo {
+      top: 4.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
     }
   }
 }
