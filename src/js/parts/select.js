@@ -1,7 +1,7 @@
 import TomSelect from 'tom-select';
 import 'tom-select/dist/css/tom-select.default.css';
 
-const tomSelect = document.querySelectorAll('.tom-select');
+const tomSelect = document.querySelectorAll('.select-give, .select-receive');
 
 tomSelect?.forEach(select => {
   const options = Array.from(select.options);
@@ -25,7 +25,11 @@ tomSelect?.forEach(select => {
     searchField: [],
     render: {
       item: function (data, escape) {
-        return `<div>${select.dataset.txt} ${escape(data.text)}</div>`;
+        if (select.dataset.txt) {
+          return `<div>${select.dataset.txt} ${escape(data.text)}</div>`;
+        } else {
+          return `<div>${escape(data.text)}</div>`;
+        }
       },
     },
     onDropdownOpen: function () {

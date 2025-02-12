@@ -90,7 +90,8 @@
       border-radius: 0;
       box-shadow: none;
       background-color: var(--cw);
-      border: 0.0625rem solid var(--cb);
+      border: 0.0625rem solid transparent;
+      border-right-color: var(--cd);
       background-image: none;
       &:focus-visible {
         outline: none;

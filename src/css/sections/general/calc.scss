@@ -1,11 +1,146 @@
 .calc {
+}
+
+.calc {
   position: relative;
   z-index: 5;
   flex-shrink: 0;
   align-self: start;
   width: 27.5rem;
-  min-height: 30.375rem;
   background-color: var(--cw);
+  padding: 2.5rem 1.5625rem 1.5625rem 1.5625rem;
+
+  .tl3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  &__variat {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 0.0625rem solid var(--cd);
+    padding: 0.25rem;
+    margin-bottom: 1rem;
+    label {
+      cursor: pointer;
+
+      input {
+        display: none;
+        &:checked + p {
+          background: var(--lf);
+          color: var(--cw);
+        }
+      }
+      p {
+        width: 100%;
+        text-align: center;
+        padding: 1.0625rem 1.25rem 0.875rem 1.25rem;
+        color: var(--cv);
+        background: var(--cw);
+        font-weight: 600;
+        font-size: 0.9375rem;
+        line-height: 1.4;
+        letter-spacing: -0.047em;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &__wrapp {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem 0;
+    margin-bottom: 1.5rem;
+  }
+  &__give,
+  &__receive {
+    position: relative;
+    border: 0.0625rem solid var(--cd);
+
+    & > p {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 1.4375rem;
+      transform: translateY(-50%);
+      color: var(--cg);
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      letter-spacing: -0.03em;
+      background-color: var(--cw);
+      padding: 0 0.5rem;
+    }
+  }
+  &__box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    input {
+      width: 100%;
+      text-align: right;
+      font-size: 1.5rem;
+      line-height: 1.4;
+      letter-spacing: -0.03em;
+      padding: 1.125rem 1.4375rem 0.75rem 1.4375rem;
+      &::placeholder {
+        color: var(--cg);
+      }
+    }
+  }
+  &__toggle {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(30deg);
+    border: 0.0625rem solid var(--cd);
+    background-color: var(--cw);
+    border-radius: 50%;
+    width: 2.9375rem;
+    height: 2.9375rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      width: 1.9375rem;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  & > .btn-def {
+    width: 100%;
+    padding: 1.25rem 2.5rem 1.0625rem 2.5rem;
+    margin-bottom: 1rem;
+  }
+  &__courses {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: var(--cg);
+    font-size: 0.8125rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+  }
+  &__desc {
+    color: var(--cg);
+    text-align: center;
+    font-size: 0.8125rem;
+    letter-spacing: -0.03em;
+    padding: 1rem 0.875rem 0 0.875rem;
+    border-top: 0.0625rem solid var(--cd);
+  }
+}
+
+.select-give {
+}
+.select-receive {
+}
+.btn-def {
+}
+.openModal {
 }
 
 @media screen and (max-width: 960px) {

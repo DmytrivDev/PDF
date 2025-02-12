@@ -41,7 +41,69 @@
         </div>
       </div>
 
-      <div class="calc"></div>
+      <div class="calc">
+        <h2 class="tl3">Онлайн-калькулятор</h2>
+
+        <div class="calc__variat">
+          <label>
+            <input type="radio" name="variation" value="shredded" checked />
+            <p>Роздріб</p>
+          </label>
+          <label>
+            <input type="radio" name="variation" value="wholesale" />
+            <p>Опт</p>
+          </label>
+        </div>
+
+        <div class="calc__wrapp">
+          <div class="calc__give">
+            <p>Віддаєте</p>
+            <div class="calc__box">
+              <select class="select-give">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="PLN">PLN</option>
+              </select>
+              <input type="text" name="input-give" placeholder="00.00" />
+            </div>
+          </div>
+
+          <button type="button" class="calc__toggle" aria-label="Toggle calc">
+            <span><img src="./img/icons/toggle.svg" alt="Toggle calc" /></span>
+          </button>
+
+          <div class="calc__receive">
+            <p>Отримаєте</p>
+            <div class="calc__box">
+              <select class="select-receive">
+                <option value="UAH">UAH</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="PLN">PLN</option>
+              </select>
+              <input type="text" name="input-receive" placeholder="00.00" />
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-def openModal" data-id="modalConnect">
+          Забронювати курс
+        </button>
+
+        <div class="calc__courses">
+          <p>1 USD = <span>42.55 UAH</span></p>
+          <p>1 UAH = <span>0.0235 USD</span></p>
+        </div>
+
+        <div class="calc__desc">
+          <p>
+            *Діючі умови обміну валюти визначаються у формі копії наказу
+            (розпорядження) фінансової установи, розміщеному виключно у касах
+            фінансових установ - партнерів Програми лояльності.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
