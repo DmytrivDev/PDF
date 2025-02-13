@@ -44,7 +44,7 @@
       <div class="calc">
         <h2 class="tl3">Онлайн-калькулятор</h2>
 
-        <div class="calc__variat">
+        <!-- <div class="calc__variat">
           <label>
             <input type="radio" name="variation" value="shredded" checked />
             <p>Роздріб</p>
@@ -53,17 +53,41 @@
             <input type="radio" name="variation" value="wholesale" />
             <p>Опт</p>
           </label>
-        </div>
+        </div> -->
 
         <div class="calc__wrapp">
-          <div class="calc__give">
+          <div class="calc__exchange">
             <p>Віддаєте</p>
             <div class="calc__box">
               <select class="select-give">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="PLN">PLN</option>
+                <option
+                  value="USD"
+                  data-flag="./img/icons/flag_1.svg"
+                  data-fullname="Долар США"
+                >
+                  USD
+                </option>
+                <option
+                  value="EUR"
+                  data-flag="./img/icons/flag_2.svg"
+                  data-fullname="Євро"
+                >
+                  EUR
+                </option>
+                <option
+                  value="GBP"
+                  data-flag="./img/icons/flag_3.svg"
+                  data-fullname="Фунт стерлінгів"
+                >
+                  GBP
+                </option>
+                <option
+                  value="PLN"
+                  data-flag="./img/icons/flag_4.svg"
+                  data-fullname="Злотий"
+                >
+                  PLN
+                </option>
               </select>
               <input type="text" name="input-give" placeholder="00.00" />
             </div>
@@ -73,14 +97,38 @@
             <span><img src="./img/icons/toggle.svg" alt="Toggle calc" /></span>
           </button>
 
-          <div class="calc__receive">
+          <div class="calc__exchange">
             <p>Отримаєте</p>
             <div class="calc__box">
               <select class="select-receive">
-                <option value="UAH">UAH</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="PLN">PLN</option>
+                <option
+                  value="UAH"
+                  data-flag="./img/icons/flag_5.svg"
+                  data-fullname="Гривня"
+                >
+                  UAH
+                </option>
+                <option
+                  value="EUR"
+                  data-flag="./img/icons/flag_2.svg"
+                  data-fullname="Євро"
+                >
+                  EUR
+                </option>
+                <option
+                  value="GBP"
+                  data-flag="./img/icons/flag_3.svg"
+                  data-fullname="Фунт стерлінгів"
+                >
+                  GBP
+                </option>
+                <option
+                  value="PLN"
+                  data-flag="./img/icons/flag_4.svg"
+                  data-fullname="Злотий"
+                >
+                  PLN
+                </option>
               </select>
               <input type="text" name="input-receive" placeholder="00.00" />
             </div>

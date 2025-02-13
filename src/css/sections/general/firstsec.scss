@@ -68,8 +68,8 @@
     br {
       display: none;
     }
-
     min-height: 26.25rem;
+
     &.halvsec {
       min-height: 26.25rem;
       .firstsec__body {
@@ -113,8 +113,9 @@
 
 @media screen and (max-width: 680px) {
   .firstsec {
-    margin-bottom: 10.3125rem;
+    margin-bottom: 10.375rem;
     min-height: 37.5rem;
+
     &.halvsec {
       min-height: 37.5rem;
       .firstsec__body {

@@ -1,7 +1,4 @@
 .calc {
-}
-
-.calc {
   position: relative;
   z-index: 5;
   flex-shrink: 0;
@@ -14,36 +11,37 @@
     text-align: center;
     margin-bottom: 1.5rem;
   }
-  &__variat {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border: 0.0625rem solid var(--cd);
-    padding: 0.25rem;
-    margin-bottom: 1rem;
-    label {
-      cursor: pointer;
 
-      input {
-        display: none;
-        &:checked + p {
-          background: var(--lf);
-          color: var(--cw);
-        }
-      }
-      p {
-        width: 100%;
-        text-align: center;
-        padding: 1.0625rem 1.25rem 0.875rem 1.25rem;
-        color: var(--cv);
-        background: var(--cw);
-        font-weight: 600;
-        font-size: 0.9375rem;
-        line-height: 1.4;
-        letter-spacing: -0.047em;
-        text-transform: uppercase;
-      }
-    }
-  }
+  // &__variat {
+  //   display: grid;
+  //   grid-template-columns: repeat(2, 1fr);
+  //   border: 0.0625rem solid var(--cd);
+  //   padding: 0.25rem;
+  //   margin-bottom: 1rem;
+  //   label {
+  //     cursor: pointer;
+
+  //     input {
+  //       display: none;
+  //       &:checked + p {
+  //         background: var(--lf);
+  //         color: var(--cw);
+  //       }
+  //     }
+  //     p {
+  //       width: 100%;
+  //       text-align: center;
+  //       padding: 1.0625rem 1.25rem 0.875rem 1.25rem;
+  //       color: var(--cv);
+  //       background: var(--cw);
+  //       font-weight: 600;
+  //       font-size: 0.9375rem;
+  //       line-height: 1.4;
+  //       letter-spacing: -0.047em;
+  //       text-transform: uppercase;
+  //     }
+  //   }
+  // }
 
   &__wrapp {
     position: relative;
@@ -52,16 +50,14 @@
     gap: 1rem 0;
     margin-bottom: 1.5rem;
   }
-  &__give,
-  &__receive {
+  &__exchange {
     position: relative;
-    border: 0.0625rem solid var(--cd);
 
     & > p {
       position: absolute;
-      z-index: 2;
+      z-index: 5;
       top: 0;
-      left: 1.4375rem;
+      left: 0.9375rem;
       transform: translateY(-50%);
       color: var(--cg);
       font-size: 0.9375rem;
@@ -74,13 +70,16 @@
   &__box {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    height: 4.375rem;
     input {
       width: 100%;
       text-align: right;
       font-size: 1.5rem;
       line-height: 1.4;
       letter-spacing: -0.03em;
-      padding: 1.125rem 1.4375rem 0.75rem 1.4375rem;
+      padding: 0.625rem 1.4375rem 0.625rem 1.4375rem;
+      border: 0.0625rem solid var(--cd);
+      border-left: none;
       &::placeholder {
         color: var(--cg);
       }
@@ -88,7 +87,7 @@
   }
   &__toggle {
     position: absolute;
-    z-index: 2;
+    z-index: 6;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%) rotate(30deg);
@@ -100,11 +99,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.15s ease-in;
     span {
       width: 1.9375rem;
       img {
         width: 100%;
       }
+    }
+    &:hover {
+      transform: translateX(-50%) translateY(-50%) rotate(180deg);
     }
   }
 
@@ -138,16 +141,40 @@
 }
 .select-receive {
 }
-.btn-def {
-}
-.openModal {
-}
 
 @media screen and (max-width: 960px) {
   .calc {
-    flex-shrink: 0;
     width: 18.75rem;
-    min-height: 27.75rem;
+    padding: 1.9375rem 0.9375rem 1.4375rem 0.9375rem;
+
+    &__wrapp {
+      margin-bottom: 1rem;
+    }
+    &__exchange {
+      & > p {
+        left: 0.5rem;
+        font-size: 0.8125rem;
+      }
+    }
+    &__box {
+      height: 3.75rem;
+      input {
+        font-size: 1rem;
+        padding: 0.5rem 0.9375rem 0.5rem 0.9375rem;
+      }
+    }
+
+    & > .btn-def {
+      padding: 1.0625rem 1.25rem 0.875rem 1.25rem;
+    }
+    &__courses {
+      font-size: 0.75rem;
+      margin-bottom: 0.8125rem;
+    }
+    &__desc {
+      font-size: 0.75rem;
+      padding: 1rem 0 0 0;
+    }
   }
 }
 
@@ -155,10 +182,10 @@
   .calc {
     align-self: stretch;
     position: absolute;
-    bottom: 0;
+    z-index: 2;
     left: 50%;
-    transform: translateX(-50%);
-    bottom: -10.3125rem;
+    transform: translateX(-50%) translateY(-17.375rem);
+    top: 100%;
     border: 0.0625rem solid var(--cd);
   }
 }

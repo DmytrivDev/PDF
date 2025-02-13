@@ -1,49 +1,56 @@
 import TomSelect from 'tom-select';
 import 'tom-select/dist/css/tom-select.default.css';
 
-const tomSelect = document.querySelectorAll('.select-give, .select-receive');
+const selectCalc = document.querySelectorAll('.select-give, .select-receive');
 
-tomSelect?.forEach(select => {
-  const options = Array.from(select.options);
+selectCalc?.forEach(select => {
+  initTomSelect(select);
+});
 
-  const sortedOptions = options.sort((a, b) => {
-    if (a.text === select.options[0].text) return -1;
-    if (b.text === select.options[0].text) return 1;
-    return a.text.localeCompare(b.text);
-  });
-
-  select.innerHTML = '';
-
-  sortedOptions.forEach(option => {
-    select.appendChild(option);
-  });
-
-  new TomSelect(select, {
+function initTomSelect(container) {
+  const tomSelect = new TomSelect(container, {
     create: false,
     controlInput: false,
     allowEmptyOption: true,
     searchField: [],
     render: {
       item: function (data, escape) {
-        if (select.dataset.txt) {
-          return `<div>${select.dataset.txt} ${escape(data.text)}</div>`;
-        } else {
-          return `<div>${escape(data.text)}</div>`;
-        }
+        const option = container.querySelector(`option[value="${data.value}"]`);
+        const flagSrc = option?.dataset.flag;
+
+        return flagSrc
+          ? `<div>
+              <span>
+                <img src="${escape(flagSrc)}" alt="${escape(data.text.trim())}">
+              </span>
+              ${escape(data.text.trim())}
+            </div>`
+          : `<div>${escape(data.text.trim())}</div>`;
+      },
+      option: function (data, escape) {
+        const option = container.querySelector(`option[value="${data.value}"]`);
+        const fullname = option?.dataset.fullname || '';
+
+        return `
+        <div>
+          <p>${escape(data.text.trim())}</p>
+          <span>${escape(fullname)}</span>
+        </div>
+      `;
       },
     },
+
     onDropdownOpen: function () {
+      const par = container.closest('.calc__exchange').querySelector('p');
+      par.style.zIndex = '15';
       this.dropdown.classList.add('isOpen');
     },
     onDropdownClose: function () {
+      const par = container.closest('.calc__exchange').querySelector('p');
+      par.style.zIndex = '5';
       this.dropdown.classList.remove('isOpen');
     },
   });
-});
 
-// <select class="tom-select" data-txt="All:">
-//   <option value="">All</option>
-//   <option value="1">Nikola</option>
-//   <option value="2">Nikola Tesla</option>
-//   <option value="3">Thomas Edison</option>
-// </select>
+  return tomSelect;
+}
