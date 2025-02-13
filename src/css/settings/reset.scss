@@ -98,7 +98,7 @@
       &::after {
         margin: 0;
         border: none;
-        right: 1.4375rem !important;
+        right: 1.5rem !important;
         transform: rotateX(0) translateY(-50%);
         width: 0.3125rem;
         height: 0.375rem;
@@ -151,8 +151,7 @@
     }
   }
   .ts-dropdown.single {
-    padding: 0 1.4375rem;
-    padding-bottom: 0.5rem;
+    padding: 0 1rem 0.5rem 1.4375rem;
     border: 0.0625rem solid var(--cd);
     border-top: none;
     background-color: var(--cw);
@@ -166,7 +165,7 @@
     }
 
     .ts-dropdown-content {
-      max-height: 11.25rem;
+      max-height: 11.625rem;
       padding-right: 0.5625rem;
       &::-webkit-scrollbar {
         -webkit-appearance: none;
@@ -196,6 +195,7 @@
       }
       &:last-child {
         border-bottom: none;
+        padding-bottom: 0;
       }
       p {
         line-height: 1.4;
@@ -284,10 +284,14 @@
       }
     }
     .ts-dropdown.single {
-      padding: 0 0.9375rem;
+      padding: 0 0.625rem 0.375rem 0.9375rem;
 
       .ts-dropdown-content {
         max-height: 9.0625rem;
+
+        &::-webkit-scrollbar {
+          width: 0.0625rem;
+        }
       }
 
       .option {
