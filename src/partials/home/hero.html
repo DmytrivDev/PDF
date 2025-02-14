@@ -65,7 +65,6 @@
                   data-flag="./img/icons/flag_1.svg"
                   data-fullname="Долар США"
                   data-give="41.75"
-                  data-receive="41.95"
                   selected
                 >
                   USD
@@ -75,7 +74,6 @@
                   data-flag="./img/icons/flag_2.svg"
                   data-fullname="Євро"
                   data-give="43.40"
-                  data-receive="43.60"
                 >
                   EUR
                 </option>
@@ -84,7 +82,6 @@
                   data-flag="./img/icons/flag_3.svg"
                   data-fullname="Фунт стерлінгів"
                   data-give="51.00"
-                  data-receive="52.30"
                 >
                   GBP
                 </option>
@@ -93,7 +90,6 @@
                   data-flag="./img/icons/flag_4.svg"
                   data-fullname="Злотий"
                   data-give="10.05"
-                  data-receive="10.35"
                 >
                   PLN
                 </option>
@@ -102,12 +98,16 @@
                   data-flag="./img/icons/flag_5.svg"
                   data-fullname="Гривня"
                   data-give="1"
-                  data-receive="1"
                 >
                   UAH
                 </option>
               </select>
-              <input type="text" name="input-give" placeholder="00.00" />
+              <input
+                type="text"
+                name="input-give"
+                placeholder="00.00"
+                autocomplete="off"
+              />
             </div>
           </div>
 
@@ -123,7 +123,6 @@
                   value="USD"
                   data-flag="./img/icons/flag_1.svg"
                   data-fullname="Долар США"
-                  data-give="41.75"
                   data-receive="41.95"
                 >
                   USD
@@ -132,7 +131,6 @@
                   value="EUR"
                   data-flag="./img/icons/flag_2.svg"
                   data-fullname="Євро"
-                  data-give="43.40"
                   data-receive="43.60"
                 >
                   EUR
@@ -141,7 +139,6 @@
                   value="GBP"
                   data-flag="./img/icons/flag_3.svg"
                   data-fullname="Фунт стерлінгів"
-                  data-give="51.00"
                   data-receive="52.30"
                 >
                   GBP
@@ -150,7 +147,6 @@
                   value="PLN"
                   data-flag="./img/icons/flag_4.svg"
                   data-fullname="Злотий"
-                  data-give="10.05"
                   data-receive="10.35"
                 >
                   PLN
@@ -159,14 +155,18 @@
                   value="UAH"
                   data-flag="./img/icons/flag_5.svg"
                   data-fullname="Гривня"
-                  data-give="1"
                   data-receive="1"
                   selected
                 >
                   UAH
                 </option>
               </select>
-              <input type="text" name="input-receive" placeholder="00.00" />
+              <input
+                type="text"
+                name="input-receive"
+                placeholder="00.00"
+                autocomplete="off"
+              />
             </div>
           </div>
         </div>

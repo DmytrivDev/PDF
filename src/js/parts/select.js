@@ -70,36 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
     return parseFloat(select.selectedOptions[0].dataset.receive);
   }
 
-  let referral = true;
-
   // ================================
   function calculateExchange() {
     const amount = parseFloat(giveInput.value) || 0;
-    if (amount === 0) return (receiveInput.value = '');
+    const result = (amount * getGive(giveSelect)) / getReceive(receiveSelect);
 
-    let result;
-
-    if (referral) {
-      result = (amount * getGive(giveSelect)) / getGive(receiveSelect);
+    if (amount !== 0) {
+      receiveInput.value = result.toFixed(2);
     } else {
-      result = (amount * getReceive(giveSelect)) / getReceive(receiveSelect);
+      receiveInput.value = '';
     }
-
-    receiveInput.value = result.toFixed(2);
   }
 
   // ================================
   giveInput.addEventListener('input', calculateExchange);
-  receiveInput.addEventListener('input', calculateExchange);
 
-  giveSelect.addEventListener('change', () => {
-    referral = true;
-    calculateExchange();
-  });
-  receiveSelect.addEventListener('change', () => {
-    referral = true;
-    calculateExchange();
-  });
+  giveSelect.addEventListener('change', calculateExchange);
+  receiveSelect.addEventListener('change', calculateExchange);
 
   // ================================
   toggleButton.addEventListener('click', () => {
@@ -111,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     giveSelect.tomselect.setValue(receiveValue);
     receiveSelect.tomselect.setValue(giveValue);
 
-    referral = !referral;
     calculateExchange();
   });
 
