@@ -1,0 +1,226 @@
+<section class="currency firstsec halvsec" id="calc">
+  <div class="firstsec__container">
+    <div class="firstsec__body">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="./index.html">Головна</a></li>
+          <li>
+            <span>Вигідний та безпечний обмін валют у Чернівцях</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="three-graph" aria-label="Graph logo R"></div>
+      <div class="firstsec__logo" aria-label="Logo R">
+        <img src="./img/decor/hero_r.png" alt="" />
+      </div>
+
+      <div class="firstsec__content">
+        <div class="firstsec__header">
+          <h1 class="tl1 cw">
+            Вигідний<br />
+            та безпечний обмін<br />
+            валют у Чернівцях
+          </h1>
+        </div>
+        <div class="firstsec__desc">
+          <p>
+            Швидкі операції, актуальні курси<br />
+            та гарантія конфіденційності кожної<br />
+            транзакції. Обміняйте валюту<br />
+            з комфортом та вигідно за лічені хвилини.
+          </p>
+        </div>
+      </div>
+
+      <div class="calc">
+        <h2 class="tl3">Онлайн-калькулятор</h2>
+
+        <div class="calc__wrapp">
+          <div class="calc__exchange give-exchange">
+            <p>Віддаєте</p>
+            <div class="calc__box">
+              <select>
+                <option
+                  value="UAH"
+                  data-flag="./img/icons/flag_5.svg"
+                  data-fullname="Гривня"
+                  data-give="1"
+                  selected
+                >
+                  UAH
+                </option>
+                <option
+                  value="USD-B"
+                  data-flag="./img/icons/flag_1.svg"
+                  data-fullname="Долар США Синій"
+                  data-give="41.75"
+                >
+                  USD Синій
+                </option>
+                <option
+                  value="USD-W"
+                  data-flag="./img/icons/flag_1.svg"
+                  data-fullname="Долар США Білий"
+                  data-give="41.60"
+                >
+                  USD Білий
+                </option>
+                <option
+                  value="EUR"
+                  data-flag="./img/icons/flag_2.svg"
+                  data-fullname="Євро"
+                  data-give="43.40"
+                >
+                  EUR
+                </option>
+                <option
+                  value="GBP"
+                  data-flag="./img/icons/flag_3.svg"
+                  data-fullname="Фунт стерлінгів"
+                  data-give="51.00"
+                >
+                  GBP
+                </option>
+                <option
+                  value="PLN"
+                  data-flag="./img/icons/flag_4.svg"
+                  data-fullname="Злотий"
+                  data-give="10.05"
+                >
+                  PLN
+                </option>
+                <option
+                  value="RON"
+                  data-flag="./img/icons/flag_6.svg"
+                  data-fullname="Румунський лей"
+                  data-give="8.60"
+                >
+                  RON
+                </option>
+                <option
+                  value="MDL"
+                  data-flag="./img/icons/flag_7.svg"
+                  data-fullname="Молдовський лей"
+                  data-give="2.200"
+                >
+                  MDL
+                </option>
+              </select>
+              <input
+                type="text"
+                name="input-give"
+                placeholder="00.00"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <button type="button" class="calc__toggle" aria-label="Toggle calc">
+            <span><img src="./img/icons/toggle.svg" alt="Toggle calc" /></span>
+          </button>
+
+          <div class="calc__exchange receive-exchange">
+            <p>Отримаєте</p>
+            <div class="calc__box">
+              <select>
+                <option
+                  value="UAH"
+                  data-flag="./img/icons/flag_5.svg"
+                  data-fullname="Гривня"
+                  data-receive="1"
+                >
+                  UAH
+                </option>
+                <option
+                  value="USD-B"
+                  data-flag="./img/icons/flag_1.svg"
+                  data-fullname="Долар США Синій"
+                  data-receive="41.95"
+                  selected
+                >
+                  USD Синій
+                </option>
+                <option
+                  value="USD-W"
+                  data-flag="./img/icons/flag_1.svg"
+                  data-fullname="Долар США Білий"
+                  data-receive="41.80"
+                >
+                  USD Білий
+                </option>
+                <option
+                  value="EUR"
+                  data-flag="./img/icons/flag_2.svg"
+                  data-fullname="Євро"
+                  data-receive="43.60"
+                >
+                  EUR
+                </option>
+                <option
+                  value="GBP"
+                  data-flag="./img/icons/flag_3.svg"
+                  data-fullname="Фунт стерлінгів"
+                  data-receive="52.30"
+                >
+                  GBP
+                </option>
+                <option
+                  value="PLN"
+                  data-flag="./img/icons/flag_4.svg"
+                  data-fullname="Злотий"
+                  data-receive="10.35"
+                >
+                  PLN
+                </option>
+                <option
+                  value="RON"
+                  data-flag="./img/icons/flag_6.svg"
+                  data-fullname="Румунський лей"
+                  data-receive="8.90"
+                >
+                  RON
+                </option>
+                <option
+                  value="MDL"
+                  data-flag="./img/icons/flag_7.svg"
+                  data-fullname="Молдовський лей"
+                  data-receive="2.280"
+                >
+                  MDL
+                </option>
+              </select>
+              <input
+                type="text"
+                name="input-receive"
+                placeholder="00.00"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="calc__add btn-def openModal"
+          data-id="modalConnect"
+        >
+          Забронювати курс
+        </button>
+
+        <div class="calc__courses">
+          <p>1 USD = <span>00.00 UAH</span></p>
+          <p>1 UAH = <span>00.00 USD</span></p>
+        </div>
+
+        <div class="calc__desc">
+          <p>
+            *Діючі умови обміну валюти визначаються у формі копії наказу
+            (розпорядження) фінансової установи, розміщеному виключно у касах
+            фінансових установ - партнерів Програми лояльності.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

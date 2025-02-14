@@ -23,7 +23,7 @@ function initTomSelect(container) {
               <span>
                 <img src="${escape(flagSrc)}" alt="${escape(data.text.trim())}">
               </span>
-              ${escape(data.text.trim())}
+              <p>${escape(data.text.trim())}</p>
             </div>`
           : `<div>${escape(data.text.trim())}</div>`;
       },

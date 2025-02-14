@@ -83,6 +83,8 @@
     color: inherit;
   }
   .ts-wrapper.single {
+    width: 100%;
+    max-width: 50%;
     .ts-control {
       --ts-pr-caret: 2.5rem;
       padding: 0.625rem 1.4375rem;
@@ -108,16 +110,12 @@
         background-image: var(--vectorDf);
       }
       .item {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 1.125rem;
-        line-height: 1.4;
-        letter-spacing: -0.03em;
         display: flex;
         align-items: center;
         gap: 0 0.5rem;
+        overflow: hidden;
         & > span {
+          flex-shrink: 0;
           position: relative;
           top: -0.0625rem;
           width: 2rem;
@@ -126,7 +124,16 @@
           padding: 0.1875rem;
           img {
             width: 100%;
+            height: 100%;
           }
+        }
+        & > p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 1.125rem;
+          line-height: 1.4;
+          letter-spacing: -0.03em;
         }
       }
     }
@@ -275,10 +282,12 @@
           right: 0.9375rem !important;
         }
         .item {
-          font-size: 0.875rem;
           & > span {
             width: 1.625rem;
             height: 1.125rem;
+          }
+          & > p {
+            font-size: 0.875rem;
           }
         }
       }

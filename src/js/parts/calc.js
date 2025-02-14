@@ -22,7 +22,7 @@ function debounceCalculation(callback) {
   debounceTimeout = setTimeout(callback, 300);
 }
 
-function calculateExchangeFromGive() {
+function calcExchangeFromGive() {
   if (!giveSelect && !receiveSelect) return;
 
   const amount = parseFloat(giveInput.value) || 0;
@@ -31,7 +31,7 @@ function calculateExchangeFromGive() {
   receiveInput.value = amount !== 0 ? result.toFixed(2) : '';
   updateExchangeRates();
 }
-function calculateExchangeFromReceive() {
+function calcExchangeFromReceive() {
   if (!giveSelect && !receiveSelect) return;
 
   const amount = parseFloat(receiveInput.value) || 0;
@@ -79,15 +79,15 @@ function updateExchangeRates() {
 
 function handleGiveInput() {
   formatInputValue(giveInput);
-  receiveInput.removeEventListener('input', calculateExchangeFromReceive);
-  debounceCalculation(calculateExchangeFromGive);
-  receiveInput.addEventListener('input', calculateExchangeFromReceive);
+  receiveInput.removeEventListener('input', calcExchangeFromReceive);
+  debounceCalculation(calcExchangeFromGive);
+  receiveInput.addEventListener('input', calcExchangeFromReceive);
 }
 function handleReceiveInput() {
   formatInputValue(receiveInput);
-  giveInput.removeEventListener('input', calculateExchangeFromGive);
-  debounceCalculation(calculateExchangeFromReceive);
-  giveInput.addEventListener('input', calculateExchangeFromGive);
+  giveInput.removeEventListener('input', calcExchangeFromGive);
+  debounceCalculation(calcExchangeFromReceive);
+  giveInput.addEventListener('input', calcExchangeFromGive);
 }
 
 function handleExchangeTogglea() {
@@ -100,8 +100,7 @@ function handleExchangeTogglea() {
   giveSelect.tomselect.setValue(receiveValue);
   receiveSelect.tomselect.setValue(giveValue);
 
-  debounceCalculation(calculateExchangeFromGive);
-  updateExchangeRates();
+  debounceCalculation(calcExchangeFromGive);
 }
 function handleExchangeData() {
   const giveCurrency = giveSelect.selectedOptions[0].value.trim();
@@ -131,18 +130,15 @@ giveInput?.addEventListener('input', handleGiveInput);
 receiveInput?.addEventListener('input', handleReceiveInput);
 
 giveSelect?.addEventListener('change', () => {
-  debounceCalculation(calculateExchangeFromGive);
-  updateExchangeRates();
+  debounceCalculation(calcExchangeFromGive);
 });
 receiveSelect?.addEventListener('change', () => {
-  debounceCalculation(calculateExchangeFromGive);
-  updateExchangeRates();
+  debounceCalculation(calcExchangeFromGive);
 });
 
 calcToggle?.addEventListener('click', handleExchangeTogglea);
 calcAdd?.addEventListener('click', handleExchangeData);
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateExchangeRates();
-  debounceCalculation(calculateExchangeFromGive);
+  debounceCalculation(calcExchangeFromGive);
 });
