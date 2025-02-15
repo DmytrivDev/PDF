@@ -8,6 +8,7 @@ import './parts/splide.js';
 import './parts/select.js';
 import './parts/accordion.js';
 import './parts/modal.js';
+import './parts/booking.js';
 import './parts/forms.js';
 import './parts/parallax.js';
 import './parts/moreblock.js';

@@ -10,16 +10,16 @@ const calcCoursese = document.querySelector('.calc__courses');
 
 let debounceTimeout;
 
+export function debounceCalculation(callback) {
+  clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(callback, 300);
+}
+
 function getGive(select) {
   return parseFloat(select.selectedOptions[0].dataset.give);
 }
 function getReceive(select) {
   return parseFloat(select.selectedOptions[0].dataset.receive);
-}
-
-function debounceCalculation(callback) {
-  clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(callback, 300);
 }
 
 function calcExchangeFromGive() {
@@ -98,7 +98,8 @@ function handleExchangeTogglea() {
 
   calcExchangeFromGive();
 }
-function handleExchangeData() {
+export function handleExchangeData() {
+  calcExchangeFromGive();
   const giveCurrency = giveSelect.selectedOptions[0].value.trim();
   const receiveCurrency = receiveSelect.selectedOptions[0].value.trim();
   const giveAmount = parseFloat(giveInput.value) || 0;
@@ -110,16 +111,11 @@ function handleExchangeData() {
     4
   );
 
-  console.log(`Валюта для обміну: ${giveCurrency}, Сума: ${giveAmount}`);
-  console.log(
-    `Отримана валюта: ${receiveCurrency}, Результат: ${receiveAmount}`
-  );
-  console.log(`Курс: 1 ${giveCurrency} = ${directRate} ${receiveCurrency}`);
-  console.log(
-    `Зворотній курс: 1 ${receiveCurrency} = ${inverseRate} ${giveCurrency}`
-  );
-
-  // submitExchangeData(giveCurrency, giveAmount, receiveCurrency, receiveAmount, directRate);
+  return {
+    currencyExchange: `${giveCurrency} = ${giveAmount}`,
+    currencyReceived: `${receiveCurrency} = ${receiveAmount}`,
+    reverseCourse: `${giveCurrency} = ${directRate} ${receiveCurrency}; ${receiveCurrency} = ${inverseRate} ${giveCurrency}`,
+  };
 }
 
 export function addDisableSelect() {

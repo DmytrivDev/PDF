@@ -1,6 +1,7 @@
 import { lockScroll, unlockScroll } from './lockscroll.js';
 
 import { closeMenu } from './mobmenu.js';
+import { addBookingCurrency } from './booking.js';
 
 export const activeModals = new Set();
 const initializedModals = new WeakSet();
@@ -53,6 +54,7 @@ export function openModal(modalId) {
 
     if (!modal.classList.contains('isOpened')) {
       closeMenu();
+      addBookingCurrency(modal);
       showModal(modal);
     }
   }

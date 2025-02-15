@@ -73,6 +73,10 @@ function submitForm(e) {
   if (!errors) {
     setTimeout(() => e.target.reset(), 300);
 
+    // Для тесту
+    const formData = new FormData(e.target);
+    const formValues = Object.fromEntries(formData.entries());
+    console.log(formValues);
     // sendForm(e.target);
   }
 }

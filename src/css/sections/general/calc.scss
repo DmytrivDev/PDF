@@ -12,37 +12,6 @@
     margin-bottom: 1.5rem;
   }
 
-  // &__variat {
-  //   display: grid;
-  //   grid-template-columns: repeat(2, 1fr);
-  //   border: 0.0625rem solid var(--cd);
-  //   padding: 0.25rem;
-  //   margin-bottom: 1rem;
-  //   label {
-  //     cursor: pointer;
-
-  //     input {
-  //       display: none;
-  //       &:checked + p {
-  //         background: var(--lf);
-  //         color: var(--cw);
-  //       }
-  //     }
-  //     p {
-  //       width: 100%;
-  //       text-align: center;
-  //       padding: 1.0625rem 1.25rem 0.875rem 1.25rem;
-  //       color: var(--cv);
-  //       background: var(--cw);
-  //       font-weight: 600;
-  //       font-size: 0.9375rem;
-  //       line-height: 1.4;
-  //       letter-spacing: -0.047em;
-  //       text-transform: uppercase;
-  //     }
-  //   }
-  // }
-
   &__wrapp {
     position: relative;
     display: flex;

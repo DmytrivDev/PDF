@@ -1,0 +1,91 @@
+<div class="booking modal" id="modalBooking">
+  <div class="modal__container wide containerModal">
+    <div class="modal__body">
+      <button
+        type="button"
+        class="modal__close closeModal"
+        aria-label="Close modal window"
+      ></button>
+
+      <div class="modal__bg" aria-hidden="true">
+        <div class="no-select">
+          <img src="./img/decor/bg_mod.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="modal__wrapp">
+        <h2 class="tl2 cw">
+          Забронювати<br />
+          курс
+        </h2>
+
+        <form class="form submitForm" id="contactManager">
+          <div class="form__box">
+            <label class="label__def">
+              <span class="input__def">
+                <input
+                  type="text"
+                  placeholder="Ім’я"
+                  name="nameUser"
+                  data-required="true"
+                />
+              </span>
+              <span class="required"></span>
+            </label>
+            <label class="label__def">
+              <span class="input__def">
+                <input
+                  type="tel"
+                  placeholder="Телефон"
+                  name="telUser"
+                  data-required="true"
+                />
+              </span>
+              <span class="required"></span>
+            </label>
+
+            <label class="label__def">
+              <span class="input__def">
+                <input
+                  type="text"
+                  placeholder="Валюта для обміну:"
+                  name="currencyExchange"
+                />
+              </span>
+            </label>
+            <label class="label__def">
+              <span class="input__def">
+                <input
+                  type="text"
+                  placeholder="Отримана валюта:"
+                  name="currencyReceived"
+                />
+              </span>
+            </label>
+            <label class="label__def">
+              <span class="input__def">
+                <input
+                  type="text"
+                  placeholder="Курс + зворотній курс"
+                  name="reverseCourse"
+                />
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-def btn-cw">
+            <span>Відправити</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="modal__desc">
+        <p>
+          *Надіславши цей запит, Ви надаєте згоду<br />
+          на збір, обробку та зберігання Ваших<br />
+          персональних даних
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
