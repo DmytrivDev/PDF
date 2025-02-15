@@ -72,6 +72,7 @@
   }
 
   // ============== Tom select ==============
+
   .ts-wrapper {
     min-height: auto;
   }
@@ -211,6 +212,11 @@
         display: block;
         color: var(--cg);
         font-size: 0.75rem;
+      }
+
+      &.noSelect {
+        pointer-events: none;
+        opacity: 0.5;
       }
     }
   }

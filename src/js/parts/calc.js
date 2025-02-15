@@ -54,10 +54,6 @@ function formatInputValue(input) {
     value = parts.join('.');
   }
 
-  if (parseFloat(value) > 1000000) {
-    value = '1000000';
-  }
-
   input.value = value;
 }
 
@@ -100,7 +96,7 @@ function handleExchangeTogglea() {
   giveSelect.tomselect.setValue(receiveValue);
   receiveSelect.tomselect.setValue(giveValue);
 
-  debounceCalculation(calcExchangeFromGive);
+  calcExchangeFromGive();
 }
 function handleExchangeData() {
   const giveCurrency = giveSelect.selectedOptions[0].value.trim();
@@ -124,6 +120,44 @@ function handleExchangeData() {
   );
 
   // submitExchangeData(giveCurrency, giveAmount, receiveCurrency, receiveAmount, directRate);
+}
+
+export function addDisableSelect() {
+  const giveValue = giveSelect.tomselect.getValue();
+  const receiveValue = receiveSelect.tomselect.getValue();
+
+  const dropdownGiveSelect =
+    giveSelect.tomselect.dropdown_content.querySelector(
+      `[data-value="${receiveValue}"]`
+    );
+  const dropdownReceiveSelect =
+    receiveSelect.tomselect.dropdown_content.querySelector(
+      `[data-value="${giveValue}"]`
+    );
+
+  if (dropdownGiveSelect) {
+    dropdownGiveSelect.classList.add('noSelect');
+  }
+  if (dropdownReceiveSelect) {
+    dropdownReceiveSelect.classList.add('noSelect');
+  }
+}
+export function delDisableSelect() {
+  const dropdownGiveSelect =
+    giveSelect.tomselect.dropdown_content.querySelectorAll('.option');
+  const dropdownReceiveSelect =
+    receiveSelect.tomselect.dropdown_content.querySelectorAll('.option');
+
+  if (dropdownGiveSelect) {
+    dropdownGiveSelect.forEach(option => {
+      option.classList.remove('noSelect');
+    });
+  }
+  if (dropdownReceiveSelect) {
+    dropdownReceiveSelect.forEach(option => {
+      option.classList.remove('noSelect');
+    });
+  }
 }
 
 giveInput?.addEventListener('input', handleGiveInput);
