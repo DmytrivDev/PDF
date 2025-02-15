@@ -10,41 +10,48 @@ const calcCoursese = document.querySelector('.calc__courses');
 
 let debounceTimeout;
 
-export function debounceCalculation(callback) {
+// Функція для дебаунсінгу (затримка) обчислень
+function debounceCalculation(callback) {
   clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(callback, 300);
 }
 
+// Отримання значення для валюти "віддачі" з селектора
 function getGive(select) {
   return parseFloat(select.selectedOptions[0].dataset.give);
 }
+// Отримання значення для валюти "отримання" з селектора
 function getReceive(select) {
   return parseFloat(select.selectedOptions[0].dataset.receive);
 }
 
+// Обчислення курсу при введенні суми "віддачі"
 function calcExchangeFromGive() {
   if (!giveSelect && !receiveSelect) return;
 
   const amount = parseFloat(giveInput.value) || 0;
   const result = (amount * getGive(giveSelect)) / getReceive(receiveSelect);
 
-  receiveInput.value = amount !== 0 ? result.toFixed(2) : '';
-  updateExchangeRates();
+  receiveInput.value = amount !== 0 ? result.toFixed(2) : ''; // Виводимо результат у відповідне поле
+  updateExchangeRates(); // Оновлюємо курси валют
 }
+// Обчислення курсу при введенні суми "отримання"
 function calcExchangeFromReceive() {
   if (!giveSelect && !receiveSelect) return;
 
   const amount = parseFloat(receiveInput.value) || 0;
   const result = (amount * getReceive(receiveSelect)) / getGive(giveSelect);
 
-  giveInput.value = amount !== 0 ? result.toFixed(2) : '';
-  updateExchangeRates();
+  giveInput.value = amount !== 0 ? result.toFixed(2) : ''; // Виводимо результат у відповідне поле
+  updateExchangeRates(); // Оновлюємо курси валют
 }
 
+// Форматування значення введеного в інпут
 function formatInputValue(input) {
-  let value = input.value.replace(/[^0-9.]/g, '');
+  let value = input.value.replace(/[^0-9.]/g, ''); // Видаляємо всі нецифрові символи, окрім крапки
 
-  const parts = value.split('.');
+  const parts = value.split('.'); // Розділяємо на цілу та дробову частину
+  // Якщо більше двох крапок, то з'єднуємо їх
   if (parts.length > 2) {
     value = parts[0] + '.' + parts.slice(1).join('');
   }
@@ -57,6 +64,7 @@ function formatInputValue(input) {
   input.value = value;
 }
 
+// Оновлення відображення курсів валют
 function updateExchangeRates() {
   if (!giveSelect && !receiveSelect) return;
   const giveCurrency = giveSelect.selectedOptions[0].value.trim();
@@ -73,12 +81,14 @@ function updateExchangeRates() {
   `;
 }
 
+// Обробка введення суми "віддачі" (для обчислення)
 function handleGiveInput() {
   formatInputValue(giveInput);
   receiveInput.removeEventListener('input', calcExchangeFromReceive);
   debounceCalculation(calcExchangeFromGive);
   receiveInput.addEventListener('input', calcExchangeFromReceive);
 }
+// Обробка введення суми "отримання"
 function handleReceiveInput() {
   formatInputValue(receiveInput);
   giveInput.removeEventListener('input', calcExchangeFromGive);
@@ -86,20 +96,23 @@ function handleReceiveInput() {
   giveInput.addEventListener('input', calcExchangeFromGive);
 }
 
+// Обробка перемикання курсів валют між полями
 function handleExchangeTogglea() {
-  giveInput.value = receiveInput.value;
+  giveInput.value = receiveInput.value; // Переміщаємо значення між полями
   receiveInput.value = giveInput.value;
 
-  const giveValue = giveSelect.tomselect.getValue();
-  const receiveValue = receiveSelect.tomselect.getValue();
+  const giveValue = giveSelect.tomselect.getValue(); // Отримуємо вибраний курс "віддачі"
+  const receiveValue = receiveSelect.tomselect.getValue(); // Отримуємо вибраний курс "отримання"
 
-  giveSelect.tomselect.setValue(receiveValue);
-  receiveSelect.tomselect.setValue(giveValue);
+  giveSelect.tomselect.setValue(receiveValue); // Змінюємо значення для "віддачі"
+  receiveSelect.tomselect.setValue(giveValue); // Змінюємо значення для "отримання"
 
-  calcExchangeFromGive();
+  calcExchangeFromGive(); // Перераховуємо курс
 }
+// Обробка даних для подальшої обробки або відправки
 export function handleExchangeData() {
-  calcExchangeFromGive();
+  calcExchangeFromGive(); // Перерахунок курсу на основі поточних значень
+
   const giveCurrency = giveSelect.selectedOptions[0].value.trim();
   const receiveCurrency = receiveSelect.selectedOptions[0].value.trim();
   const giveAmount = parseFloat(giveInput.value) || 0;
@@ -118,6 +131,7 @@ export function handleExchangeData() {
   };
 }
 
+// Функція для блокування вибору валюти в селекторі
 export function addDisableSelect() {
   const giveValue = giveSelect.tomselect.getValue();
   const receiveValue = receiveSelect.tomselect.getValue();
@@ -138,6 +152,7 @@ export function addDisableSelect() {
     dropdownReceiveSelect.classList.add('noSelect');
   }
 }
+// Функція для видалення блокування з вибору валют
 export function delDisableSelect() {
   const dropdownGiveSelect =
     giveSelect.tomselect.dropdown_content.querySelectorAll('.option');
