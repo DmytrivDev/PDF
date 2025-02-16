@@ -171,16 +171,6 @@
   }
 }
 
-.booking {
-  .form {
-    [name="currencyExchange"],
-    [name="currencyReceived"],
-    [name="reverseCourse"] {
-      display: none;
-    }
-  }
-}
-
 @media screen and (max-width: 960px) {
   .modal {
     &__body {

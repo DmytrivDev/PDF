@@ -20,6 +20,22 @@
         </h2>
 
         <form class="form submitForm" id="contactManager">
+          <input
+            type="hidden"
+            placeholder="Валюта для обміну:"
+            name="currencyExchange"
+          />
+          <input
+            type="hidden"
+            placeholder="Отримана валюта:"
+            name="currencyReceived"
+          />
+          <input
+            type="hidden"
+            placeholder="Курс + зворотній курс"
+            name="reverseCourse"
+          />
+
           <div class="form__box">
             <label class="label__def">
               <span class="input__def">
@@ -42,34 +58,6 @@
                 />
               </span>
               <span class="required"></span>
-            </label>
-
-            <label class="label__def">
-              <span class="input__def">
-                <input
-                  type="text"
-                  placeholder="Валюта для обміну:"
-                  name="currencyExchange"
-                />
-              </span>
-            </label>
-            <label class="label__def">
-              <span class="input__def">
-                <input
-                  type="text"
-                  placeholder="Отримана валюта:"
-                  name="currencyReceived"
-                />
-              </span>
-            </label>
-            <label class="label__def">
-              <span class="input__def">
-                <input
-                  type="text"
-                  placeholder="Курс + зворотній курс"
-                  name="reverseCourse"
-                />
-              </span>
             </label>
           </div>
 
