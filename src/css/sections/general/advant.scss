@@ -94,6 +94,9 @@
 
 @media screen and (max-width: 960px) {
   .advant {
+    .heading__txt {
+      font-size: 0.875rem;
+    }
     &__body {
       grid-template-columns: auto;
       padding-top: 1rem;

@@ -160,14 +160,14 @@
     }
 
     &__info {
-      grid-template-columns: 44% 20% 20% 16%;
+      grid-template-columns: 44% 20% 14% 22%;
       padding-bottom: 0.75rem;
       p {
         font-size: 0.75rem;
       }
     }
     &__currency {
-      grid-template-columns: 44% 20% 20% 16%;
+      grid-template-columns: 44% 20% 14% 22%;
       margin-bottom: 1rem;
       &::after {
         width: 100%;
@@ -197,7 +197,7 @@
       }
       .tobook {
         button {
-          font-size: 0.8125rem;
+          font-size: 0.75rem;
         }
       }
     }
@@ -210,7 +210,7 @@
   }
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 480px) {
   .swap {
     &__info {
       grid-template-columns: 50% 32% 18%;
@@ -224,6 +224,9 @@
         margin-top: 0.5rem;
         text-align: left;
         grid-area: 2 / 2 / 3 / 4;
+        button {
+          font-size: 0.8125rem;
+        }
       }
     }
   }

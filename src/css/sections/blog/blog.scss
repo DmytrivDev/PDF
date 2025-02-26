@@ -91,6 +91,9 @@
       .tl3 {
         text-decoration: underline;
       }
+      .blog__img {
+        transform: scale(1.1);
+      }
     }
   }
 
@@ -134,12 +137,21 @@
   &__img {
     z-index: 1;
     padding-top: 68.497%;
+    transition: all 0.15s ease-in;
     img {
       width: calc(100% - 0.375rem);
       height: calc(100% - 0.375rem);
       top: 50%;
       left: 50%;
       transform: translateX(-50%) translateY(-50%);
+    }
+  }
+
+  .pagination {
+    &.pagin-desc {
+    }
+    &.pagin-mob {
+      display: none;
     }
   }
 }
@@ -165,6 +177,11 @@
     }
     &__card {
       min-height: 22.5rem;
+      &:hover {
+        .blog__img {
+          transform: scale(1);
+        }
+      }
     }
 
     &__info {
@@ -198,6 +215,15 @@
   .blog {
     &__cards {
       grid-template-columns: 1fr;
+    }
+
+    .pagination {
+      &.pagin-desc {
+        display: none;
+      }
+      &.pagin-mob {
+        display: flex;
+      }
     }
   }
 }

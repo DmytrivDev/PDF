@@ -6,12 +6,14 @@ const accord = document.querySelectorAll('.accord');
 let globalIndex = 1;
 
 accord?.forEach((list, index) => {
+  const items = list.querySelectorAll('.ac');
+  const openIndexes = Array.from(items, (_, i) => i);
+
   new Accordion(list, {
+    openOnInit: openIndexes,
     duration: 400,
     showMultiple: true,
   });
-
-  const items = list.querySelectorAll('.ac');
 
   items.forEach(item => {
     const header = item.querySelector('.fqa__header');

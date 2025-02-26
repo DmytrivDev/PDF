@@ -124,7 +124,7 @@
 
     &__info {
       display: grid;
-      grid-template-columns: 44% 20% 20% 16%;
+      grid-template-columns: 44% 20% 14% 22%;
       border-bottom: 0.0625rem solid var(--cd);
       padding-bottom: 0.75rem;
       margin-bottom: 1rem;
@@ -140,7 +140,7 @@
       border: none;
       padding: 0;
       display: grid;
-      grid-template-columns: 44% 20% 20% 16%;
+      grid-template-columns: 44% 20% 14% 22%;
       align-items: center;
       .valuta {
         margin-bottom: 0;
@@ -183,6 +183,7 @@
       .tobook {
         text-align: right;
         .btn-def {
+          font-size: 0.75rem;
           display: inline-block;
           margin-top: 0;
           text-align: right;
@@ -208,7 +209,7 @@
   }
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 480px) {
   .assort {
     .splide__slide {
       &::after {
@@ -226,6 +227,7 @@
         grid-area: 2 / 2 / 3 / 4;
         .btn-def {
           text-align: left;
+          font-size: 0.8125rem;
         }
       }
     }

@@ -63,6 +63,8 @@
 }
 
 .btn-def {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   display: block;
   text-align: center;
@@ -75,7 +77,24 @@
   letter-spacing: -0.047em;
   width: fit-content;
   text-transform: uppercase;
-  transition: all 0.15s ease-in;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--lf-hover);
+    transform: translateX(-100%);
+    transition: all 0.2s ease-in-out;
+  }
+  &:hover {
+    &::after {
+      transform: translateX(0);
+    }
+  }
 
   &.btn-trns {
     width: 100%;
@@ -86,9 +105,15 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    &::after {
+      content: none;
+    }
   }
   &.btn-cw {
     background: var(--cw);
+    &::after {
+      content: none;
+    }
     span {
       display: block;
       background: var(--ln);
@@ -156,6 +181,9 @@
   .btn-def {
     font-size: 0.8125rem;
     padding-top: 1.125rem;
+    &::after {
+      content: none;
+    }
 
     &.btn-trns {
       max-width: 18.75rem;
