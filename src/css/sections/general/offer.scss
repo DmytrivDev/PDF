@@ -204,6 +204,11 @@
     &__card {
       padding: 1rem 0.625rem;
       min-height: auto;
+      .offer__img {
+        bottom: -.5rem;
+        top: auto;
+        transform: translate(-50%, 0);
+      }
       .tl3 {
         font-size: 0.875rem;
         position: static;
@@ -212,7 +217,7 @@
         transform: translateX(0) translateY(0);
         width: fit-content;
         height: auto;
-        margin-bottom: 12rem;
+        margin-bottom: 80%;
         &::after {
           width: 100%;
           height: 100%;
