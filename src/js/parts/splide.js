@@ -50,6 +50,27 @@ const initStepsSlider = () => {
   }
 };
 
+const sliderRev = document.querySelectorAll('.slider-rev');
+sliderRev?.forEach(container => {
+  initSlider(container, {
+    perPage: 3,
+    gap: '1.5rem',
+    pagination: true,
+    perMove: 1,
+    breakpoints: {
+      960: {
+        perPage: 2,
+        perMove: 2,
+        gap: '0.5rem',
+      },
+      775: {
+        perPage: 1,
+        perMove: 1,
+      },
+    },
+  });
+});
+
 let assortSliderInstance;
 const assort = document.querySelector('.assort');
 const initAssortSlider = () => {
