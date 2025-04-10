@@ -26,6 +26,22 @@ function applyStylesParallax(section, visibilityPercentage) {
   const isDesktop = window.innerWidth > 960;
   const items = section.querySelectorAll('& > li');
 
+  let maxHeightItems = 0;
+
+  items?.forEach(item => {
+    item.style.height = 'auto';
+  });
+
+  items?.forEach(item => {
+    const height = item.offsetHeight;
+    if (height > maxHeightItems) maxHeightItems = height;
+  });
+  items?.forEach(item => {
+    if (isDesktop) {
+      item.style.height = `${maxHeightItems}px`;
+    }
+  });
+
   // Визначаємо коефіцієнт для кожного класу
   const topVars = {
     prllxF: isDesktop ? (visibilityPercentage / 100) * 3.75 : 0,
@@ -47,13 +63,14 @@ function applyStylesParallax(section, visibilityPercentage) {
     if (items[index]) items[index].style.top = `-${topVar * multiplier}rem`;
   };
 
-  if (items.length > 4) {
+  if (items.length === 4 || items.length === 8) {
     setItemTop(1, 1);
     setItemTop(3, 1);
     setItemTop(5, 1);
     setItemTop(7, 1);
-  } else {
+  } else if (items.length === 3 || items.length === 6) {
     setItemTop(1, 1);
+    setItemTop(4, 1);
   }
 }
 

@@ -38,6 +38,7 @@
         background: var(--ln);
         background-clip: text;
         -webkit-background-clip: text;
+        padding: 0 0.125rem;
         &::after {
           content: "";
           position: absolute;

@@ -1,3 +1,34 @@
+.prllx-list {
+  &.var1 {
+    .card-def {
+      &:nth-child(2) {
+        margin-top: 3.75rem;
+      }
+      &:nth-child(4) {
+        margin-top: 3.75rem;
+      }
+      &:nth-child(5) {
+        margin-top: -3.75rem;
+      }
+      &:nth-child(7) {
+        margin-top: -3.75rem;
+      }
+    }
+  }
+  &.var2 {
+    .card-def {
+      &:nth-child(2) {
+        margin-top: 3.75rem;
+      }
+      &:nth-child(4) {
+        margin-top: -3.75rem;
+      }
+      &:nth-child(6) {
+        margin-top: -3.75rem;
+      }
+    }
+  }
+}
 .card-def {
   position: relative;
   border: 0.0625rem solid var(--cd);
@@ -7,19 +38,6 @@
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-
-  &:nth-child(2) {
-    margin-top: 3.75rem;
-  }
-  &:nth-child(4) {
-    margin-top: 3.75rem;
-  }
-  &:nth-child(5) {
-    margin-top: -3.75rem;
-  }
-  &:nth-child(7) {
-    margin-top: -3.75rem;
-  }
 
   &__num {
     font-size: 1.0625rem;
@@ -52,16 +70,31 @@
 }
 
 @media screen and (max-width: 960px) {
+  .prllx-list {
+    &.var1 {
+      .card-def {
+        &:nth-child(2),
+        &:nth-child(4),
+        &:nth-child(5),
+        &:nth-child(7) {
+          margin-top: 0;
+        }
+      }
+    }
+    &.var2 {
+      .card-def {
+        &:nth-child(2),
+        &:nth-child(4),
+        &:nth-child(6) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
   .card-def {
     padding: 0.9375rem;
     min-height: 15rem;
 
-    &:nth-child(2),
-    &:nth-child(4),
-    &:nth-child(5),
-    &:nth-child(7) {
-      margin-top: 0;
-    }
     &__num {
       font-size: 0.875rem;
       margin-bottom: 2.8125rem;
