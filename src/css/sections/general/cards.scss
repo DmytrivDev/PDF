@@ -1,4 +1,7 @@
 .prllx-list {
+  .card-def {
+    min-height: auto !important;
+  }
   &.var1 {
     .card-def {
       &:nth-child(2) {
