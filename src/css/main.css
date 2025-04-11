@@ -23,6 +23,7 @@
 @import url('./sections/general/location.scss');
 @import url('./sections/general/advant.scss');
 @import url('./sections/general/modal.scss');
+@import url('./sections/general/floating.scss');
 
 /* Header */
 @import url('./sections/header/header.scss');
