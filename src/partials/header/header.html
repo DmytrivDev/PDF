@@ -6,8 +6,6 @@
           <img src="./img/icons/logo.svg" alt="Logo" />
         </a>
 
-        <load src="partials/header/parts/navmenu.html" />
-
         <ul class="header__lang">
           <li>
             <a href="#">Укр</a>
@@ -19,15 +17,41 @@
           </li>
         </ul>
 
+        <load src="partials/header/parts/navmenu.html" />
+
         <button type="button" class="burger" aria-label="Open menu">
           <span></span>
           <span></span>
           <span></span>
         </button>
 
-        <button type="button" class="btn-def openModal" data-id="modalConnect">
-          Зв’язатись
-        </button>
+        <div class="header__actions">
+          <button
+            type="button"
+            class="btn-def openModal"
+            data-id="modalConnect"
+          >
+            Зв’язатись
+          </button>
+
+          <ul class="social">
+            <li class="social__hid">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="./img/icons/soc_1.svg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="./img/icons/soc_2.svg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="./img/icons/soc_3.svg" alt="" />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -4,40 +4,31 @@
   z-index: 1100;
   &__main {
     position: relative;
-    display: flex;
-    align-items: center;
     z-index: 110;
     background-color: var(--cw);
     border-bottom: 0.0625rem solid var(--ce);
-    padding: 0.5rem 0;
-    min-height: 4.3125rem;
-  }
-  &__container {
-    width: 100%;
   }
   &__body {
     position: relative;
     display: flex;
     align-items: center;
+    padding: 0.5rem 0;
+    min-height: 4.3125rem;
     .custom-logo-link {
-      position: relative;
-      z-index: 2;
       display: block;
+      flex: 0 0 auto;
       width: 6.2257rem;
-      margin-right: auto;
       img {
         width: 100%;
       }
     }
     .btn-def {
-      position: relative;
-      z-index: 2;
+      flex: 0 0 auto;
     }
   }
   &__lang {
-    position: relative;
-    z-index: 2;
-    margin-right: 2.5rem;
+    flex: 0 0 auto;
+    margin-left: 3.125rem;
     a {
       display: block;
       font-size: 0.9375rem;
@@ -101,6 +92,13 @@
     }
   }
 }
+.header__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0 1.875rem;
+  margin-left: auto;
+}
 
 .burger {
   display: none;
@@ -108,22 +106,20 @@
 
 @media screen and (max-width: 960px) {
   .header {
-    &__main {
-      min-height: 2.0625rem;
-    }
     &__body {
+      min-height: 3.0625rem;
       .custom-logo-link {
         width: 4.375rem;
-        margin-right: 0.9375rem;
       }
       .btn-def {
         padding: 0.5625rem 1rem 0.4375rem 1rem;
         font-size: 0.75rem;
         margin-left: auto;
+        display: none;
       }
     }
     &__lang {
-      margin-right: 0;
+      margin-left: 1.25rem;
       a {
         font-size: 0.75rem;
       }
@@ -134,6 +130,9 @@
       }
     }
   }
+  .header__actions {
+    gap: 0 0.9375rem;
+  }
 
   .burger {
     display: block;
@@ -143,6 +142,7 @@
     transform: translateX(-50%) translateY(-50%);
     width: 1.75rem;
     height: 0.75rem;
+    flex: 0 0 auto;
 
     span {
       position: absolute;
@@ -188,11 +188,9 @@
 
 @media screen and (max-width: 600px) {
   .header {
-    &__main {
-      padding: 0.3125rem 0;
-      min-height: 2.4375rem;
-    }
     &__body {
+      padding: 0.375rem 0;
+      min-height: 2.5rem;
       .custom-logo-link {
         width: 3.3204rem;
       }
@@ -202,6 +200,7 @@
       }
     }
     &__lang {
+      margin-left: 0.9375rem;
       a {
         font-size: 0.625rem;
       }

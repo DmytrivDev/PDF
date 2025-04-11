@@ -69,3 +69,12 @@ function initMenu() {
 }
 
 document.addEventListener('DOMContentLoaded', initMenu);
+
+// розрахунку height: 100vh на iOS ===========
+function setVh() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('resize', setVh);
+window.addEventListener('orientationchange', setVh);
+document.addEventListener('DOMContentLoaded', setVh);
