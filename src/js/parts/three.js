@@ -59,7 +59,7 @@ loader.load(
     model.traverse(child => {
       if (child.isMesh) {
         child.material = new THREE.MeshStandardMaterial({
-          color: 0x7C25CF, // Основний колір
+          color: 0x7c25cf, // Основний колір
           emissive: 0x4e1f88, // Більш м'яке світіння
           emissiveIntensity: 0.2, // Зменшена інтенсивність світіння
           transparent: true,
@@ -79,7 +79,6 @@ loader.load(
   }
 );
 
-
 let mouseX = 0;
 let mouseY = 0;
 
@@ -91,7 +90,7 @@ window.addEventListener('load', () => {
     mouseX = event.clientX;
     mouseY = event.clientY;
     // Тепер можна видалити цей слухач, щоб не зловити перший рух миші
-    document.removeEventListener('mousemove', arguments.callee);
+    // document.removeEventListener('mousemove', arguments.callee);
   });
 });
 
