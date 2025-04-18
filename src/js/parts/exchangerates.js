@@ -56,3 +56,54 @@ export const exchangeRates = {
     },
   },
 };
+
+// function getRateTier(amount, fromCurrency) {
+//   let usdAmount = amount;
+
+//   if (fromCurrency !== 'USD-W') {
+//     console.log(fromCurrency);
+//     if (fromCurrency === 'USDT') {
+//       console.log('object');
+//       const usdtTier =
+//         amount <= 1000
+//           ? 'below_1k'
+//           : amount <= 10000
+//           ? 'between_1k_10k'
+//           : amount <= 50000
+//           ? 'between_10k_50k'
+//           : 'above_50k';
+
+//       console.log(amount);
+
+//       const rate = exchangeRates.usdt[usdtTier]['USD-W']?.sell;
+//       if (rate) usdAmount = amount / rate;
+//     } else {
+//       const directPair = `${fromCurrency}_USD-W`;
+//       const reversePair = `USD-W_${fromCurrency}`;
+//       const tier = exchangeRates.regular.below_1k;
+
+//       if (tier[directPair]) {
+//         usdAmount = amount * tier[directPair].buy;
+//       } else if (tier[reversePair]) {
+//         usdAmount = amount / tier[reversePair].sell;
+//       }
+//     }
+//   }
+
+//   let tierObj;
+//   if (fromCurrency === 'USDT') {
+//     if (usdAmount <= 1000) tierObj = exchangeRates.usdt.below_1k;
+//     else if (usdAmount <= 10000) tierObj = exchangeRates.usdt.between_1k_10k;
+//     else if (usdAmount <= 50000) tierObj = exchangeRates.usdt.between_10k_50k;
+//     else tierObj = exchangeRates.usdt.above_50k;
+//   } else {
+//     if (usdAmount <= 1000) tierObj = exchangeRates.regular.below_1k;
+//     else if (usdAmount <= 5000) tierObj = exchangeRates.regular.between_1k_5k;
+//     else tierObj = exchangeRates.regular.above_5k;
+//   }
+
+//   return { tier: tierObj, usdAmount }; // повертаємо також usdAmount
+// }
+
+// const { tier, usdAmount } = getRateTier(giveAmount, from);
+// const { tier, usdAmount } = getRateTier(receiveAmount, to);

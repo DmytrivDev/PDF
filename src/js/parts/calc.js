@@ -18,6 +18,13 @@ function debounceCalculation(callback) {
   debounceTimeout = setTimeout(callback, 300);
 }
 
+//... Допоміжна функція для вибору порогу regular для USDT крос-курсів
+function getRegularTierName(amountInUsd) {
+  if (amountInUsd <= 1000) return 'below_1k';
+  if (amountInUsd <= 5000) return 'between_1k_5k';
+  return 'above_5k';
+}
+
 //*
 function parseValue(input) {
   return parseFloat(input.value.replace(',', '.')) || 0;
@@ -41,50 +48,6 @@ function formatInputValue(input) {
   input.value = value;
 }
 
-//... Визначення порогу курсів на основі суми, конвертованої в USD-W
-function getRateTier(amount, fromCurrency) {
-  let usdAmount = amount;
-
-  if (fromCurrency !== 'USD-W') {
-    if (fromCurrency === 'USDT') {
-      const usdtTier =
-        amount <= 1000
-          ? 'below_1k'
-          : amount <= 10000
-          ? 'between_1k_10k'
-          : amount <= 50000
-          ? 'between_10k_50k'
-          : 'above_50k';
-      const rate = exchangeRates.usdt[usdtTier]['USD-W']?.sell;
-      if (rate) usdAmount = amount / rate;
-    } else {
-      const directPair = `${fromCurrency}_USD-W`;
-      const reversePair = `USD-W_${fromCurrency}`;
-      const tier = exchangeRates.regular.below_1k;
-
-      if (tier[directPair]) {
-        usdAmount = amount * tier[directPair].buy;
-      } else if (tier[reversePair]) {
-        usdAmount = amount / tier[reversePair].sell;
-      }
-    }
-  }
-
-  let tierObj;
-  if (fromCurrency === 'USDT') {
-    if (usdAmount <= 1000) tierObj = exchangeRates.usdt.below_1k;
-    else if (usdAmount <= 10000) tierObj = exchangeRates.usdt.between_1k_10k;
-    else if (usdAmount <= 50000) tierObj = exchangeRates.usdt.between_10k_50k;
-    else tierObj = exchangeRates.usdt.above_50k;
-  } else {
-    if (usdAmount <= 1000) tierObj = exchangeRates.regular.below_1k;
-    else if (usdAmount <= 5000) tierObj = exchangeRates.regular.between_1k_5k;
-    else tierObj = exchangeRates.regular.above_5k;
-  }
-
-  return { tier: tierObj, usdAmount }; // повертаємо також usdAmount
-}
-
 //... Отримання прямого або зворотного курсу для валютної пари
 function getRate(from, to, tier, operation, usdAmount) {
   const pair = `${from}_${to}`;
@@ -93,9 +56,11 @@ function getRate(from, to, tier, operation, usdAmount) {
 
   if (isUsdt && pair === 'USDT_UAH') {
     if (tier.UAH === 'same_usd') {
-      return exchangeRates.regular[getRegularTierName(usdAmount)][`USD-W_UAH`][
-        operation
-      ];
+      const usdUahRate =
+        exchangeRates.regular[getRegularTierName(usdAmount)][`USD-W_UAH`][
+          operation
+        ];
+      return usdUahRate;
     }
     if (tier.UAH === 'cross') {
       const usdtToUsd = tier[`USD-W`][operation];
@@ -124,6 +89,15 @@ function getRate(from, to, tier, operation, usdAmount) {
     }
   }
 
+  // if (isUsdt && (from === 'USDT' || to === 'USDT')) {
+  //   // Обмін USDT <-> USD-W або USD-B
+  //   const usdPair = from === 'USDT' ? `${to}` : `${from}`;
+  //   if (tier[usdPair]) {
+  //     const rate = tier[usdPair][operation];
+  //     return from === 'USDT' ? rate : 1 / rate;
+  //   }
+  // }
+
   if (tier[pair]) {
     return tier[pair][operation];
   }
@@ -135,18 +109,76 @@ function getRate(from, to, tier, operation, usdAmount) {
   return null;
 }
 
-//... Допоміжна функція для вибору порогу regular для USDT крос-курсів
-function getRegularTierName(amountInUsd) {
-  if (amountInUsd <= 1000) return 'below_1k';
-  if (amountInUsd <= 5000) return 'between_1k_5k';
-  return 'above_5k';
+//... Визначення порогу курсів на основі суми, конвертованої в USD-W
+function getRateTier(amount, from, to) {
+  if (from === 'USDT' || to === 'USDT') {
+    return getRateUsdtTier(amount, from, to);
+  } else {
+    return getRateRegularTier(amount, from);
+  }
+}
+function getRateUsdtTier(amount, from, to) {
+  let usdAmount = amount;
+
+  const usdtTierName =
+    amount <= 1000
+      ? 'below_1k'
+      : amount <= 10000
+      ? 'between_1k_10k'
+      : amount <= 50000
+      ? 'between_10k_50k'
+      : 'above_50k';
+
+  const usdtTier = exchangeRates.usdt[usdtTierName];
+  const usdtToUsdRate = usdtTier['USD-W']?.sell;
+  const usdToUsdtRate = usdtTier['USD-W']?.buy;
+
+  // 🟢 Якщо обмін з USDT
+  if (from === 'USDT' && usdtToUsdRate) {
+    usdAmount = amount / usdtToUsdRate;
+  }
+  // 🔵 Якщо обмін на USDT
+  else if (to === 'USDT' && usdToUsdtRate) {
+    usdAmount = amount * usdToUsdtRate;
+  }
+
+  // далі підставимо tier залежно від usdAmount
+  if (usdAmount <= 1000)
+    return { tier: exchangeRates.usdt.below_1k, usdAmount };
+  if (usdAmount <= 10000)
+    return { tier: exchangeRates.usdt.between_1k_10k, usdAmount };
+  if (usdAmount <= 50000)
+    return { tier: exchangeRates.usdt.between_10k_50k, usdAmount };
+  return { tier: exchangeRates.usdt.above_50k, usdAmount };
+}
+function getRateRegularTier(amount, currency) {
+  let usdAmount = amount;
+
+  // 🔶 Обробка інших валют через regular
+  const directPair = `${currency}_USD-W`;
+  const reversePair = `USD-W_${currency}`;
+  const tier = exchangeRates.regular.below_1k;
+
+  if (tier[directPair]) {
+    usdAmount = amount * tier[directPair].buy;
+  } else if (tier[reversePair]) {
+    usdAmount = amount / tier[reversePair].sell;
+  }
+
+  // 🔷 Повернення regular tier
+  if (usdAmount <= 1000)
+    return { tier: exchangeRates.regular.below_1k, usdAmount };
+  if (usdAmount <= 5000)
+    return { tier: exchangeRates.regular.between_1k_5k, usdAmount };
+  return { tier: exchangeRates.regular.above_5k, usdAmount };
 }
 
 //... Обчислення суми до отримання на основі введеної суми
 function calcExchangeFromGive(giveAmount, from, to) {
   if (!from || !to) return null;
 
-  const { tier, usdAmount } = getRateTier(giveAmount, from);
+  const { tier, usdAmount } = getRateTier(giveAmount, from, to);
+
   const rate = getRate(from, to, tier, 'buy', usdAmount);
 
   if (!rate) return null;
@@ -168,12 +200,12 @@ function calcExchangeFromGive(giveAmount, from, to) {
 
   return giveAmount * rate;
 }
-
 //... Обчислення суми до введення на основі бажаної отриманої суми
 function calcExchangeFromReceive(receiveAmount, from, to) {
   if (!from || !to) return null;
 
-  const { tier, usdAmount } = getRateTier(receiveAmount, to);
+  const { tier, usdAmount } = getRateTier(receiveAmount, to, from);
+
   const rate = getRate(from, to, tier, 'buy', usdAmount);
 
   if (!rate) return null;
@@ -223,7 +255,7 @@ function handleReceiveInput() {
   updateExchangeRates();
 }
 
-//? */ Оновлення відображення курсів валют
+//* Оновлення відображення курсів валют
 function updateExchangeRates() {
   if (!giveSelect || !receiveSelect) return;
 
@@ -231,19 +263,29 @@ function updateExchangeRates() {
   const to = receiveSelect.value;
   const amount = parseValue(giveInput);
 
-  const { tier, usdAmount } = getRateTier(amount, from);
+  // ⬅️ Tier для прямого курсу
+  const { tier: directTier, usdAmount: usdAmountBuy } = getRateTier(
+    amount,
+    from,
+    to
+  );
+  const directRate = getRate(from, to, directTier, 'buy', usdAmountBuy);
 
-  const directRate = getRate(from, to, tier, 'buy', usdAmount);
-  const inverseRate = getRate(to, from, tier, 'sell', usdAmount);
+  // ➡️ Tier для зворотного курсу
+  const { tier: reverseTier, usdAmount: usdAmountSell } = getRateTier(
+    amount,
+    to,
+    from
+  );
+  const inverseRate = getRate(to, from, reverseTier, 'sell', usdAmountSell);
 
   let formattedDirect, formattedInverse;
 
   if (from === 'USDT' || to === 'USDT') {
-    // Для USDT завжди використовуємо ділення, бо курс задається до USD
+    // 🔄 USDT: показуємо інверсно, бо база – USD
     formattedDirect = (1 / directRate).toFixed(4);
     formattedInverse = (1 / inverseRate).toFixed(4);
   } else {
-    // Для інших валют стандартно
     formattedDirect = directRate.toFixed(4);
     formattedInverse = inverseRate.toFixed(4);
   }
