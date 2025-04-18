@@ -165,6 +165,7 @@ function calcExchangeFromGive(giveAmount, from, to) {
   }
 
   //... Для інших валют: множення на курс
+
   return giveAmount * rate;
 }
 
@@ -172,7 +173,7 @@ function calcExchangeFromGive(giveAmount, from, to) {
 function calcExchangeFromReceive(receiveAmount, from, to) {
   if (!from || !to) return null;
 
-  const { tier, usdAmount } = getRateTier(receiveAmount, from);
+  const { tier, usdAmount } = getRateTier(receiveAmount, to);
   const rate = getRate(from, to, tier, 'buy', usdAmount);
 
   if (!rate) return null;
@@ -191,10 +192,11 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
   }
 
   //... Для інших валют: ділення на курс
+
   return receiveAmount / rate;
 }
 
-//... Обробка введення суми у полі "віддаю"
+//*... Обробка введення суми у полі "віддаю"
 function handleGiveInput() {
   formatInputValue(giveInput);
 
@@ -207,8 +209,7 @@ function handleGiveInput() {
 
   updateExchangeRates();
 }
-
-//... Обробка введення суми у полі "отримую"
+//*... Обробка введення суми у полі "отримую"
 function handleReceiveInput() {
   formatInputValue(receiveInput);
 
@@ -222,7 +223,7 @@ function handleReceiveInput() {
   updateExchangeRates();
 }
 
-//! Оновлення відображення курсів валют
+//? */ Оновлення відображення курсів валют
 function updateExchangeRates() {
   if (!giveSelect || !receiveSelect) return;
 
@@ -291,7 +292,7 @@ export function handleExchangeData() {
   };
 }
 
-//* Функція для блокування вибору валюти в селекторі
+//? Функція для блокування вибору валюти в селекторі
 export function addDisableSelect() {
   const giveValue = giveSelect.tomselect.getValue();
   const receiveValue = receiveSelect.tomselect.getValue();
@@ -395,8 +396,12 @@ export function delDisableSelect() {
   });
 }
 
-giveInput?.addEventListener('input', handleGiveInput);
-receiveInput?.addEventListener('input', handleReceiveInput);
+giveInput?.addEventListener('input', () => {
+  debounceCalculation(handleGiveInput);
+});
+receiveInput?.addEventListener('input', () => {
+  debounceCalculation(handleReceiveInput);
+});
 
 giveSelect?.addEventListener('change', () => {
   debounceCalculation(handleGiveInput);
