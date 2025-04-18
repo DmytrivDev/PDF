@@ -89,15 +89,6 @@ function getRate(from, to, tier, operation, usdAmount) {
     }
   }
 
-  // if (isUsdt && (from === 'USDT' || to === 'USDT')) {
-  //   // Обмін USDT <-> USD-W або USD-B
-  //   const usdPair = from === 'USDT' ? `${to}` : `${from}`;
-  //   if (tier[usdPair]) {
-  //     const rate = tier[usdPair][operation];
-  //     return from === 'USDT' ? rate : 1 / rate;
-  //   }
-  // }
-
   if (tier[pair]) {
     return tier[pair][operation];
   }
@@ -109,7 +100,7 @@ function getRate(from, to, tier, operation, usdAmount) {
   return null;
 }
 
-//... Визначення порогу курсів на основі суми, конвертованої в USD-W
+//*... Визначення порогу курсів на основі суми, конвертованої в USD-W
 function getRateTier(amount, from, to) {
   if (from === 'USDT' || to === 'USDT') {
     return getRateUsdtTier(amount, from, to);
@@ -133,13 +124,12 @@ function getRateUsdtTier(amount, from, to) {
   const usdtToUsdRate = usdtTier['USD-W']?.sell;
   const usdToUsdtRate = usdtTier['USD-W']?.buy;
 
-  // 🟢 Якщо обмін з USDT
   if (from === 'USDT' && usdtToUsdRate) {
     usdAmount = amount / usdtToUsdRate;
-  }
-  // 🔵 Якщо обмін на USDT
-  else if (to === 'USDT' && usdToUsdtRate) {
+    console.log(usdAmount);
+  } else if (to === 'USDT' && usdToUsdtRate) {
     usdAmount = amount * usdToUsdtRate;
+    console.log(usdAmount);
   }
 
   // далі підставимо tier залежно від usdAmount
@@ -178,8 +168,10 @@ function calcExchangeFromGive(giveAmount, from, to) {
   if (!from || !to) return null;
 
   const { tier, usdAmount } = getRateTier(giveAmount, from, to);
-
   const rate = getRate(from, to, tier, 'buy', usdAmount);
+
+  console.log(rate);
+  console.log(usdAmount);
 
   if (!rate) return null;
 
@@ -197,7 +189,6 @@ function calcExchangeFromGive(giveAmount, from, to) {
   }
 
   //... Для інших валют: множення на курс
-
   return giveAmount * rate;
 }
 //... Обчислення суми до введення на основі бажаної отриманої суми
@@ -205,8 +196,10 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
   if (!from || !to) return null;
 
   const { tier, usdAmount } = getRateTier(receiveAmount, to, from);
-
   const rate = getRate(from, to, tier, 'buy', usdAmount);
+
+  console.log(rate);
+  console.log(usdAmount);
 
   if (!rate) return null;
 
@@ -224,7 +217,6 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
   }
 
   //... Для інших валют: ділення на курс
-
   return receiveAmount / rate;
 }
 
@@ -263,7 +255,6 @@ function updateExchangeRates() {
   const to = receiveSelect.value;
   const amount = parseValue(giveInput);
 
-  // ⬅️ Tier для прямого курсу
   const { tier: directTier, usdAmount: usdAmountBuy } = getRateTier(
     amount,
     from,
@@ -271,7 +262,6 @@ function updateExchangeRates() {
   );
   const directRate = getRate(from, to, directTier, 'buy', usdAmountBuy);
 
-  // ➡️ Tier для зворотного курсу
   const { tier: reverseTier, usdAmount: usdAmountSell } = getRateTier(
     amount,
     to,

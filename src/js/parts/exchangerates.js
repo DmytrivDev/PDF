@@ -107,3 +107,47 @@ export const exchangeRates = {
 
 // const { tier, usdAmount } = getRateTier(giveAmount, from);
 // const { tier, usdAmount } = getRateTier(receiveAmount, to);
+
+
+// function getRate(from, to, tier, operation, usdAmount) {
+//   const pair = `${from}_${to}`;
+//   const reversePair = `${to}_${from}`;
+//   const isUsdt = from === 'USDT' || to === 'USDT';
+
+//   // 🔶 Обробка випадку USDT <-> UAH
+//   if (isUsdt && (pair === 'USDT_UAH' || pair === 'UAH_USDT')) {
+//     const direction = pair === 'USDT_UAH' ? 'forward' : 'reverse';
+//     const uahLogic = tier.UAH;
+
+//     const usdUahTier = exchangeRates.regular[getRegularTierName(usdAmount)];
+//     const usdUahRate =
+//       usdUahTier['USD-W_UAH']?.[operation === 'buy' ? 'buy' : 'sell'];
+//     const usdtUsdRate = tier['USD-W']?.[operation === 'buy' ? 'buy' : 'sell'];
+
+//     if (uahLogic === 'same_usd') {
+//       if (direction === 'forward') return usdUahRate;
+//       else return 1 / usdUahRate;
+//     }
+
+//     if (uahLogic === 'cross') {
+//       if (direction === 'forward') {
+//         return usdtUsdRate * usdUahRate;
+//       } else {
+//         return 1 / (usdtUsdRate * usdUahRate);
+//       }
+//     }
+//   }
+
+//   // 🔁 Стандартний прямий курс
+//   if (tier[pair]) {
+//     return tier[pair][operation];
+//   }
+
+//   // 🔁 Реверсивний курс (інверсія)
+//   if (tier[reversePair]) {
+//     const oppositeOp = operation === 'buy' ? 'sell' : 'buy';
+//     return 1 / tier[reversePair][oppositeOp];
+//   }
+
+//   return null;
+// }
