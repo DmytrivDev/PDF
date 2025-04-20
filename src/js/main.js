@@ -3,7 +3,6 @@ import './parts/mobmenu.js';
 import './parts/navigation.js';
 import './parts/three.js';
 import './parts/exchangerates.js';
-// import './parts/calcold.js';
 import './parts/calc.js';
 import './parts/splidecust.js';
 import './parts/splide.js';

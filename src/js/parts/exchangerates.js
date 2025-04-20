@@ -3,7 +3,7 @@ export const exchangeRates = {
     // From 0$ to 1000$
     below_1k: {
       'USD-W_UAH': { buy: 40.85, sell: 41.0 }, // USD White
-      'USD-B_UAH': { buy: 40.85, sell: 41.0 }, // USD Blue
+      'USD-B_UAH': { buy: 40.84, sell: 40.9 }, // USD Blue
       EUR_UAH: { buy: 45.1, sell: 45.5 },
       GBP_UAH: { buy: 52.0, sell: 53.5 },
       'EUR_USD-W': { buy: 1.101, sell: 1.119 }, // Relative to USD White
@@ -32,122 +32,27 @@ export const exchangeRates = {
   usdt: {
     // Up to 1000$
     below_1k: {
-      'USD-B': { buy: 1.011, sell: 1.014 }, // 1.1% / 1.4% (Blue)
       'USD-W': { buy: 1.014, sell: 1.018 }, // 1.4% / 1.8% (White)
+      'USD-B': { buy: 1.011, sell: 1.014 }, // 1.1% / 1.4% (Blue)
       UAH: 'same_usd', // Identical to USD-W rates
     },
     // 1000$ - 10000$
     between_1k_10k: {
-      'USD-B': { buy: 1.012, sell: 1.015 },
       'USD-W': { buy: 1.015, sell: 1.019 },
+      'USD-B': { buy: 1.012, sell: 1.015 },
       UAH: 'cross', // Cross rate: USDT -> USD-W -> UAH
     },
     // 10000$ - 50000$
     between_10k_50k: {
-      'USD-B': { buy: 1.013, sell: 1.016 },
       'USD-W': { buy: 1.016, sell: 1.02 },
+      'USD-B': { buy: 1.013, sell: 1.016 },
       UAH: 'cross',
     },
     // Above 50000$
     above_50k: {
-      'USD-B': { buy: 1.014, sell: 1.017 },
       'USD-W': { buy: 1.017, sell: 1.021 },
+      'USD-B': { buy: 1.014, sell: 1.017 },
       UAH: 'cross',
     },
   },
 };
-
-// function getRateTier(amount, fromCurrency) {
-//   let usdAmount = amount;
-
-//   if (fromCurrency !== 'USD-W') {
-//     console.log(fromCurrency);
-//     if (fromCurrency === 'USDT') {
-//       console.log('object');
-//       const usdtTier =
-//         amount <= 1000
-//           ? 'below_1k'
-//           : amount <= 10000
-//           ? 'between_1k_10k'
-//           : amount <= 50000
-//           ? 'between_10k_50k'
-//           : 'above_50k';
-
-//       console.log(amount);
-
-//       const rate = exchangeRates.usdt[usdtTier]['USD-W']?.sell;
-//       if (rate) usdAmount = amount / rate;
-//     } else {
-//       const directPair = `${fromCurrency}_USD-W`;
-//       const reversePair = `USD-W_${fromCurrency}`;
-//       const tier = exchangeRates.regular.below_1k;
-
-//       if (tier[directPair]) {
-//         usdAmount = amount * tier[directPair].buy;
-//       } else if (tier[reversePair]) {
-//         usdAmount = amount / tier[reversePair].sell;
-//       }
-//     }
-//   }
-
-//   let tierObj;
-//   if (fromCurrency === 'USDT') {
-//     if (usdAmount <= 1000) tierObj = exchangeRates.usdt.below_1k;
-//     else if (usdAmount <= 10000) tierObj = exchangeRates.usdt.between_1k_10k;
-//     else if (usdAmount <= 50000) tierObj = exchangeRates.usdt.between_10k_50k;
-//     else tierObj = exchangeRates.usdt.above_50k;
-//   } else {
-//     if (usdAmount <= 1000) tierObj = exchangeRates.regular.below_1k;
-//     else if (usdAmount <= 5000) tierObj = exchangeRates.regular.between_1k_5k;
-//     else tierObj = exchangeRates.regular.above_5k;
-//   }
-
-//   return { tier: tierObj, usdAmount }; // повертаємо також usdAmount
-// }
-
-// const { tier, usdAmount } = getRateTier(giveAmount, from);
-// const { tier, usdAmount } = getRateTier(receiveAmount, to);
-
-
-// function getRate(from, to, tier, operation, usdAmount) {
-//   const pair = `${from}_${to}`;
-//   const reversePair = `${to}_${from}`;
-//   const isUsdt = from === 'USDT' || to === 'USDT';
-
-//   // 🔶 Обробка випадку USDT <-> UAH
-//   if (isUsdt && (pair === 'USDT_UAH' || pair === 'UAH_USDT')) {
-//     const direction = pair === 'USDT_UAH' ? 'forward' : 'reverse';
-//     const uahLogic = tier.UAH;
-
-//     const usdUahTier = exchangeRates.regular[getRegularTierName(usdAmount)];
-//     const usdUahRate =
-//       usdUahTier['USD-W_UAH']?.[operation === 'buy' ? 'buy' : 'sell'];
-//     const usdtUsdRate = tier['USD-W']?.[operation === 'buy' ? 'buy' : 'sell'];
-
-//     if (uahLogic === 'same_usd') {
-//       if (direction === 'forward') return usdUahRate;
-//       else return 1 / usdUahRate;
-//     }
-
-//     if (uahLogic === 'cross') {
-//       if (direction === 'forward') {
-//         return usdtUsdRate * usdUahRate;
-//       } else {
-//         return 1 / (usdtUsdRate * usdUahRate);
-//       }
-//     }
-//   }
-
-//   // 🔁 Стандартний прямий курс
-//   if (tier[pair]) {
-//     return tier[pair][operation];
-//   }
-
-//   // 🔁 Реверсивний курс (інверсія)
-//   if (tier[reversePair]) {
-//     const oppositeOp = operation === 'buy' ? 'sell' : 'buy';
-//     return 1 / tier[reversePair][oppositeOp];
-//   }
-
-//   return null;
-// }

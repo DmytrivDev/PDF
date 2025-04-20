@@ -99,7 +99,7 @@ function getMousePosition() {
   console.log(mouseX, mouseY);
 }
 
-getMousePosition();
+// getMousePosition();
 
 // 7️⃣ Движение модели за мышью
 window.addEventListener('mousemove', event => {
