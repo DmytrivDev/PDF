@@ -78,6 +78,15 @@ function getRate(from, to, regular, usdt, operation) {
     }
   }
 
+  if (isUsdt) {
+    if (from === 'USDT' && usdt[to]) {
+      return 1 / usdt[to][operation];
+    }
+    if (to === 'USDT' && usdt[from]) {
+      return 1 / usdt[from][operation === 'buy' ? 'sell' : 'buy'];
+    }
+  }
+
   if (regular[pair]) {
     return regular[pair][operation];
   }
@@ -261,12 +270,21 @@ function updateExchangeRates() {
     'sell'
   );
 
+  const isUSDx = val => val.startsWith('USD-');
+  const isUSDT = from === 'USDT' || to === 'USDT';
+
   let formattedDirect, formattedInverse;
 
-  if (from === 'USDT' || to === 'USDT') {
-    formattedDirect = (1 / directRate).toFixed(4);
+  if (isUSDT && (isUSDx(from) || isUSDx(to))) {
+    // USDT <=> USD-* (без інверсії прямого)
+    formattedDirect = directRate.toFixed(4);
     formattedInverse = (1 / inverseRate).toFixed(4);
+  } else if (isUSDT) {
+    // USDT <=> інша валюта (наприклад, UAH): інвертуємо
+    formattedDirect = directRate.toFixed(4);
+    formattedInverse = inverseRate.toFixed(4);
   } else {
+    // Усі інші пари валют
     formattedDirect = directRate.toFixed(4);
     formattedInverse = inverseRate.toFixed(4);
   }
