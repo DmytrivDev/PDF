@@ -218,6 +218,8 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
 
 //* Обробка введення суми у полі "віддаю"
 function handleGiveInput() {
+  if (!giveInput || !receiveInput) return;
+
   formatInputValue(giveInput);
 
   const amount = parseValue(giveInput);
@@ -231,6 +233,8 @@ function handleGiveInput() {
 }
 //* Обробка введення суми у полі "отримую"
 function handleReceiveInput() {
+  if (!giveInput || !receiveInput) return;
+
   formatInputValue(receiveInput);
 
   const amount = parseValue(receiveInput);

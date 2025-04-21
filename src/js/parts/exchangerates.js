@@ -1,15 +1,15 @@
 export const exchangeRates = {
   regular: {
-    // From 0$ to 1000$
+    // 0$ - 1000$
     below_1k: {
       'USD-W_UAH': { buy: 40.85, sell: 41.0 }, // USD White
       'USD-B_UAH': { buy: 40.84, sell: 40.9 }, // USD Blue
       EUR_UAH: { buy: 45.1, sell: 45.5 },
       GBP_UAH: { buy: 52.0, sell: 53.5 },
-      'EUR_USD-W': { buy: 1.101, sell: 1.119 }, // Relative to USD White
-      'GBP_USD-W': { buy: 1.26, sell: 1.305 }, // Relative to USD White
+      'EUR_USD-W': { buy: 1.101, sell: 1.119 },
+      'GBP_USD-W': { buy: 1.26, sell: 1.305 },
     },
-    // From 1000$ to 5000$
+    // 1000$ - 5000$
     between_1k_5k: {
       'USD-W_UAH': { buy: 40.95, sell: 41.1 },
       'USD-B_UAH': { buy: 40.95, sell: 41.2 },
@@ -18,7 +18,7 @@ export const exchangeRates = {
       'EUR_USD-W': { buy: 1.201, sell: 1.219 },
       'GBP_USD-W': { buy: 1.36, sell: 1.405 },
     },
-    // From 5000$
+    // Above 5000$
     above_5k: {
       'USD-W_UAH': { buy: 41.05, sell: 41.2 },
       'USD-B_UAH': { buy: 41.05, sell: 41.3 },
@@ -30,10 +30,10 @@ export const exchangeRates = {
   },
 
   usdt: {
-    // Up to 1000$
+    // 0$ - 1000$
     below_1k: {
-      'USD-W': { buy: 1.014, sell: 1.018 }, // 1.4% / 1.8% (White)
-      'USD-B': { buy: 1.011, sell: 1.014 }, // 1.1% / 1.4% (Blue)
+      'USD-W': { buy: 1.014, sell: 1.018 },
+      'USD-B': { buy: 1.011, sell: 1.014 },
       UAH: 'same_usd', // Identical to USD-W rates
     },
     // 1000$ - 10000$
