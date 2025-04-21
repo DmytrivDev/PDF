@@ -18,7 +18,7 @@ function debounceCalculation(callback) {
   debounceTimeout = setTimeout(callback, 300);
 }
 
-//*
+//* Парсить числове значення з поля вводу, замінюючи кому на крапку
 function parseValue(input) {
   return parseFloat(input.value.replace(',', '.')) || 0;
 }
@@ -40,12 +40,13 @@ function formatInputValue(input) {
 
   input.value = value;
 }
-//*
+
+//* Перетворює відсоткове значення у десятковий дроб
 function percentCalc(perc) {
   return perc / 100;
 }
 
-//*... Отримання прямого або зворотного курсу для валютної пари
+//* Отримання прямого або зворотного курсу для валютної пари
 function getRate(from, to, regular, usdt, operation) {
   const pair = `${from}_${to}`;
   const reversePair = `${to}_${from}`;
@@ -97,7 +98,7 @@ function getRate(from, to, regular, usdt, operation) {
   return null;
 }
 
-//*... Визначення порогу курсів на основі суми, конвертованої в USD-W
+//* Визначає порогову суму для обраної валютної пари
 function getRateTier(from, to) {
   const amountGive = parseValue(giveInput);
 
@@ -107,6 +108,7 @@ function getRateTier(from, to) {
     return getRateRegularTier(amountGive, from);
   }
 }
+//* Визначає tier (діапазон) для USDT на основі суми
 function getRateUsdtTier(amount, from) {
   let usdAmount = amount;
 
@@ -130,6 +132,7 @@ function getRateUsdtTier(amount, from) {
 
   return { tierAmount: usdAmount };
 }
+//* Визначає tier (діапазон) для звичайних валют на основі суми
 function getRateRegularTier(amount, from) {
   let usdAmount = amount;
 
@@ -149,6 +152,7 @@ function getRateRegularTier(amount, from) {
 
   return { tierAmount: usdAmount };
 }
+//* Повертає об'єкти курсів (regular і usdt) відповідно до tierAmount
 function getDefinitionTier(tierAmount) {
   let regularTier;
   let usdtTier;
@@ -179,7 +183,7 @@ function getDefinitionTier(tierAmount) {
   };
 }
 
-//*... Обчислення суми до отримання на основі введеної суми
+//* Обчислення суми до отримання на основі введеної суми
 function calcExchangeFromGive(giveAmount, from, to) {
   if (!from || !to) return null;
 
@@ -195,7 +199,7 @@ function calcExchangeFromGive(giveAmount, from, to) {
 
   return giveAmount * rate;
 }
-//*... Обчислення суми до введення на основі бажаної отриманої суми
+//* Обчислення суми до введення на основі бажаної отриманої суми
 function calcExchangeFromReceive(receiveAmount, from, to) {
   if (!from || !to) return null;
 
@@ -212,7 +216,7 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
   return receiveAmount / rate;
 }
 
-//*... Обробка введення суми у полі "віддаю"
+//* Обробка введення суми у полі "віддаю"
 function handleGiveInput() {
   formatInputValue(giveInput);
 
@@ -225,7 +229,7 @@ function handleGiveInput() {
 
   updateExchangeRates();
 }
-//*... Обробка введення суми у полі "отримую"
+//* Обробка введення суми у полі "отримую"
 function handleReceiveInput() {
   formatInputValue(receiveInput);
 
@@ -311,29 +315,66 @@ function handleToggle() {
   addDisableSelect();
 }
 
-//! Обробка даних для подальшої обробки або відправки
+//* Обробка даних для подальшої обробки або відправки
 export function handleExchangeData() {
-  // calcExchangeFromGive(); // Перерахунок курсу на основі поточних значень
+  calcExchangeFromGive();
 
-  const giveCurrency = giveSelect.selectedOptions[0].value.trim();
-  const receiveCurrency = receiveSelect.selectedOptions[0].value.trim();
+  const from = giveSelect.selectedOptions[0].value.trim();
+  const to = receiveSelect.selectedOptions[0].value.trim();
   const giveAmount = parseFloat(giveInput.value) || 0;
   const receiveAmount = parseFloat(receiveInput.value) || 0;
-  const directRate = (getGive(giveSelect) / getReceive(receiveSelect)).toFixed(
-    4
+
+  // Визначаємо tierAmount
+  const { tierAmount: directTierAmount } = getRateTier(from, to);
+  const { tierAmount: reverseTierAmount } = getRateTier(to, from);
+
+  // Отримуємо відповідні тьєри
+  const directTiers = getDefinitionTier(directTierAmount);
+  const reverseTiers = getDefinitionTier(reverseTierAmount);
+
+  // Отримуємо курси
+  const directRate = getRate(
+    from,
+    to,
+    directTiers.regular,
+    directTiers.usdt,
+    'buy'
   );
-  const inverseRate = (getReceive(receiveSelect) / getGive(giveSelect)).toFixed(
-    4
+  const inverseRate = getRate(
+    to,
+    from,
+    reverseTiers.regular,
+    reverseTiers.usdt,
+    'sell'
   );
 
+  // Перевірки як у updateExchangeRates
+  const isUSDx = val => val.startsWith('USD-');
+  const isUSDT = from === 'USDT' || to === 'USDT';
+
+  let formattedDirect, formattedInverse;
+
+  if (isUSDT && (isUSDx(from) || isUSDx(to))) {
+    // USDT <=> USD-*
+    formattedDirect = directRate.toFixed(4);
+    formattedInverse = (1 / inverseRate).toFixed(4);
+  } else if (isUSDT) {
+    // USDT <=> інші
+    formattedDirect = directRate.toFixed(4);
+    formattedInverse = inverseRate.toFixed(4);
+  } else {
+    formattedDirect = directRate.toFixed(4);
+    formattedInverse = inverseRate.toFixed(4);
+  }
+
   return {
-    currencyExchange: `${giveCurrency} = ${giveAmount}`,
-    currencyReceived: `${receiveCurrency} = ${receiveAmount}`,
-    reverseCourse: `${giveCurrency} = ${directRate} ${receiveCurrency}; ${receiveCurrency} = ${inverseRate} ${giveCurrency}`,
+    currencyExchange: `${from} = ${giveAmount}`,
+    currencyReceived: `${to} = ${receiveAmount}`,
+    reverseCourse: `${from} = ${formattedDirect} ${to}; ${to} = ${formattedInverse} ${from}`,
   };
 }
 
-//? Функція для блокування вибору валюти в селекторі
+//* Функція для блокування вибору валюти в селекторі
 export function addDisableSelect() {
   const giveValue = giveSelect.tomselect.getValue();
   const receiveValue = receiveSelect.tomselect.getValue();
@@ -349,7 +390,7 @@ export function addDisableSelect() {
     .querySelectorAll('[data-value]')
     .forEach(option => option.classList.remove('noSelect'));
 
-  // 👉 Створюємо реальну мапу пар на основі exchangeRates
+  // Створюємо реальну мапу пар на основі exchangeRates
   const getValidPairs = () => {
     const pairs = new Map();
 
@@ -385,7 +426,7 @@ export function addDisableSelect() {
 
   const validPairs = getValidPairs();
 
-  // ⚠️ Заборонити вибір однакових валют
+  // Заборонити вибір однакових валют
   if (receiveValue) {
     const el = dropdownGiveSelect.querySelector(
       `[data-value="${receiveValue}"]`
@@ -399,23 +440,25 @@ export function addDisableSelect() {
     if (el) el.classList.add('noSelect');
   }
 
-  // ❌ Вимкнути ті опції, які не мають валідних пар
+  // Вимкнути ті опції, які не мають валідних пар
   dropdownGiveSelect.querySelectorAll('[data-value]').forEach(option => {
     const currency = option.dataset.value;
-    if (
+    const hasValidPairs =
       !validPairs.has(currency) ||
-      (receiveValue && !validPairs.get(currency)?.has(receiveValue))
-    ) {
+      (receiveValue && !validPairs.get(currency)?.has(receiveValue));
+
+    if (hasValidPairs) {
       option.classList.add('noSelect');
     }
   });
 
   dropdownReceiveSelect.querySelectorAll('[data-value]').forEach(option => {
     const currency = option.dataset.value;
-    if (
+    const hasValidPairs =
       !validPairs.has(giveValue) ||
-      (giveValue && !validPairs.get(giveValue)?.has(currency))
-    ) {
+      (giveValue && !validPairs.get(giveValue)?.has(currency));
+
+    if (hasValidPairs) {
       option.classList.add('noSelect');
     }
   });
