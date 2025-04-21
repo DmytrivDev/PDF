@@ -27,7 +27,7 @@ function parseValue(input) {
 function formatInputValue(input) {
   let value = input.value.replace(/[^0-9.]/g, ''); // Видаляємо всі нецифрові символи, окрім крапки
 
-  const parts = value.split('.'); // Розділяємо на цілу та дробову частину
+  const parts = value.split('.');
   // Якщо більше двох крапок, то з'єднуємо їх
   if (parts.length > 2) {
     value = parts[0] + '.' + parts.slice(1).join('');
@@ -112,8 +112,8 @@ function getRateTier(from, to) {
 function getRateUsdtTier(amount, from) {
   let usdAmount = amount;
 
-  const baseTier = exchangeRates.regular.below_1k;
-  const usdtBaseTier = exchangeRates.usdt.below_1k;
+  const baseTier = exchangeRates.regular[0].rates;
+  const usdtBaseTier = exchangeRates.usdt[0].rates;
 
   if (from === 'USDT') {
     usdAmount = amount / usdtBaseTier['USD-W']?.buy;
@@ -129,58 +129,36 @@ function getRateUsdtTier(amount, from) {
   }
 
   console.log(from, usdAmount);
-
   return { tierAmount: usdAmount };
 }
 //* Визначає tier (діапазон) для звичайних валют на основі суми
 function getRateRegularTier(amount, from) {
   let usdAmount = amount;
 
+  const baseTier = exchangeRates.regular[0].rates;
+
   if (from !== 'USD-W') {
     const directPair = `${from}_USD-W`;
     const reversePair = `USD-W_${from}`;
-    const tier = exchangeRates.regular.below_1k;
 
-    if (tier[directPair]) {
-      usdAmount = amount * tier[directPair].buy;
-    } else if (tier[reversePair]) {
-      usdAmount = amount / tier[reversePair].sell;
+    if (baseTier[directPair]) {
+      usdAmount = amount * baseTier[directPair].buy;
+    } else if (baseTier[reversePair]) {
+      usdAmount = amount / baseTier[reversePair].sell;
     }
   }
 
   console.log(from, usdAmount);
-
   return { tierAmount: usdAmount };
 }
 //* Повертає об'єкти курсів (regular і usdt) відповідно до tierAmount
 function getDefinitionTier(tierAmount) {
-  let regularTier;
-  let usdtTier;
+  const regular = exchangeRates.regular.find(
+    t => tierAmount <= t.maxAmount
+  )?.rates;
+  const usdt = exchangeRates.usdt.find(t => tierAmount <= t.maxAmount)?.rates;
 
-  // Regular tiers
-  if (tierAmount <= 1000) {
-    regularTier = exchangeRates.regular.below_1k;
-  } else if (tierAmount <= 5000) {
-    regularTier = exchangeRates.regular.between_1k_5k;
-  } else {
-    regularTier = exchangeRates.regular.above_5k;
-  }
-
-  // USDT tiers
-  if (tierAmount <= 1000) {
-    usdtTier = exchangeRates.usdt.below_1k;
-  } else if (tierAmount <= 10000) {
-    usdtTier = exchangeRates.usdt.between_1k_10k;
-  } else if (tierAmount <= 50000) {
-    usdtTier = exchangeRates.usdt.between_10k_50k;
-  } else {
-    usdtTier = exchangeRates.usdt.above_50k;
-  }
-
-  return {
-    regular: regularTier,
-    usdt: usdtTier,
-  };
+  return { regular, usdt };
 }
 
 //* Обчислення суми до отримання на основі введеної суми
@@ -255,12 +233,10 @@ function updateExchangeRates() {
   const to = receiveSelect.value;
 
   // Визначаємо tierAmount
-  const { tierAmount: directTierAmount } = getRateTier(from, to);
-  const { tierAmount: reverseTierAmount } = getRateTier(to, from);
+  const { tierAmount } = getRateTier(from, to);
 
   // Отримуємо відповідні тьєри
-  const directTiers = getDefinitionTier(directTierAmount);
-  const reverseTiers = getDefinitionTier(reverseTierAmount);
+  const directTiers = getDefinitionTier(tierAmount);
 
   // Отримуємо курси
   const directRate = getRate(
@@ -273,8 +249,8 @@ function updateExchangeRates() {
   const inverseRate = getRate(
     to,
     from,
-    reverseTiers.regular,
-    reverseTiers.usdt,
+    directTiers.regular,
+    directTiers.usdt,
     'sell'
   );
 
@@ -329,12 +305,10 @@ export function handleExchangeData() {
   const receiveAmount = parseFloat(receiveInput.value) || 0;
 
   // Визначаємо tierAmount
-  const { tierAmount: directTierAmount } = getRateTier(from, to);
-  const { tierAmount: reverseTierAmount } = getRateTier(to, from);
+  const { tierAmount } = getRateTier(from, to);
 
   // Отримуємо відповідні тьєри
-  const directTiers = getDefinitionTier(directTierAmount);
-  const reverseTiers = getDefinitionTier(reverseTierAmount);
+  const directTiers = getDefinitionTier(tierAmount);
 
   // Отримуємо курси
   const directRate = getRate(
@@ -347,8 +321,8 @@ export function handleExchangeData() {
   const inverseRate = getRate(
     to,
     from,
-    reverseTiers.regular,
-    reverseTiers.usdt,
+    directTiers.regular,
+    directTiers.usdt,
     'sell'
   );
 
@@ -403,23 +377,20 @@ export function addDisableSelect() {
       pairs.get(from).add(to);
     };
 
-    const tiers = [
-      exchangeRates.regular.below_1k,
-      exchangeRates.regular.between_1k_5k,
-      exchangeRates.regular.above_5k,
-    ];
-
-    for (const tier of tiers) {
-      for (const pairKey in tier) {
+    const regularTiers = Object.values(exchangeRates.regular);
+    for (const tier of regularTiers) {
+      const rates = tier.rates;
+      for (const pairKey in rates) {
         const [from, to] = pairKey.split('_');
         addPair(from, to);
-        addPair(to, from); // для зворотного напрямку
+        addPair(to, from);
       }
     }
 
     const usdtTiers = Object.values(exchangeRates.usdt);
     for (const tier of usdtTiers) {
-      for (const to in tier) {
+      const rates = tier.rates;
+      for (const to in rates) {
         addPair('USDT', to);
         addPair(to, 'USDT');
       }
