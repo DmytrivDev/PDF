@@ -1,4 +1,4 @@
-export const exchangeRates = {
+const localRatesStore = {
   regular: [
     {
       maxAmount: 1000,
@@ -70,3 +70,16 @@ export const exchangeRates = {
     },
   ],
 };
+
+if (!localStorage.getItem('localRatesStore')) {
+  localStorage.setItem('localRatesStore', JSON.stringify(localRatesStore));
+}
+
+export const exchangeRates = JSON.parse(
+  localStorage.getItem('localRatesStore')
+);
+
+// Для оновлення
+export function updateExchangeRatesInStorage(newRates) {
+  localStorage.setItem('localRatesStore', JSON.stringify(newRates));
+}

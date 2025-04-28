@@ -185,8 +185,8 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
   const { regular, usdt } = getDefinitionTier(tierAmount);
   const rate = getRate(from, to, regular, usdt, 'buy');
 
-  console.log('tier Receive regular', regular);
-  console.log('tier Receive usdt', usdt);
+  console.log('tier Give regular', regular);
+  console.log('tier Give usdt', usdt);
   console.log('rate Receive', rate);
 
   if (!rate) return null;
@@ -204,7 +204,7 @@ function handleGiveInput() {
   const from = giveSelect.value;
   const to = receiveSelect.value;
 
-  const result = calcExchangeFromGive(amount, from, to);
+  const result = calcExchangeFromGive(amount, from, to) || 0;
   receiveInput.value = amount !== 0 && result ? result.toFixed(2) : '';
 
   updateExchangeRates();
@@ -219,7 +219,7 @@ function handleReceiveInput() {
   const from = giveSelect.value;
   const to = receiveSelect.value;
 
-  const result = calcExchangeFromReceive(amount, from, to);
+  const result = calcExchangeFromReceive(amount, from, to) || 0;
   giveInput.value = amount !== 0 && result ? result.toFixed(2) : '';
 
   updateExchangeRates();
