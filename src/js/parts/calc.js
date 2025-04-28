@@ -15,7 +15,7 @@ let debounceTimeout;
 //* Функція для дебаунсінгу (затримка) обчислень
 function debounceCalculation(callback) {
   clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(callback, 300);
+  debounceTimeout = setTimeout(callback, 300); 
 }
 
 //* Парсить числове значення з поля вводу, замінюючи кому на крапку
