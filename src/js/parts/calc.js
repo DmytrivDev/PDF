@@ -343,7 +343,6 @@ function handleReceiveInput() {
 
 //* Оновлення відображення курсів валют
 function updateExchangeRates() {
-  return;
   if (!giveSelect || !receiveSelect) return;
 
   const from = giveSelect.value;
