@@ -15,7 +15,7 @@ let debounceTimeout;
 //* Функція для дебаунсінгу (затримка) обчислень
 function debounceCalculation(callback) {
   clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(callback, 300); 
+  debounceTimeout = setTimeout(callback, 300);
 }
 
 //* Парсить числове значення з поля вводу, замінюючи кому на крапку
@@ -51,40 +51,82 @@ function getRate(from, to, regular, usdt, operation) {
   const pair = `${from}_${to}`;
   const reversePair = `${to}_${from}`;
   const isUsdt = from === 'USDT' || to === 'USDT';
-
-  if (isUsdt && pair === 'USDT_UAH') {
-    if (usdt.UAH === 'same_usd') {
-      return regular['USD-W_UAH'][operation];
-    }
-    if (usdt.UAH === 'cross') {
-      const percent = usdt['USD-W'][operation];
-      const usdToUah = regular['USD-W_UAH'][operation];
-      const adjustedRate = usdToUah * (1 - percentCalc(percent));
-      return adjustedRate;
-    }
-  }
-
-  if (isUsdt && pair === 'UAH_USDT') {
-    if (usdt.UAH === 'same_usd') {
-      const usdToUah =
-        regular['USD-W_UAH'][operation === 'buy' ? 'sell' : 'buy'];
-      return 1 / usdToUah;
-    }
-    if (usdt.UAH === 'cross') {
-      const percent = usdt['USD-W'][operation === 'buy' ? 'sell' : 'buy'];
-      const usdToUah =
-        regular['USD-W_UAH'][operation === 'buy' ? 'sell' : 'buy'];
-      const adjustedRate = usdToUah / (1 - percentCalc(percent));
-      return 1 / adjustedRate;
-    }
-  }
+  const oppositeOperation = operation === 'buy' ? 'sell' : 'buy';
 
   if (isUsdt) {
-    if (from === 'USDT' && usdt[to]) {
-      return 1 / usdt[to][operation];
+    const sideSame =
+      usdt[to] === 'same_usd' ? to : usdt[from] === 'same_usd' ? from : null;
+
+    if (sideSame) {
+      const fromUsdPair = `USD-W_${sideSame}`; // Курс від USD-W до валюти
+      const toUsdPair = `${sideSame}_USD-W`; // Курс від валюти до USD-W
+
+      if (regular[fromUsdPair]) {
+        if (pair === `USDT_${to}`) {
+          return regular[fromUsdPair][operation];
+        }
+        if (pair === `${from}_USDT`) {
+          return 1 / regular[fromUsdPair][oppositeOperation];
+        }
+      }
+
+      if (regular[toUsdPair]) {
+        if (pair === `USDT_${to}`) {
+          return 1 / regular[toUsdPair][oppositeOperation];
+        }
+        if (pair === `${from}_USDT`) {
+          return regular[toUsdPair][operation];
+        }
+      }
     }
-    if (to === 'USDT' && usdt[from]) {
-      return 1 / usdt[from][operation === 'buy' ? 'sell' : 'buy'];
+
+    const sideCross =
+      usdt[to] === 'cross' ? to : usdt[from] === 'cross' ? from : null;
+
+    if (sideCross) {
+      const fromUsdPair = `USD-W_${sideCross}`; // Курс від USD-W до валюти
+      const toUsdPair = `${sideCross}_USD-W`; // Курс від валюти до USD-W
+
+      if (regular[fromUsdPair]) {
+        if (pair === `USDT_${to}`) {
+          const percent = usdt['USD-W'][operation];
+          const usdToUah = regular[fromUsdPair][operation];
+          const adjustedRate = usdToUah * (1 - percentCalc(percent));
+          return adjustedRate;
+        }
+
+        if (pair === `${from}_USDT`) {
+          const percent = usdt['USD-W'][oppositeOperation];
+          const usdToUah = regular[fromUsdPair][oppositeOperation];
+          const adjustedRate = usdToUah / (1 - percentCalc(percent));
+          return 1 / adjustedRate;
+        }
+      }
+
+      if (regular[toUsdPair]) {
+        if (pair === `USDT_${to}`) {
+          const percent = usdt['USD-W'][oppositeOperation];
+          const usdToUah = regular[toUsdPair][oppositeOperation];
+          const adjustedRate = usdToUah / (1 - percentCalc(percent));
+          return 1 / adjustedRate;
+        }
+
+        if (pair === `${from}_USDT`) {
+          const percent = usdt['USD-W'][operation];
+          const usdToUah = regular[toUsdPair][operation];
+          const adjustedRate = usdToUah * (1 - percentCalc(percent));
+          return adjustedRate;
+        }
+      }
+    }
+
+    if (isUsdt) {
+      if (from === 'USDT' && usdt[to]) {
+        return 1 / usdt[to][operation];
+      }
+      if (to === 'USDT' && usdt[from]) {
+        return 1 / usdt[from][oppositeOperation];
+      }
     }
   }
 
@@ -92,13 +134,82 @@ function getRate(from, to, regular, usdt, operation) {
     return regular[pair][operation];
   }
   if (regular[reversePair]) {
-    return 1 / regular[reversePair][operation === 'buy' ? 'sell' : 'buy'];
+    return 1 / regular[reversePair][oppositeOperation];
   }
 
   return null;
 }
 
+// function getRate(from, to, regular, usdt, operation) {
+//   const pair = `${from}_${to}`;
+//   const reversePair = `${to}_${from}`;
+//   const isUsdt = from === 'USDT' || to === 'USDT';
+//   const oppositeOperation = operation === 'buy' ? 'sell' : 'buy';
+
+//   if (isUsdt) {
+//     const sideSame =
+//       usdt[to] === 'same_usd' ? to : usdt[from] === 'same_usd' ? from : null;
+//     const sideCross =
+//       usdt[to] === 'cross' ? to : usdt[from] === 'cross' ? from : null;
+
+//     if (sideSame) {
+//       const fromUsdPair = `USD-W_${sideSame}`;
+//       const toUsdPair = `${sideSame}_USD-W`;
+
+//       if (regular[fromUsdPair]) {
+//         return pair === `USDT_${to}`
+//           ? regular[fromUsdPair][operation]
+//           : 1 / regular[fromUsdPair][oppositeOperation];
+//       }
+//       if (regular[toUsdPair]) {
+//         return pair === `USDT_${to}`
+//           ? 1 / regular[toUsdPair][oppositeOperation]
+//           : regular[toUsdPair][operation];
+//       }
+//     }
+
+//     if (sideCross) {
+//       const fromUsdPair = `USD-W_${sideCross}`;
+//       const toUsdPair = `${sideCross}_USD-W`;
+
+//       if (regular[fromUsdPair]) {
+//         const percent = usdt['USD-W'][operation];
+//         const rate = regular[fromUsdPair][operation];
+
+//         return pair === `USDT_${to}`
+//           ? rate * (1 - percentCalc(percent))
+//           : 1 / (rate / (1 - percentCalc(usdt['USD-W'][oppositeOperation])));
+//       }
+//       if (regular[toUsdPair]) {
+//         const percent = usdt['USD-W'][operation];
+//         const rate = regular[toUsdPair][operation];
+
+//         return pair === `USDT_${to}`
+//           ? 1 / (rate / (1 - percentCalc(usdt['USD-W'][oppositeOperation])))
+//           : rate * (1 - percentCalc(percent));
+//       }
+//     }
+
+//     if (from === 'USDT' && usdt[to]) {
+//       return 1 / usdt[to][operation];
+//     }
+//     if (to === 'USDT' && usdt[from]) {
+//       return 1 / usdt[from][oppositeOperation];
+//     }
+//   }
+
+//   if (regular[pair]) {
+//     return regular[pair][operation];
+//   }
+//   if (regular[reversePair]) {
+//     return 1 / regular[reversePair][oppositeOperation];
+//   }
+
+//   return null;
+// }
+
 //* Визначає порогову суму для обраної валютної пари
+
 function getRateTier(from, to) {
   const amountGive = parseValue(giveInput);
 
@@ -153,12 +264,17 @@ function getRateRegularTier(amount, from) {
 }
 //* Повертає об'єкти курсів (regular і usdt) відповідно до tierAmount
 function getDefinitionTier(tierAmount) {
-  const regular = exchangeRates.regular.find(
-    t => tierAmount <= t.maxAmount
-  )?.rates;
-  const usdt = exchangeRates.usdt.find(t => tierAmount <= t.maxAmount)?.rates;
+  const regularTier =
+    exchangeRates.regular.find(t => tierAmount <= t.maxAmount) ??
+    exchangeRates.regular.at(-1);
+  const usdtTier =
+    exchangeRates.usdt.find(t => tierAmount <= t.maxAmount) ??
+    exchangeRates.usdt.at(-1);
 
-  return { regular, usdt };
+  return {
+    regular: regularTier.rates,
+    usdt: usdtTier.rates,
+  };
 }
 
 //* Обчислення суми до отримання на основі введеної суми
@@ -227,6 +343,7 @@ function handleReceiveInput() {
 
 //* Оновлення відображення курсів валют
 function updateExchangeRates() {
+  return;
   if (!giveSelect || !receiveSelect) return;
 
   const from = giveSelect.value;
