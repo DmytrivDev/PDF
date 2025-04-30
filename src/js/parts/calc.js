@@ -140,76 +140,7 @@ function getRate(from, to, regular, usdt, operation) {
   return null;
 }
 
-// function getRate(from, to, regular, usdt, operation) {
-//   const pair = `${from}_${to}`;
-//   const reversePair = `${to}_${from}`;
-//   const isUsdt = from === 'USDT' || to === 'USDT';
-//   const oppositeOperation = operation === 'buy' ? 'sell' : 'buy';
-
-//   if (isUsdt) {
-//     const sideSame =
-//       usdt[to] === 'same_usd' ? to : usdt[from] === 'same_usd' ? from : null;
-//     const sideCross =
-//       usdt[to] === 'cross' ? to : usdt[from] === 'cross' ? from : null;
-
-//     if (sideSame) {
-//       const fromUsdPair = `USD-W_${sideSame}`;
-//       const toUsdPair = `${sideSame}_USD-W`;
-
-//       if (regular[fromUsdPair]) {
-//         return pair === `USDT_${to}`
-//           ? regular[fromUsdPair][operation]
-//           : 1 / regular[fromUsdPair][oppositeOperation];
-//       }
-//       if (regular[toUsdPair]) {
-//         return pair === `USDT_${to}`
-//           ? 1 / regular[toUsdPair][oppositeOperation]
-//           : regular[toUsdPair][operation];
-//       }
-//     }
-
-//     if (sideCross) {
-//       const fromUsdPair = `USD-W_${sideCross}`;
-//       const toUsdPair = `${sideCross}_USD-W`;
-
-//       if (regular[fromUsdPair]) {
-//         const percent = usdt['USD-W'][operation];
-//         const rate = regular[fromUsdPair][operation];
-
-//         return pair === `USDT_${to}`
-//           ? rate * (1 - percentCalc(percent))
-//           : 1 / (rate / (1 - percentCalc(usdt['USD-W'][oppositeOperation])));
-//       }
-//       if (regular[toUsdPair]) {
-//         const percent = usdt['USD-W'][operation];
-//         const rate = regular[toUsdPair][operation];
-
-//         return pair === `USDT_${to}`
-//           ? 1 / (rate / (1 - percentCalc(usdt['USD-W'][oppositeOperation])))
-//           : rate * (1 - percentCalc(percent));
-//       }
-//     }
-
-//     if (from === 'USDT' && usdt[to]) {
-//       return 1 / usdt[to][operation];
-//     }
-//     if (to === 'USDT' && usdt[from]) {
-//       return 1 / usdt[from][oppositeOperation];
-//     }
-//   }
-
-//   if (regular[pair]) {
-//     return regular[pair][operation];
-//   }
-//   if (regular[reversePair]) {
-//     return 1 / regular[reversePair][oppositeOperation];
-//   }
-
-//   return null;
-// }
-
 //* Визначає порогову суму для обраної валютної пари
-
 function getRateTier(from, to) {
   const amountGive = parseValue(giveInput);
 
@@ -355,20 +286,10 @@ function updateExchangeRates() {
   const directTiers = getDefinitionTier(tierAmount);
 
   // Отримуємо курси
-  const directRate = getRate(
-    from,
-    to,
-    directTiers.regular,
-    directTiers.usdt,
-    'buy'
-  );
-  const inverseRate = getRate(
-    to,
-    from,
-    directTiers.regular,
-    directTiers.usdt,
-    'sell'
-  );
+  const directRate =
+    getRate(from, to, directTiers.regular, directTiers.usdt, 'buy') || 0;
+  const inverseRate =
+    getRate(to, from, directTiers.regular, directTiers.usdt, 'sell') || 0;
 
   const isUSDx = val => val.startsWith('USD-');
   const isUSDT = from === 'USDT' || to === 'USDT';
@@ -397,18 +318,16 @@ function updateExchangeRates() {
 
 //* Обробка перемикання курсів валют між полями
 function handleToggle() {
-  delDisableSelect();
-
   const tempValue = giveSelect.value;
-  giveSelect.tomselect.setValue(receiveSelect.value);
-  receiveSelect.tomselect.setValue(tempValue);
+  giveSelect.tomselect.setValue(receiveSelect.value, true);
+  receiveSelect.tomselect.setValue(tempValue, true);
 
   const tempInput = giveInput.value;
   giveInput.value = receiveInput.value;
   receiveInput.value = tempInput;
 
   handleGiveInput();
-  addDisableSelect();
+  updateSelectsOnChange();
 }
 
 //* Обробка даних для подальшої обробки або відправки
@@ -427,20 +346,10 @@ export function handleExchangeData() {
   const directTiers = getDefinitionTier(tierAmount);
 
   // Отримуємо курси
-  const directRate = getRate(
-    from,
-    to,
-    directTiers.regular,
-    directTiers.usdt,
-    'buy'
-  );
-  const inverseRate = getRate(
-    to,
-    from,
-    directTiers.regular,
-    directTiers.usdt,
-    'sell'
-  );
+  const directRate =
+    getRate(from, to, directTiers.regular, directTiers.usdt, 'buy') || 0;
+  const inverseRate =
+    getRate(to, from, directTiers.regular, directTiers.usdt, 'sell') || 0;
 
   // Перевірки як у updateExchangeRates
   const isUSDx = val => val.startsWith('USD-');
@@ -469,106 +378,78 @@ export function handleExchangeData() {
 }
 
 //* Функція для блокування вибору валюти в селекторі
-export function addDisableSelect() {
+export function updateSelectsOnChange(changedSelect) {
   const giveValue = giveSelect.tomselect.getValue();
   const receiveValue = receiveSelect.tomselect.getValue();
 
-  const dropdownGiveSelect = giveSelect.tomselect.dropdown_content;
-  const dropdownReceiveSelect = receiveSelect.tomselect.dropdown_content;
-
-  // Очистити старі класи
-  dropdownGiveSelect
-    .querySelectorAll('[data-value]')
-    .forEach(option => option.classList.remove('noSelect'));
-  dropdownReceiveSelect
-    .querySelectorAll('[data-value]')
-    .forEach(option => option.classList.remove('noSelect'));
-
-  // Створюємо реальну мапу пар на основі exchangeRates
-  const getValidPairs = () => {
-    const pairs = new Map();
-
-    const addPair = (from, to) => {
-      if (!pairs.has(from)) pairs.set(from, new Set());
-      pairs.get(from).add(to);
-    };
-
-    const regularTiers = Object.values(exchangeRates.regular);
-    for (const tier of regularTiers) {
-      const rates = tier.rates;
-      for (const pairKey in rates) {
-        const [from, to] = pairKey.split('_');
-        addPair(from, to);
-        addPair(to, from);
-      }
-    }
-
-    const usdtTiers = Object.values(exchangeRates.usdt);
-    for (const tier of usdtTiers) {
-      const rates = tier.rates;
-      for (const to in rates) {
-        addPair('USDT', to);
-        addPair(to, 'USDT');
-      }
-    }
-
-    return pairs;
-  };
-
   const validPairs = getValidPairs();
 
-  // Заборонити вибір однакових валют
-  if (receiveValue) {
-    const el = dropdownGiveSelect.querySelector(
-      `[data-value="${receiveValue}"]`
-    );
-    if (el) el.classList.add('noSelect');
-  }
-  if (giveValue) {
-    const el = dropdownReceiveSelect.querySelector(
-      `[data-value="${giveValue}"]`
-    );
-    if (el) el.classList.add('noSelect');
+  const isValid =
+    giveValue &&
+    receiveValue &&
+    validPairs.has(giveValue) &&
+    validPairs.get(giveValue).has(receiveValue);
+
+  if (!isValid) {
+    if (changedSelect === giveSelect) {
+      if (receiveValue !== '') {
+        receiveSelect.tomselect.setValue('', true);
+      }
+    } else if (changedSelect === receiveSelect) {
+      if (giveValue !== '') {
+        giveSelect.tomselect.setValue('', true);
+      }
+    }
   }
 
-  // Вимкнути ті опції, які не мають валідних пар
-  dropdownGiveSelect.querySelectorAll('[data-value]').forEach(option => {
-    const currency = option.dataset.value;
-    const hasValidPairs =
-      !validPairs.has(currency) ||
-      (receiveValue && !validPairs.get(currency)?.has(receiveValue));
+  const giveOptions =
+    giveSelect.tomselect.dropdown_content.querySelectorAll('[data-value]');
+  const receiveOptions =
+    receiveSelect.tomselect.dropdown_content.querySelectorAll('[data-value]');
 
-    if (hasValidPairs) {
+  giveOptions.forEach(option => {
+    option.classList.remove('noSelect');
+    if (option.dataset.value === receiveValue) {
       option.classList.add('noSelect');
     }
   });
 
-  dropdownReceiveSelect.querySelectorAll('[data-value]').forEach(option => {
-    const currency = option.dataset.value;
-    const hasValidPairs =
-      !validPairs.has(giveValue) ||
-      (giveValue && !validPairs.get(giveValue)?.has(currency));
-
-    if (hasValidPairs) {
+  receiveOptions.forEach(option => {
+    option.classList.remove('noSelect');
+    if (option.dataset.value === giveValue) {
       option.classList.add('noSelect');
     }
   });
 }
+//* Створюємо реальну мапу пар на основі exchangeRates
+function getValidPairs() {
+  const pairs = new Map();
 
-//* Функція для видалення блокування з вибору валют
-export function delDisableSelect() {
-  const dropdownGiveOptions =
-    giveSelect.tomselect.dropdown_content.querySelectorAll('[data-value]');
-  const dropdownReceiveOptions =
-    receiveSelect.tomselect.dropdown_content.querySelectorAll('[data-value]');
+  const addPair = (from, to) => {
+    if (!pairs.has(from)) pairs.set(from, new Set());
+    pairs.get(from).add(to);
+  };
 
-  dropdownGiveOptions?.forEach(option => {
-    option.classList.remove('noSelect');
-  });
+  const regularTiers = Object.values(exchangeRates.regular);
+  for (const tier of regularTiers) {
+    const rates = tier.rates;
+    for (const pairKey in rates) {
+      const [from, to] = pairKey.split('_');
+      addPair(from, to);
+      addPair(to, from);
+    }
+  }
 
-  dropdownReceiveOptions?.forEach(option => {
-    option.classList.remove('noSelect');
-  });
+  const usdtTiers = Object.values(exchangeRates.usdt);
+  for (const tier of usdtTiers) {
+    const rates = tier.rates;
+    for (const to in rates) {
+      addPair('USDT', to);
+      addPair(to, 'USDT');
+    }
+  }
+
+  return pairs;
 }
 
 giveInput?.addEventListener('input', () => {
@@ -579,9 +460,11 @@ receiveInput?.addEventListener('input', () => {
 });
 
 giveSelect?.addEventListener('change', () => {
+  updateSelectsOnChange(giveSelect);
   debounceCalculation(handleGiveInput);
 });
 receiveSelect?.addEventListener('change', () => {
+  updateSelectsOnChange(receiveSelect);
   debounceCalculation(handleGiveInput);
 });
 

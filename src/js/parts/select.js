@@ -1,7 +1,7 @@
 import TomSelect from 'tom-select';
 import 'tom-select/dist/css/tom-select.default.css';
 
-import { addDisableSelect, delDisableSelect } from './calc.js';
+import { updateSelectsOnChange } from './calc.js';
 
 const selectCalc = document.querySelectorAll('.calc__exchange select');
 
@@ -47,14 +47,12 @@ function initTomSelect(container) {
       par.style.zIndex = '15';
       this.dropdown.classList.add('isOpen');
 
-      addDisableSelect();
+      updateSelectsOnChange();
     },
     onDropdownClose: function () {
       const par = container.closest('.calc__exchange').querySelector('p');
       par.style.zIndex = '5';
       this.dropdown.classList.remove('isOpen');
-
-      delDisableSelect();
     },
   });
 

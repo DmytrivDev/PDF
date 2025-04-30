@@ -195,6 +195,9 @@
       letter-spacing: -0.03em;
       border-bottom: 0.0625rem solid var(--cd);
       transition: all 0.1s ease;
+      &[data-value=""] {
+        display: none;
+      }
       &:first-child {
         padding-top: 0;
       }
