@@ -1,0 +1,134 @@
+<div class="calc">
+  <h2 class="tl3">Онлайн-калькулятор</h2>
+
+  <div class="calc__wrapp">
+    <div class="calc__exchange give-exchange">
+      <p>Віддаєте</p>
+      <div class="calc__box">
+        <select>
+          <option value="" data-flag="./img/icons/def.svg" selected>
+            Обрати
+          </option>
+          <option
+            value="UAH"
+            data-flag="./img/icons/flag_5.svg"
+            data-fullname="Гривня"
+          >
+            UAH
+          </option>
+          <option
+            value="USD-W"
+            data-flag="./img/icons/flag_1.svg"
+            data-fullname="Долар США"
+          >
+            USD
+          </option>
+          <option
+            value="EUR"
+            data-flag="./img/icons/flag_2.svg"
+            data-fullname="Євро"
+          >
+            EUR
+          </option>
+          <option
+            value="GBP"
+            data-flag="./img/icons/flag_3.svg"
+            data-fullname="Фунт стерлінгів"
+          >
+            GBP
+          </option>
+          <option
+            value="USDT"
+            data-flag="./img/icons/USDT.svg"
+            data-fullname="USDT"
+          >
+            USDT
+          </option>
+        </select>
+        <input
+          type="text"
+          name="input-give"
+          placeholder="00.00"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+
+    <button type="button" class="calc__toggle" aria-label="Toggle calc">
+      <span><img src="./img/icons/toggle.svg" alt="Toggle calc" /></span>
+    </button>
+
+    <div class="calc__exchange receive-exchange">
+      <p>Отримаєте</p>
+      <div class="calc__box">
+        <select>
+          <option value="" data-flag="./img/icons/def.svg" selected>
+            Обрати
+          </option>
+          <option
+            value="UAH"
+            data-flag="./img/icons/flag_5.svg"
+            data-fullname="Гривня"
+          >
+            UAH
+          </option>
+          <option
+            value="USD-W"
+            data-flag="./img/icons/flag_1.svg"
+            data-fullname="Долар США"
+          >
+            USD
+          </option>
+          <option
+            value="EUR"
+            data-flag="./img/icons/flag_2.svg"
+            data-fullname="Євро"
+          >
+            EUR
+          </option>
+          <option
+            value="GBP"
+            data-flag="./img/icons/flag_3.svg"
+            data-fullname="Фунт стерлінгів"
+          >
+            GBP
+          </option>
+          <option
+            value="USDT"
+            data-flag="./img/icons/USDT.svg"
+            data-fullname="USDT"
+          >
+            USDT
+          </option>
+        </select>
+        <input
+          type="text"
+          name="input-receive"
+          placeholder="00.00"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="calc__add btn-def openModal"
+    data-id="modalBooking"
+  >
+    Забронювати курс
+  </button>
+
+  <div class="calc__courses">
+    <p>1 USD = <span>00.00 UAH</span></p>
+    <p>1 UAH = <span>00.00 USD</span></p>
+  </div>
+
+  <div class="calc__desc">
+    <p>
+      *Діючі умови обміну валюти визначаються у формі копії наказу
+      (розпорядження) фінансової установи, розміщеному виключно у касах
+      фінансових установ - партнерів Програми лояльності.
+    </p>
+  </div>
+</div>

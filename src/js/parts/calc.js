@@ -279,18 +279,14 @@ function updateExchangeRates() {
   const from = giveSelect.value;
   const to = receiveSelect.value;
 
-  // Визначаємо tierAmount
   const { tierAmount } = getRateTier(from, to);
-
-  // Отримуємо відповідні тьєри
-  const directTiers = getDefinitionTier(tierAmount);
+  const { regular, usdt } = getDefinitionTier(tierAmount);
 
   // Отримуємо курси
-  const directRate =
-    getRate(from, to, directTiers.regular, directTiers.usdt, 'buy') || 0;
-  const inverseRate =
-    getRate(to, from, directTiers.regular, directTiers.usdt, 'sell') || 0;
+  const directRate = getRate(from, to, regular, usdt, 'buy') || 0;
+  const inverseRate = getRate(to, from, regular, usdt, 'sell') || 0;
 
+  // Отримуємо курси
   const isUSDx = val => val.startsWith('USD-');
   const isUSDT = from === 'USDT' || to === 'USDT';
 
@@ -310,9 +306,14 @@ function updateExchangeRates() {
     formattedInverse = inverseRate.toFixed(4);
   }
 
+  // Функція нормалізації назви валюти
+  const formatCurrencyName = val => (val.startsWith('USD-') ? 'USD' : val);
+  const displayFrom = formatCurrencyName(from);
+  const displayTo = formatCurrencyName(to);
+
   calcCourses.innerHTML = `
-    <p>1 ${from} = ${formattedDirect} ${to}</p>
-    <p>1 ${to} = ${formattedInverse} ${from}</p>
+    <p>1 ${displayFrom} = ${formattedDirect} ${displayTo}</p>
+    <p>1 ${displayTo} = ${formattedInverse} ${displayFrom}</p>
   `;
 }
 
@@ -341,17 +342,12 @@ export function handleExchangeData() {
 
   // Визначаємо tierAmount
   const { tierAmount } = getRateTier(from, to);
-
-  // Отримуємо відповідні тьєри
-  const directTiers = getDefinitionTier(tierAmount);
+  const { regular, usdt } = getDefinitionTier(tierAmount);
 
   // Отримуємо курси
-  const directRate =
-    getRate(from, to, directTiers.regular, directTiers.usdt, 'buy') || 0;
-  const inverseRate =
-    getRate(to, from, directTiers.regular, directTiers.usdt, 'sell') || 0;
+  const directRate = getRate(from, to, regular, usdt, 'buy') || 0;
+  const inverseRate = getRate(to, from, regular, usdt, 'sell') || 0;
 
-  // Перевірки як у updateExchangeRates
   const isUSDx = val => val.startsWith('USD-');
   const isUSDT = from === 'USDT' || to === 'USDT';
 
@@ -370,10 +366,15 @@ export function handleExchangeData() {
     formattedInverse = inverseRate.toFixed(4);
   }
 
+  // Форматування відображення валют
+  const formatCurrencyName = val => (val.startsWith('USD-') ? 'USD' : val);
+  const displayFrom = formatCurrencyName(from);
+  const displayTo = formatCurrencyName(to);
+
   return {
-    currencyExchange: `${from} = ${giveAmount}`,
-    currencyReceived: `${to} = ${receiveAmount}`,
-    reverseCourse: `${from} = ${formattedDirect} ${to}; ${to} = ${formattedInverse} ${from}`,
+    currencyExchange: `${displayFrom} = ${giveAmount}`,
+    currencyReceived: `${displayTo} = ${receiveAmount}`,
+    reverseCourse: `${displayFrom} = ${formattedDirect} ${displayTo}; ${displayTo} = ${formattedInverse} ${displayFrom}`,
   };
 }
 
@@ -400,6 +401,9 @@ export function updateSelectsOnChange(changedSelect) {
         giveSelect.tomselect.setValue('', true);
       }
     }
+
+    giveInput.value = '';
+    receiveInput.value = '';
   }
 
   const giveOptions =
