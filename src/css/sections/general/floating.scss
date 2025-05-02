@@ -9,7 +9,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(20%);
+  transform: translateY(1.5625rem);
 
   -webkit-transition: all 0.45s ease-in-out;
   -o-transition: all 0.45s ease-in-out;
@@ -81,6 +81,9 @@
     text-underline-position: from-font;
   }
 }
+.floating__tg {
+  display: none;
+}
 
 .floating__bg {
   position: absolute;
@@ -95,6 +98,29 @@
 
 @media screen and (max-width: 960px) {
   .floating {
+    right: 0.9375rem;
+    max-width: 2.75rem;
+    bottom: 5rem;
+    transform: translateY(0.9375rem);
+  }
+  .floating__wrapp {
     display: none;
+  }
+  .floating__ico {
+    display: none;
+  }
+
+  .floating__tg {
+    display: block;
+    width: 2.75rem;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .floating {
+    right: 0.625rem;
   }
 }

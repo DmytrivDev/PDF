@@ -71,7 +71,14 @@ function submitForm(e) {
   });
 
   if (!errors) {
-    setTimeout(() => e.target.reset(), 300);
+    setTimeout(() => {
+      e.target.reset();
+
+      const booking = e.target.closest('.booking');
+      if (booking) {
+        booking.classList.add('isMess');
+      }
+    }, 300);
 
     // Для тесту
     const formData = new FormData(e.target);

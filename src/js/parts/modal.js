@@ -14,6 +14,7 @@ function showModal(modal) {
 
 export function closeModal(modal) {
   modal.classList.remove('isOpened');
+  setTimeout(() => modal.classList.remove('isMess'), 150);
   activeModals.delete(modal);
   unlockScroll();
 }

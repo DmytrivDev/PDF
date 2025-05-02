@@ -176,6 +176,24 @@
   }
 }
 
+.booking {
+  &.isMess {
+    .booking__mess {
+      display: block;
+    }
+    .form {
+      display: none;
+    }
+  }
+}
+.booking__mess {
+  display: none;
+  .tl4 {
+    text-transform: none;
+    font-weight: 400;
+  }
+}
+
 @media screen and (max-width: 960px) {
   .modal {
     &__body {
@@ -235,6 +253,12 @@
     }
     .btn-def {
       width: 100%;
+    }
+  }
+
+  .booking__mess {
+    .tl4 {
+      text-align: center;
     }
   }
 }

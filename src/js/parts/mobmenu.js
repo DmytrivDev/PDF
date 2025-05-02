@@ -78,3 +78,9 @@ function setVh() {
 window.addEventListener('resize', setVh);
 window.addEventListener('orientationchange', setVh);
 document.addEventListener('DOMContentLoaded', setVh);
+
+document.querySelectorAll('.header__lang > li > a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+  });
+});
