@@ -122,7 +122,7 @@ function getRate(from, to, regular, usdt, operation) {
 
     if (isUsdt) {
       if (from === 'USDT' && usdt[to]) {
-        return 1 / usdt[to][operation];
+        return usdt[to][operation];
       }
       if (to === 'USDT' && usdt[from]) {
         return 1 / usdt[from][oppositeOperation];
