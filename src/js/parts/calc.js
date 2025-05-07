@@ -41,11 +41,6 @@ function formatInputValue(input) {
   input.value = value;
 }
 
-//* Перетворює відсоткове значення у десятковий дроб
-function percentCalc(perc) {
-  return perc / 100;
-}
-
 //* Отримання прямого або зворотного курсу для валютної пари
 function getRate(from, to, regular, usdt, operation) {
   const pair = `${from}_${to}`;
@@ -286,30 +281,20 @@ function updateExchangeRates() {
   const directRate = getRate(from, to, regular, usdt, 'buy') || 0;
   const inverseRate = getRate(to, from, regular, usdt, 'sell') || 0;
 
-  // Отримуємо курси
-  const isUSDx = val => val.startsWith('USD-');
-  const isUSDT = from === 'USDT' || to === 'USDT';
-
-  let formattedDirect, formattedInverse;
-
-  if (isUSDT && (isUSDx(from) || isUSDx(to))) {
-    // USDT <=> USD-* (без інверсії прямого)
-    formattedDirect = directRate.toFixed(4);
-    formattedInverse = (1 / inverseRate).toFixed(4);
-  } else if (isUSDT) {
-    // USDT <=> інша валюта (наприклад, UAH): інвертуємо
-    formattedDirect = directRate.toFixed(4);
-    formattedInverse = inverseRate.toFixed(4);
-  } else {
-    // Усі інші пари валют
-    formattedDirect = directRate.toFixed(4);
-    formattedInverse = inverseRate.toFixed(4);
+  // Якщо немає курсу — не показуємо блок
+  if (!directRate || !inverseRate) {
+    calcCourses.innerHTML = '';
+    return;
   }
 
-  // Функція нормалізації назви валюти
-  const formatCurrencyName = val => (val.startsWith('USD-') ? 'USD' : val);
-  const displayFrom = formatCurrencyName(from);
-  const displayTo = formatCurrencyName(to);
+  // Вивід з 4 знаками
+  const formattedDirect = directRate.toFixed(4);
+  const formattedInverse = inverseRate.toFixed(4);
+
+  // Замінюємо USD-W на USD
+  const formatCurrency = val => (val.startsWith('USD-') ? 'USD' : val);
+  const displayFrom = formatCurrency(from);
+  const displayTo = formatCurrency(to);
 
   calcCourses.innerHTML = `
     <p>1 ${displayFrom} = ${formattedDirect} ${displayTo}</p>
@@ -348,25 +333,9 @@ export function handleExchangeData() {
   const directRate = getRate(from, to, regular, usdt, 'buy') || 0;
   const inverseRate = getRate(to, from, regular, usdt, 'sell') || 0;
 
-  const isUSDx = val => val.startsWith('USD-');
-  const isUSDT = from === 'USDT' || to === 'USDT';
+  const formattedDirect = directRate.toFixed(4);
+  const formattedInverse = inverseRate.toFixed(4);
 
-  let formattedDirect, formattedInverse;
-
-  if (isUSDT && (isUSDx(from) || isUSDx(to))) {
-    // USDT <=> USD-*
-    formattedDirect = directRate.toFixed(4);
-    formattedInverse = (1 / inverseRate).toFixed(4);
-  } else if (isUSDT) {
-    // USDT <=> інші
-    formattedDirect = directRate.toFixed(4);
-    formattedInverse = inverseRate.toFixed(4);
-  } else {
-    formattedDirect = directRate.toFixed(4);
-    formattedInverse = inverseRate.toFixed(4);
-  }
-
-  // Форматування відображення валют
   const formatCurrencyName = val => (val.startsWith('USD-') ? 'USD' : val);
   const displayFrom = formatCurrencyName(from);
   const displayTo = formatCurrencyName(to);
@@ -460,7 +429,7 @@ giveInput?.addEventListener('input', () => {
   debounceCalculation(handleGiveInput);
 });
 receiveInput?.addEventListener('input', () => {
-  debounceCalculation(handleReceiveInput);
+  handleReceiveInput();
 });
 
 giveSelect?.addEventListener('change', () => {
