@@ -36,7 +36,7 @@ const localRatesStore = {
     {
       maxAmount: 1000,
       rates: {
-        'USD-W': { buy: 1.014, sell: 1.018 },
+        'USD-W': { buy: 1, sell: 1.03 },
         EUR: 'cross',
         GBP: 'cross',
         UAH: 'cross',
@@ -45,7 +45,7 @@ const localRatesStore = {
     {
       maxAmount: 10000,
       rates: {
-        'USD-W': { buy: 1.015, sell: 1.019 },
+        'USD-W': { buy: 1.015, sell: 1.02 },
         EUR: 'cross',
         GBP: 'cross',
         UAH: 'cross',
@@ -54,7 +54,7 @@ const localRatesStore = {
     {
       maxAmount: 50000,
       rates: {
-        'USD-W': { buy: 1.016, sell: 1.02 },
+        'USD-W': { buy: 1.016, sell: 1.19 },
         EUR: 'cross',
         GBP: 'cross',
         UAH: 'cross',
@@ -63,7 +63,7 @@ const localRatesStore = {
     {
       maxAmount: Infinity,
       rates: {
-        'USD-W': { buy: 1.017, sell: 1.021 },
+        'USD-W': { buy: 1.017, sell: 1.018 },
         EUR: 'cross',
         GBP: 'cross',
         UAH: 'cross',
