@@ -37,9 +37,9 @@ const localRatesStore = {
       maxAmount: 1000,
       rates: {
         'USD-W': { buy: 1.014, sell: 1.018 },
-        EUR: 'same_usd',
-        GBP: 'same_usd',
-        UAH: 'same_usd',
+        EUR: 'cross',
+        GBP: 'cross',
+        UAH: 'cross',
       },
     },
     {
