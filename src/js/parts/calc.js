@@ -47,6 +47,7 @@ function getRate(from, to, regular, usdt, operation) {
   const reversePair = `${to}_${from}`;
   const isUsdt = from === 'USDT' || to === 'USDT';
   const oppositeOperation = operation === 'buy' ? 'sell' : 'buy';
+  const oppositeOperationReverse = operation === 'sell' ? 'sell' : 'buy';
 
   if (isUsdt) {
     const sideSame =
@@ -100,14 +101,14 @@ function getRate(from, to, regular, usdt, operation) {
 
       if (regular[toUsdPair]) {
         if (pair === `USDT_${to}`) {
-          const percent = usdt['USD-W'][oppositeOperation];
+          const percent = usdt['USD-W'][oppositeOperationReverse];
           const usdToUah = regular[toUsdPair][oppositeOperation];
           const adjustedRate = usdToUah / percent;
           return 1 / adjustedRate;
         }
 
         if (pair === `${from}_USDT`) {
-          const percent = usdt['USD-W'][operation];
+          const percent = usdt['USD-W'][oppositeOperation];
           const usdToUah = regular[toUsdPair][operation];
           const adjustedRate = usdToUah / percent;
           return adjustedRate;
