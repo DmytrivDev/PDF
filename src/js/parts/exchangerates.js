@@ -54,7 +54,7 @@ const localRatesStore = {
     {
       maxAmount: 50000,
       rates: {
-        'USD-W': { buy: 1.016, sell: 1.19 },
+        'USD-W': { buy: 1.016, sell: 1.019 },
         EUR: 'cross',
         GBP: 'cross',
         UAH: 'cross',
