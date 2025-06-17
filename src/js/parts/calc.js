@@ -1,4 +1,4 @@
-import { exchangeRates } from './exchangerates.js';
+// import { exchangeRates } from './exchangerates.js';
 
 const giveSelect = document.querySelector('.give-exchange select');
 const receiveSelect = document.querySelector('.receive-exchange select');
@@ -150,6 +150,8 @@ function getRateTier(from, to) {
 function getRateUsdtTier(amount, from) {
   let usdAmount = amount;
 
+  const exchangeRates = JSON.parse(localStorage.getItem('localRatesStore'));
+
   const baseTier = exchangeRates.regular[0].rates;
   const usdtBaseTier = exchangeRates.usdt[0].rates;
 
@@ -173,6 +175,8 @@ function getRateUsdtTier(amount, from) {
 function getRateRegularTier(amount, from) {
   let usdAmount = amount;
 
+  const exchangeRates = JSON.parse(localStorage.getItem('localRatesStore'));
+
   const baseTier = exchangeRates.regular[0].rates;
 
   if (from !== 'USD-W') {
@@ -191,6 +195,8 @@ function getRateRegularTier(amount, from) {
 }
 //* Повертає об'єкти курсів (regular і usdt) відповідно до tierAmount
 function getDefinitionTier(tierAmount) {
+  const exchangeRates = JSON.parse(localStorage.getItem('localRatesStore'));
+
   const regularTier =
     exchangeRates.regular.find(t => tierAmount <= t.maxAmount) ??
     exchangeRates.regular.at(-1);
@@ -397,6 +403,8 @@ export function updateSelectsOnChange(changedSelect) {
 }
 //* Створюємо реальну мапу пар на основі exchangeRates
 function getValidPairs() {
+  const exchangeRates = JSON.parse(localStorage.getItem('localRatesStore'));
+  
   const pairs = new Map();
 
   const addPair = (from, to) => {
