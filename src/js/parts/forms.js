@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 import IMask from 'imask';
 import isEmail from 'validator/lib/isEmail';
@@ -10,32 +10,41 @@ forms?.forEach(form => {
   form.addEventListener('submit', submitForm);
 });
 
-// async function sendForm(form) {
-//   const ajaxurl = '/wp-admin/admin-ajax.php';
-//   const headers = { 'Content-Type': 'multipart/form-data' };
-//   const myFormData = new FormData(form);
-//   const params = Object.fromEntries(myFormData.entries());
+async function sendForm(form) {
+  const ajaxurl = '/wp-admin/admin-ajax.php';
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  const myFormData = new FormData(form);
+  const params = Object.fromEntries(myFormData.entries());
 
-//   try {
-//     const responce = await axios.get(ajaxurl, { params }, { headers });
-//     console.log(responce.data);
-//     if (responce.data !== 'error') {
-//       formEnd(form, true);
-//     } else {
-//       formEnd(form, false);
-//     }
-//   } catch (error) {
-//     formEnd(form, false);
-//   }
-// }
+  try {
+    const responce = await axios.get(ajaxurl, { params }, { headers });
+    if (responce.data !== 'error') {
+      formEnd(form, true);
+    } else {
+      formEnd(form, false);
+    }
+    return;
+  } catch (error) {
+    formEnd(form, 'false');
+  }
+}
 
 function formEnd(form, status) {
-  if (status) {
-    const successUrl = form.data.success;
+  const wrapper = form.closest('.modal__wrapp');
+  const success = wrapper.querySelector('.form__successtext');
+  const error = wrapper.querySelector('.form__errortext');
+  const ttl = wrapper.querySelector('.tl2');
 
-    window.location.href = successUrl;
+  form.classList.add('hideF');
+  ttl?.classList.add('hideF');
+  form.reset();
+
+  if (status) {
+    success?.classList.add('showF');
+    error?.classList.remove('showF');
   } else {
-    alert('Форма не відправлена. Спробуйте ще раз');
+    success?.classList.remove('showF');
+    error?.classList.add('showF');
   }
 }
 
@@ -72,8 +81,6 @@ function submitForm(e) {
 
   if (!errors) {
     setTimeout(() => {
-      e.target.reset();
-
       const booking = e.target.closest('.booking');
       if (booking) {
         booking.classList.add('isMess');
@@ -83,8 +90,7 @@ function submitForm(e) {
     // Для тесту
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData.entries());
-    console.log(formValues);
-    // sendForm(e.target);
+    sendForm(e.target);
   }
 }
 

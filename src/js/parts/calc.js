@@ -168,7 +168,6 @@ function getRateUsdtTier(amount, from) {
     }
   }
 
-  console.log(from, usdAmount);
   return { tierAmount: usdAmount };
 }
 //* Визначає tier (діапазон) для звичайних валют на основі суми
@@ -190,7 +189,6 @@ function getRateRegularTier(amount, from) {
     }
   }
 
-  console.log(from, usdAmount);
   return { tierAmount: usdAmount };
 }
 //* Повертає об'єкти курсів (regular і usdt) відповідно до tierAmount
@@ -218,10 +216,6 @@ function calcExchangeFromGive(giveAmount, from, to) {
   const { regular, usdt } = getDefinitionTier(tierAmount);
   const rate = getRate(from, to, regular, usdt, 'buy');
 
-  console.log('tier Give regular', regular);
-  console.log('tier Give usdt', usdt);
-  console.log('rate Give', rate);
-
   if (!rate) return null;
 
   return giveAmount * rate;
@@ -234,9 +228,6 @@ function calcExchangeFromReceive(receiveAmount, from, to) {
   const { regular, usdt } = getDefinitionTier(tierAmount);
   const rate = getRate(from, to, regular, usdt, 'buy');
 
-  console.log('tier Give regular', regular);
-  console.log('tier Give usdt', usdt);
-  console.log('rate Receive', rate);
 
   if (!rate) return null;
 

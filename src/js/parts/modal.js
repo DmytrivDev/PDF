@@ -1,7 +1,7 @@
 import { lockScroll, unlockScroll } from './lockscroll.js';
 
 import { closeMenu } from './mobmenu.js';
-import { addBookingCurrency } from './booking.js';
+import { addBookingCurrency, addBookingCurrencyBtn } from './booking.js';
 
 export const activeModals = new Set();
 const initializedModals = new WeakSet();
@@ -17,6 +17,7 @@ export function closeModal(modal) {
   setTimeout(() => modal.classList.remove('isMess'), 150);
   activeModals.delete(modal);
   unlockScroll();
+  resetFieldVisibilityClasses();
 }
 
 function initCloseModal(modal) {
@@ -40,7 +41,7 @@ function initCloseModal(modal) {
   initializedModals.add(modal);
 }
 
-export function openModal(modalId) {
+export function openModal(modalId, btn) {
   const modal = document.getElementById(modalId);
   if (modal) {
     activeModals.forEach(activeModal => {
@@ -55,7 +56,11 @@ export function openModal(modalId) {
 
     if (!modal.classList.contains('isOpened')) {
       closeMenu();
-      addBookingCurrency(modal);
+      if (!btn.classList.contains('assortModal')) {
+        addBookingCurrency(modal);
+      } else {
+        addBookingCurrencyBtn(modal, btn);
+      }
       showModal(modal);
     }
   }
@@ -67,7 +72,7 @@ function initOpenModal() {
     btn.addEventListener('click', () => {
       const modalId = btn.dataset.id;
       if (modalId) {
-        openModal(modalId);
+        openModal(modalId, btn);
       }
     });
   });
@@ -81,3 +86,9 @@ document.addEventListener('keydown', event => {
 });
 
 document.addEventListener('DOMContentLoaded', initOpenModal);
+
+function resetFieldVisibilityClasses() {
+  document.querySelectorAll('.showF, .hideF').forEach(el => {
+    el.classList.remove('showF', 'hideF');
+  });
+}
