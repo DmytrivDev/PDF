@@ -52,7 +52,7 @@ loader.load(
     const fixedScale = 26;
     model.scale.set(fixedScale, fixedScale, fixedScale);
 
-    model.rotation.set(-0.4, -0.1, 0.15);
+    model.rotation.set(0, -0.6, 0.15);
     model.position.set(0, 0, 0); // Центрируем
 
     // 🎨 Меняем цвет модели
@@ -109,14 +109,17 @@ window.addEventListener('mousemove', event => {
 });
 
 function modelPositionFunc(clientX, clientY) {
-  const x = (clientX / window.innerWidth) * 2 - 1.1;
-  const y = -(clientY / window.innerHeight) * 2 + 0.6;
+  const x = (clientX / window.innerWidth) - 1;
+  const y = (clientY / window.innerHeight) - .4;
 
-  const rotationLimit = Math.PI * 0.2;
+
+  const rotationLimit = Math.PI * 0.3;
+  const rotationLimitX = Math.PI * 0.3;
+  console.log(Math.PI)
   model.rotation.y = THREE.MathUtils.clamp(
-    x * rotationLimit,
-    -rotationLimit,
-    rotationLimit
+    x * rotationLimitX,
+    -rotationLimitX,
+    rotationLimitX
   );
   model.rotation.x = THREE.MathUtils.clamp(
     y * rotationLimit,

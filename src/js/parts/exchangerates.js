@@ -74,28 +74,28 @@ const localRatesStore = {
   ],
 };
 
-localStorage.setItem('localRatesStore', JSON.stringify(localRatesStore));
-
-export const exchangeRates = JSON.parse(
-  localStorage.getItem('localRatesStore')
-);
-
-// axios
-//   .post(
-//     '/wp-admin/admin-ajax.php',
-//     new URLSearchParams({
-//       action: 'get_calc_json_data_public',
-//     })
-//   )
-//   .then(response => {
-//     const localRatesStore = response.data;
-//     localStorage.setItem('localRatesStore', JSON.stringify(localRatesStore));
-//     console.log('localRatesStore збережено');
-//   })
-//   .catch(error => {
-//     console.error('Помилка при отриманні даних:', error);
-//   });
+// localStorage.setItem('localRatesStore', JSON.stringify(localRatesStore));
 
 // export const exchangeRates = JSON.parse(
 //   localStorage.getItem('localRatesStore')
 // );
+
+axios
+  .post(
+    '/wp-admin/admin-ajax.php',
+    new URLSearchParams({
+      action: 'get_calc_json_data_public',
+    })
+  )
+  .then(response => {
+    const localRatesStore = response.data;
+    localStorage.setItem('localRatesStore', JSON.stringify(localRatesStore));
+    console.log('localRatesStore збережено');
+  })
+  .catch(error => {
+    console.error('Помилка при отриманні даних:', error);
+  });
+
+export const exchangeRates = JSON.parse(
+  localStorage.getItem('localRatesStore')
+);
