@@ -15,10 +15,10 @@ const localRatesStore = {
     {
       maxAmount: 5000,
       rates: {
-        'USD-W_UAH': { buy: 40.95, sell: 41.1 },
+        'USD-W_UAH': { buy: 41.55, sell: 41.7 },
         EUR_UAH: { buy: 45.2, sell: 45.6 },
         GBP_UAH: { buy: 52.1, sell: 53.6 },
-        'EUR_USD-W': { buy: 1.201, sell: 1.219 },
+        'EUR_USD-W': { buy: 1.175, sell: 1.183 },
         'GBP_USD-W': { buy: 1.36, sell: 1.405 },
       },
     },
@@ -47,7 +47,7 @@ const localRatesStore = {
     {
       maxAmount: 10000,
       rates: {
-        'USD-W': { buy: 1.015, sell: 1.02 },
+        'USD-W': { buy: 1.016, sell: 1.025 },
         EUR: 'cross',
         GBP: 'cross',
         UAH: 'cross',
@@ -79,6 +79,9 @@ const localRatesStore = {
 // export const exchangeRates = JSON.parse(
 //   localStorage.getItem('localRatesStore')
 // );
+
+
+
 
 axios
   .post(

@@ -85,16 +85,18 @@ function getRate(from, to, regular, usdt, operation) {
 
       if (regular[fromUsdPair]) {
         if (pair === `USDT_${to}`) {
-          const percent = usdt['USD-W'][operation];
+          const percent = usdt['USD-W'][oppositeOperation];
           const usdToUah = regular[fromUsdPair][operation];
           const adjustedRate = usdToUah * percent;
+          console.log(1, percent, usdToUah, adjustedRate);
           return adjustedRate;
         }
 
         if (pair === `${from}_USDT`) {
-          const percent = usdt['USD-W'][oppositeOperation];
+          const percent = usdt['USD-W'][operation];
           const usdToUah = regular[fromUsdPair][oppositeOperation];
           const adjustedRate = usdToUah * percent;
+          console.log(2, percent, usdToUah, adjustedRate);
           return 1 / adjustedRate;
         }
       }
@@ -104,6 +106,7 @@ function getRate(from, to, regular, usdt, operation) {
           const percent = usdt['USD-W'][oppositeOperationReverse];
           const usdToUah = regular[toUsdPair][oppositeOperation];
           const adjustedRate = usdToUah / percent;
+          console.log(3, percent, usdToUah, adjustedRate);
           return 1 / adjustedRate;
         }
 
@@ -111,6 +114,7 @@ function getRate(from, to, regular, usdt, operation) {
           const percent = usdt['USD-W'][oppositeOperation];
           const usdToUah = regular[toUsdPair][operation];
           const adjustedRate = usdToUah / percent;
+          console.log(4, percent, usdToUah, adjustedRate);
           return adjustedRate;
         }
       }
@@ -215,6 +219,8 @@ function calcExchangeFromGive(giveAmount, from, to) {
   const { tierAmount } = getRateTier(from, to);
   const { regular, usdt } = getDefinitionTier(tierAmount);
   const rate = getRate(from, to, regular, usdt, 'buy');
+
+
 
   if (!rate) return null;
 
